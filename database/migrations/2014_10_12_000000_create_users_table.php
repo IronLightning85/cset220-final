@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('firstName');
-            $table->string('lastName');
+            $table->id('user_id');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('phone');
             $table->date('dob');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('password');
-            $table->foreign('roll_id')->references('roll_id')->on('roles');            
+            $table->foreign('roll_id')->references('roll_id')->on('roles');
+            $table->boolean('approved')->default(false);            
             $table->rememberToken(); // is used to prevent cookie hijacking. changes cookies when someone logs in/out. is here by default
           //$table->timestamps(); //here by default. don't need it in users table
         });
