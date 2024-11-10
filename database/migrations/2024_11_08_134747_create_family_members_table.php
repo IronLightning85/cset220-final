@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('family_members', function (Blueprint $table) {
             $table->id('family_member_id');
             $table->string('patient_relation');
-            $table->foreign('user_id')->references('user_id')->on('users');    // foreign key taking user id      
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('user_id')->references('user_id')->on('users');// set foreign key contraint
             //$table->timestamps();
         });
     }
