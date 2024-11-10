@@ -20,12 +20,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->unsignedBigInteger('role_id');
-            //$table->foreignId('role_id')->constrained('roles');
             $table->boolean('approved')->default(false);            
             $table->rememberToken(); // is used to prevent cookie hijacking. changes cookies when someone logs in/out. is here by default
             //$table->timestamps(); //here by default. don't need it in users table
 
-            $table->foreign('role_id')->references('role_id')->on('roles');
+            $table->foreign('role_id')->references('role_id')->on('roles');//adds foreign key constraint
 
         });
     }
