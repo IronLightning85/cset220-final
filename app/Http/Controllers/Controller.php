@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class Controller extends BaseController
 {
@@ -38,7 +41,17 @@ class Controller extends BaseController
      */
     public function store(Request $request)
     {
-        //need to validate email
+        //validate email
+        $is_available = DB::table('users')->where('email', $request->email)->count();
+
+        if ($is_available > 0)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Email Already in Use',
+                'data' => $is_available
+            ], 201);
+        }
 
         //need to encrypt password and add salt
 
@@ -49,6 +62,7 @@ class Controller extends BaseController
             'dob' => $request->dob,
             'email' => $request->email,
             'password' => $request->password,
+            'role_id' => $request->role_id,
         ]);
     
             return response()->json([
