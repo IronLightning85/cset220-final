@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class family_member extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'patient_relation',
+        'user_id',
+    ];
 }
