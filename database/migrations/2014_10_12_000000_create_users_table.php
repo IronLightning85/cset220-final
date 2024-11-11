@@ -21,8 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('role_id');
             $table->boolean('approved')->default(false);            
-            $table->rememberToken(); // is used to prevent cookie hijacking. changes cookies when someone logs in/out. is here by default
-            //$table->timestamps(); //here by default. don't need it in users table
+            $table->timestamps(); //here by default. breaks if u remove it
 
             $table->foreign('role_id')->references('role_id')->on('roles');//adds foreign key constraint
 
