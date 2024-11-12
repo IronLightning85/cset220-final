@@ -6,7 +6,7 @@
 
 ### Migrate the Roles table found in "database\migrations" under the name "2024_11_07_180517_create_roles_table.php"
 
-### php artisan migrate --path= (Paste Path HERE)
+### php artisan migrate --path=database/migrations/2024_11_07_180517_create_roles_table.php
 
 ## Step 2:
 
