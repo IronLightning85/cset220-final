@@ -11,6 +11,8 @@ class role extends Model
     
     protected $fillable = [
         'role_name',
-        'role_level',
+        'level',
     ];
+
+    public $timestamps = false;
 }

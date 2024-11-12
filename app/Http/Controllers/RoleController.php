@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
 use App\Models\role;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+
+class RoleController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -13,6 +18,13 @@ class RoleController extends Controller
     public function index()
     {
         //
+        $roles = DB::table('roles')->get();
+
+    
+        return response()->json([
+            'success' => true,
+            'data' => $roles
+        ]);
     }
 
     /**
@@ -28,7 +40,16 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $account= role::create([
+            'role_name' => $request->role_name,
+            'level' => $request->level,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Created successfully',
+            'data' => $account
+        ], 201);
     }
 
     /**
