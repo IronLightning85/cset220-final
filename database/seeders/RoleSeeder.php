@@ -22,3 +22,6 @@ class RoleSeeder extends Seeder
         ]);
     }
 }
+
+
+// php artisan db:seed --class=RoleSeeder
