@@ -21,7 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/', [Controller::class, 'store']);
+Route::get('/', [Controller::class, 'index']); // grab all users that have not been approved
+
+Route::post('/', [Controller::class, 'store']); // create account. store data in correct tables
+
 
 Route::post('/login', [AuthController::class, 'login']);
 
