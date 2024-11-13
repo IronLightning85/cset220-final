@@ -9,11 +9,12 @@ class Role extends Model
 {
     use HasFactory;
     
+    protected $primaryKey = 'role_id';
+    public $timestamps = false;
+
     protected $fillable = [
         'role_name',
         'level',
     ];
 
-
-    public $timestamps = false;
 }
