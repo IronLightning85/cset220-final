@@ -40,10 +40,25 @@ class RoleController extends BaseController
      */
     public function store(Request $request)
     {
-        $account= role::create([
-            'role_name' => $request->role_name,
-            'level' => $request->level,
+        $validator = Validator::make($request->all(), [
+            'role_name' => 'required',
+            'role_level' => 'required',
         ]);
+
+        //return to last page if validate fails
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        else {
+            $account= role::create([
+                'role_name' => $request->role_name,
+                'level' => $request->level,
+            ]);
+
+        }
 
         return response()->json([
             'success' => true,
