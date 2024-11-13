@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+
 
 class Controller extends BaseController
 {
@@ -48,17 +50,23 @@ class Controller extends BaseController
      */
     public function store(Request $request)
     {
-        //validate email
-        $is_available = DB::table('users')->where('email', $request->email)->count();
+        //validate basic user data
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'dob' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'role_id' => 'required',
+        ]);
 
-        if ($is_available > 0)
-        {
-            return response()->json([
-                'success' => false,
-                'message' => 'Email Already in Use',
-                'data' => $is_available
-            ], 201);
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
         }
+        
 
         
         //insert into user table
@@ -83,24 +91,62 @@ class Controller extends BaseController
         }
     
         else if ($request->role_id == 5) {
-            DB::table('family_members')->insert([
-                'patient_relation' => $request->patient_relation,
-                'user_id' => $account->id,
-
+            //validate family member data
+            $validator = Validator::make($request->all(), [
+                'patient_relation' => 'required',
             ]);
+    
+            //return to previous page and delete new user row
+            if ($validator->fails()) {
+                $account->delete();
+
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            else {
+                //insert into family member table
+                DB::table('family_members')->insert([
+                    'patient_relation' => $request->patient_relation,
+                    'user_id' => $account->user_id,
+    
+                ]);
+            }
+            
         }
 
         else if ($request->role_id == 6) {
-            DB::table('patients')->insert([
-                'user_id' => $account->id,
-                'emergency_contact' => $request->emergency_contact,
-                'contact_relation' => $request->contact_relation,
-                'family_code' => $request->family_code,
-
+            //validate patient data
+            $validator = Validator::make($request->all(), [
+                'emergency_contact' => 'required',
+                'contact_relation' => 'required',
+                'family_code' => 'required',
             ]);
+    
+            //return to last page and delete new user row
+            if ($validator->fails()) {
+                $account->delete();
+
+                return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+            }
+
+            else {
+                //insert into patients table
+                DB::table('patients')->insert([
+                    'user_id' => $account->user_id,
+                    'emergency_contact' => $request->emergency_contact,
+                    'contact_relation' => $request->contact_relation,
+                    'family_code' => $request->family_code,
+    
+                ]);
+            }
+
+            
         }
         
-
         return response()->json([
             'success' => true,
             'message' => 'Created successfully',
