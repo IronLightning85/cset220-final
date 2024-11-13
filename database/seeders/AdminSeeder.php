@@ -20,8 +20,7 @@ class AdminSeeder extends Seeder
             'phone' => '888-245-5618',
             'dob' => '1995-07-11',
             'email' => 'admin@shadyshoals.com',
-            'password' => 'Admin',
-            // 'password' => Hash::make('Admin'),
+            'password' => Hash::make('Admin'),  // we have to hash password or it will fail
             'role_id' => 1, 
             'approved' => 1,
         ]);

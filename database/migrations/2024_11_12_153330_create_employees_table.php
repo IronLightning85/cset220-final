@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id('role_id');
-            $table->string('role_name');
-            $table->integer('level');
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->float('salary', 8, 2);
+            $table->foreign('user_id')->references('user_id')->on('users');//adds foreign key constraint
         });
     }
 
@@ -23,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('employees');
     }
 };
-
-
