@@ -84,7 +84,7 @@ class Controller extends BaseController
         //insert into table depending on role
         if ($request->role_id > 0 && $request->role_id < 5) {
             DB::table('employees')->insert([
-                'user_id' => $account->id,
+                'user_id' => $account->user_id,
                 'salary' => 50000.00,
 
             ]);
