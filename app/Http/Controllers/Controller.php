@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Validator;
 
 class Controller extends BaseController
 {
+
+    public function showRegistrationForm()
+    {
+        // Retrieve roles, excluding "Admin" role if necessar
+        return view('register');
+    }
+
     use AuthorizesRequests, ValidatesRequests;
     /**
      * Display a listing of the resource.
