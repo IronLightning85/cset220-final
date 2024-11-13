@@ -28,6 +28,9 @@ Route::get('/', [Controller::class, 'index']); // grab all users that have not b
 Route::post('/', [Controller::class, 'store']); // create account. store data in correct tables
 
 
+//Login   Idk if i need this tbh i cant remember
+Route::post('/login', [LoginController::class, 'login']);
+
 //Authenticate
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/user', [AuthController::class, 'getUser']);
@@ -36,3 +39,4 @@ Route::get('/user', [AuthController::class, 'getUser']);
 //Roles
 Route::get('/roles', [RoleController::class, 'index']); //get all roles
 Route::post('/roles', [RoleController::class, 'store']); //insert new role into table
+
