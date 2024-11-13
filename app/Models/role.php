@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class role extends Model
+class Role extends Model
 {
     use HasFactory;
     
@@ -13,6 +13,7 @@ class role extends Model
         'role_name',
         'level',
     ];
+
 
     public $timestamps = false;
 }

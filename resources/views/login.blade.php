@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="css/style.php" media="screen">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shady Shoal's</title>
@@ -8,8 +9,8 @@
 <body>
     
 <form method="POST" action="{{ route('login') }}">
-@csrf
-    <!--  // security thing larvael expects -->
+        @csrf
+    <!-- /\ security thing larvael expects -->
     <label for="email">Email:</label>
     <input type="email" name="email" id="email" required>
 
@@ -27,3 +28,4 @@
 
 </body>
 </html>
+
