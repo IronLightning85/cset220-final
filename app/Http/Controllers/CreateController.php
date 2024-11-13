@@ -31,6 +31,7 @@ class CreateController extends Controller
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:8|confirmed',
                 'role_id' => 'required|integer|in:' . implode(',', $roleIds),
+                
 
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {

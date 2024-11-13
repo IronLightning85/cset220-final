@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
-use App\Http\Controllers\CreateController;
+use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +24,9 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 
-Route::get('/register', [CreateController::class, 'showRegistrationForm'])->name('register.form');
-Route::post('/register', [CreateController::class, 'register'])->name('register');
+Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('register.form');
 
+Route::post('/register', [Controller::class, 'store'])->name('register');
 
 
 
