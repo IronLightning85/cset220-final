@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
+
+use App\Http\Controllers\CreateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 
 
+
+Route::get('/register', [CreateController::class, 'showRegistrationForm'])->name('register.form');
+Route::post('/register', [CreateController::class, 'register'])->name('register');
 
 
 
