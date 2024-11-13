@@ -53,8 +53,8 @@ class Controller extends BaseController
             ], 201);
         }
 
-        //need to encrypt password and add salt
-
+        
+        //insert into user table
         $account= user::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -64,8 +64,37 @@ class Controller extends BaseController
             'password' => $request->password,
             'role_id' => $request->role_id,
         ]);
+
+
+        //insert into table depending on role
+        if ($request->role_id > 0 && $request->role_id < 5) {
+            DB::table('employees')->insert([
+                'user_id' => $account->id,
+                'salary' => 50000.00,
+
+            ]);
+        }
     
-            return response()->json([
+        else if ($request->role_id == 5) {
+            DB::table('family_members')->insert([
+                'patient_relation' => $request->patient_relation,
+                'user_id' => $account->id,
+
+            ]);
+        }
+
+        else if ($request->role_id == 6) {
+            DB::table('patients')->insert([
+                'user_id' => $account->id,
+                'emergency_contact' => $request->emergency_contact,
+                'contact_relation' => $request->contact_relation,
+                'family_code' => $request->family_code,
+
+            ]);
+        }
+        
+
+        return response()->json([
             'success' => true,
             'message' => 'Created successfully',
             'data' => $account
