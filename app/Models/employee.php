@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class role extends Model
+class employee extends Model
 {
     use HasFactory;
-    
-    protected $fillable = [
-        'role_name',
-        'level',
-    ];
 
-    public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'salary',
+        
+    ];
 }
