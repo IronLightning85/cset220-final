@@ -7,6 +7,11 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function showLoginForm()
+    {
+        return view('login'); // Displays login.blade.php
+    }
+    
     public function login(Request $request)
     {
         $request->validate([
