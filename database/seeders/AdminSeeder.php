@@ -24,6 +24,12 @@ class AdminSeeder extends Seeder
             'role_id' => 1, 
             'approved' => 1,
         ]);
+        
+        DB::table('employees')->insert([
+        'id'=> 1,
+        'user_id' => 1,
+        'salary' => 50000,
+    ]);
     }
 }
 

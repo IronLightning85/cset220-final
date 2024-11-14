@@ -17,7 +17,9 @@ class Controller extends BaseController
     public function showRegistrationForm()
     {
         // Retrieve roles, excluding "Admin" role if necessar
-        return view('register');
+        $roles = DB::table('roles')->where('role_id', '>', 1)->get();
+
+        return view('register', ['roles' => $roles]);
     }
 
     use AuthorizesRequests, ValidatesRequests;
@@ -84,7 +86,7 @@ class Controller extends BaseController
         //insert into table depending on role
         if ($request->role_id > 0 && $request->role_id < 5) {
             DB::table('employees')->insert([
-                'user_id' => $account->id,
+                'user_id' => $account->user_id,
                 'salary' => 50000.00,
 
             ]);
