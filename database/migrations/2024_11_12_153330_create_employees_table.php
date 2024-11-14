@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->float('salary', 8, 2);
+            
             $table->foreign('user_id')->references('user_id')->on('users');//adds foreign key constraint
         });
     }

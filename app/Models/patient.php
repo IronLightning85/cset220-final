@@ -9,6 +9,10 @@ class patient extends Model
 {
     use HasFactory;
 
+    //Disable Timestamps
+    public $timestamps = false;
+
+    //Colums we can mass assign
     protected $fillable = [
         'user_id',
         'emergency_contact',
