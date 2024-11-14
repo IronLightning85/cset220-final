@@ -14,43 +14,22 @@ use Illuminate\Support\Facades\Validator;
 class Controller extends BaseController
 {
 
+    use AuthorizesRequests, ValidatesRequests;
+
+
+    //Display Register Page
     public function showRegistrationForm()
     {
-        // Retrieve roles, excluding "Admin" role 
-        return view('register');
+        // Retrieve roles, excluding "Admin" role
+        $roles = DB::table('roles')->where('role_id', '>', 1)->get();
+
+        return view('register', ['roles' => $roles]);
     }
 
-    use AuthorizesRequests, ValidatesRequests;
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //return all users who have not been approved
-        //$users = user::find()->where('approved', false)->get();
-        $users = DB::table('users')->where('approved', false)->get();
-
-    
-        return response()->json([
-            'success' => true,
-            'data' => $users
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Create a New User
     public function store(Request $request)
     {
-        //validate basic user data
+        //Validate User Table Data
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -61,15 +40,14 @@ class Controller extends BaseController
             'role_id' => 'required',
         ]);
 
+        //Return to Register Page on Fail
         if ($validator->fails()) {
             return redirect()->back()
             ->withErrors($validator)
             ->withInput();
         }
         
-
-        
-        //insert into user table
+        //Inser User Data to User Table
         $account= user::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -80,8 +58,8 @@ class Controller extends BaseController
             'role_id' => $request->role_id,
         ]);
 
-
-        //insert into table depending on role
+        //Insert Remaining Data depending on Selected Role
+        //Employee Table Insert
         if ($request->role_id > 0 && $request->role_id < 5) {
             DB::table('employees')->insert([
                 'user_id' => $account->user_id,
@@ -90,13 +68,15 @@ class Controller extends BaseController
             ]);
         }
     
+        //Family Member Insertion
         else if ($request->role_id == 5) {
-            //validate family member data
+
+            //Validate Family Member Data
             $validator = Validator::make($request->all(), [
                 'patient_relation' => 'required',
             ]);
     
-            //return to previous page and delete new user row
+            //Delete New User Table Row and Return to Register Page on Fail
             if ($validator->fails()) {
                 $account->delete();
 
@@ -105,8 +85,8 @@ class Controller extends BaseController
                 ->withInput();
             }
 
+            //Insert Family Member Data
             else {
-                //insert into family member table
                 DB::table('family_members')->insert([
                     'patient_relation' => $request->patient_relation,
                     'user_id' => $account->user_id,
@@ -116,15 +96,17 @@ class Controller extends BaseController
             
         }
 
+        //Patient Data Insertion
         else if ($request->role_id == 6) {
-            //validate patient data
+
+            //Validate Patient Insertion
             $validator = Validator::make($request->all(), [
                 'emergency_contact' => 'required',
                 'contact_relation' => 'required',
                 'family_code' => 'required',
             ]);
     
-            //return to last page and delete new user row
+            //Return to Register Page and Delete New User Row
             if ($validator->fails()) {
                 $account->delete();
 
@@ -134,7 +116,7 @@ class Controller extends BaseController
             }
 
             else {
-                //insert into patients table
+                //Insert Patient Data
                 DB::table('patients')->insert([
                     'user_id' => $account->user_id,
                     'emergency_contact' => $request->emergency_contact,
@@ -147,6 +129,7 @@ class Controller extends BaseController
             
         }
         
+        //Return to Index Page
         return response()->json([
             'success' => true,
             'message' => 'Created successfully',

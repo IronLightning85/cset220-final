@@ -13,6 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
+        //Seed Users Dstabase with Admin Account
         DB::table('users')->insert([
             'user_id' => 1,
             'first_name' => 'Admin',
@@ -24,6 +25,8 @@ class AdminSeeder extends Seeder
             'role_id' => 1, 
             'approved' => 1,
         ]);
+        
+        //Seed Employees Table with Admin Account
         DB::table('employees')->insert([
         'id'=> 1,
         'user_id' => 1,

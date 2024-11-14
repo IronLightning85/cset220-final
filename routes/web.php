@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\homeController;
@@ -37,6 +38,8 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [Controller::class, 'store'])->name('register');
 
+
+Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
 
 //This ensures the user is logged in to view the routes
@@ -81,5 +84,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/report', [SupervisorController::class, 'report'])->name('supervisor.report');
     });
 
-   
-});
+
+Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
+
+Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
+
+Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
+
+Route::post('/update-role/{id}', [UserController::class, 'updateRole'])->name('update-role');
+
+Route::get('/available-roles', [UserController::class, 'getAvailableRoles']);
+
