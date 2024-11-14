@@ -41,6 +41,7 @@
     <label for="password_confirmation">Confirm Password:</label>
     <input type="password" name="password_confirmation" id="password_confirmation" required>
 
+
     <label for="role_id">Role:</label>
     <select name="role_id" id="role_id" required onchange="showAdditionalFields()">
         <option value="">Select Role</option>
@@ -48,6 +49,7 @@
             <option value="{{ $role->role_id }}">{{ $role->role_name }}</option>
         @endforeach
     </select>
+
 
     <div id="familyFields" style="display: none;">
         <label for="patient_relation">Patient Relation:</label>
