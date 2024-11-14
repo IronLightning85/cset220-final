@@ -16,7 +16,7 @@ class Controller extends BaseController
 
     public function showRegistrationForm()
     {
-        // Retrieve roles, excluding "Admin" role if necessar
+        // Retrieve roles, excluding "Admin" role 
         return view('register');
     }
 

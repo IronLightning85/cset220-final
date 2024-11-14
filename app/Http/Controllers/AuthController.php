@@ -22,7 +22,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->where('approved', 1)->first();
 
         if ($user && $request->password === $user->password) {
-            return response()->json(['message' => 'Login successful', 'user' => $user]);
+            return view('home');
         }
 
         return response()->json(['message' => 'Invalid login credentials or account not approved'], 401);
