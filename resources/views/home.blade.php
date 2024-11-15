@@ -10,7 +10,7 @@
 
     <script>
         function showspecial() {
-            var roleId = document.getElementById('role_id').value;
+            var roleLevel = document.getElementById('level').value;
             
           
             var adminFields = document.getElementById('adminFields');
@@ -25,17 +25,17 @@
             
             var patientFields = document.getElementById('patientFields');
 
-            adminFields.style.display = (roleId == 1) ? 'block' : 'none';
+            adminFields.style.display = (roleLevel == 1) ? 'block' : 'none';
 
-            supervisorFields.style.display = (roleId == 2) ? 'block' : 'none';
+            supervisorFields.style.display = (roleLevel == 2) ? 'block' : 'none';
 
-            doctorFields.style.display = (roleId == 3) ? 'block' : 'none';
+            doctorFields.style.display = (roleLevel == 3) ? 'block' : 'none';
 
-            caregiverFields.style.display = (roleId == 4) ? 'block' : 'none';
+            caregiverFields.style.display = (roleLevel == 4) ? 'block' : 'none';
 
-            familyFields.style.display = (roleId == 5) ? 'block' : 'none';
+            familyFields.style.display = (roleLevel == 5) ? 'block' : 'none';
 
-            patientFields.style.display = (roleId == 6) ? 'block' : 'none';
+            patientFields.style.display = (roleLevel == 6) ? 'block' : 'none';
           
          
         }
