@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -26,14 +25,5 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => 'Invalid login credentials or account not approved'], 401);
-    }
-
-    public function getUser(Request $request)
-    {
-        if (Auth::check()) {
-            return response()->json(Auth::user());
-        }
-
-        return response()->json(['message' => 'Not authenticated'], 401);
     }
 }

@@ -30,6 +30,7 @@ Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('regi
 Route::post('/register', [Controller::class, 'store'])->name('register');
 
 
+
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
 Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
