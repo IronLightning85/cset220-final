@@ -12,46 +12,36 @@ use Illuminate\Http\Request;
 
 class RoleController extends BaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //Load Add Roles Admin Page
     public function index()
     {
-        //
+        //Get All Role Data
         $roles = DB::table('roles')->get();
 
-    
+        //Return Add Roles Page
         return response()->json([
             'success' => true,
             'data' => $roles
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Store New Role
     public function store(Request $request)
     {
+        //Valide Data
         $validator = Validator::make($request->all(), [
             'role_name' => 'required',
             'role_level' => 'required',
         ]);
 
-        //return to last page if validate fails
+        //Return to Roles Page if Validation Fails
         if ($validator->fails()) {
             return redirect()->back()
             ->withErrors($validator)
             ->withInput();
         }
 
+        //Insert New Role Data
         else {
             $account= role::create([
                 'role_name' => $request->role_name,
@@ -60,42 +50,11 @@ class RoleController extends BaseController
 
         }
 
+        //Return Add Roles Page
         return response()->json([
             'success' => true,
             'message' => 'Created successfully',
             'data' => $account
         ], 201);
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(role $role)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(role $role)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, role $role)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(role $role)
-    {
-        //
     }
 }

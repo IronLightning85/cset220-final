@@ -12,6 +12,7 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+        //Seed Roles Table with Default Roles
         DB::table('roles')->insert([
             ['role_name' => 'Admin', 'level' => 1],
             ['role_name' => 'Supervisor', 'level' => 2],
@@ -25,3 +26,4 @@ class RoleSeeder extends Seeder
 
 // php artisan db:seed --class=RoleSeeder
 
+//kept seperte for future problems
