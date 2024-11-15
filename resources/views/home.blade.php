@@ -4,93 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shady Shoals</title>
-
-
-    
-
-    <script>
-        function showspecial() {
-            var roleLevel = document.getElementById('level').value;
-            
-          
-            var adminFields = document.getElementById('adminFields');
-
-            var supervisorFields = document.getElementById('supervisorFields');
-
-            var doctorFields = document.getElementById('doctorFields');
-
-            var caregiverFields = document.getElementById('caregiverFields');
-
-            var familyFields = document.getElementById('familyFields');
-            
-            var patientFields = document.getElementById('patientFields');
-
-            adminFields.style.display = (roleLevel == 1) ? 'block' : 'none';
-
-            supervisorFields.style.display = (roleLevel == 2) ? 'block' : 'none';
-
-            doctorFields.style.display = (roleLevel == 3) ? 'block' : 'none';
-
-            caregiverFields.style.display = (roleLevel == 4) ? 'block' : 'none';
-
-            familyFields.style.display = (roleLevel == 5) ? 'block' : 'none';
-
-            patientFields.style.display = (roleLevel == 6) ? 'block' : 'none';
-          
-         
-        }
-    </script>
-
-
-
-
 </head>
 <body>
+
+
     <div class="logo">
         <h1>Shady Shoals Retirement Home</h1>
     </div>
+
     <nav>
         <ul>
+            <!-- All Users -->
+            <td><button onclick="location.href='{{ url('logout') }}'">Logout</button></td>
+            <td><button onclick="location.href='{{ url('roster') }}'">Roster</button></td>
 
-    <!--All Users UPDATE URLS WHEN CREATED-->
-            <li><a href="{{ url('/logout') }}"></a>Log Out</li>
-            <li><a href="{{ url('/roster') }}"></a>Roster</li>
-
-     <!--Family UPDATE URLS WHEN CREATED-->
-    <div id="familyFields" style="display: none;">
-        <li><a href="{{ url('/family') }}"></a>Family Information</li>
-    </div>
-
-    <!--Patient UPDATE URLS WHEN CREATED-->
-    <div id="patientFields" style="display: none;">
-        <li><a href="{{ url('/patientHome') }}"></a>Patient Home</li>
-    </div>
-
-    <!-- Admin  UPDATE URLS WHEN CREATED-->
-    <div id="adminFields" style="display: none;">
-        <li><a href="{{ url('/appointment') }}"></a>Doctors Appointment</li>
-        <li><a href="{{ url('/employee') }}"></a>Employee's List</li>
-        <li><a href="{{ url('/patients') }}"></a>Patients List</li>
-        <li><a href="{{ url('/unaprroved-users') }}"></a>Approve Users</li>
-        <li><a href="{{ url('/new-roster') }}"></a>New Roster</li>
-        <li><a href="{{ url('/report') }}"></a>Admin's Report</li>
-        <li><a href="{{ url('/payment') }}"></a>Payment</li>
-    </div>
-    <!-- Supervisor UPDATE URLS WHEN CREATED -->
-    <div id="adminFields" style="display: none;">
-        <li><a href="{{ url('/appointment') }}"></a>Doctors Appointment</li>
-        <li><a href="{{ url('/employee') }}"></a>Employee's List</li>
-        <li><a href="{{ url('/patients') }}"></a>Patients List</li>
-        <li><a href="{{ url('/unaprroved-users') }}"></a>Approve Users</li>
-        <li><a href="{{ url('/new-roster') }}"></a>New Roster</li>
-        <li><a href="{{ url('/report') }}"></a>Admin's Report</li>
-    </div>
-
-
+            <!-- Conditional content based on user role level -->
+            @if($level == 1)
+                <!-- Admin Content -->
+                <td><button onclick="location.href='{{ url('supervisor') }}'">Supervisor Hub</button></td>
+                <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
+            @elseif($level == 2)
+                <!-- Supervisor Content -->
+                <td><button onclick="location.href='{{ url('supervisor') }}'">Supervisor Hub</button></td>
+            @elseif($level == 3)
+                <!-- Doctor Content -->
+                <td><button onclick="location.href='{{ url('doctor') }}'">Doctor Home</button></td>
+            @elseif($level == 4)
+                <!-- Caregiver Content -->
+                <td><button onclick="location.href='{{ url('caregiver') }}'">Caregiver Home</button></td>
+            @elseif($level == 5)
+                <!-- Family Content -->
+                <td><button onclick="location.href='{{ url('family') }}'">Family Home</button></td>
+            @elseif($level == 6)
+                <!-- Patient Content -->
+                <td><button onclick="location.href='{{ url('patient') }}'">Patient Home</button></td>
+            @else
+                <!-- Default Content if no level is defined -->
+                <td><button onclick="location.href='{{ url('home') }}'">Dashboard</button></td>
+            @endif
         </ul>
     </nav>
-</header>
-<main>
-
 </body>
 </html>
