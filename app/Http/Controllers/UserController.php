@@ -28,8 +28,16 @@ class UserController extends Controller
         if ($user) {
             $user->approved = 1;
             $user->save();
+    
+            // Check if the user's role ID is 6 (Patient)
+            if ($user->role_id == 6) {
+                // Update the admission_date in the patients table with the current timestamp
+                DB::table('patients')
+                    ->where('user_id', $id)
+                    ->update(['admission_date' => now()]);
+            }
         }
-
+      
         //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User approved successfully.');
     }
@@ -40,10 +48,34 @@ class UserController extends Controller
         // Find the user by ID
         $user = User::find($id);
 
+      
         //Delete User
         if ($user) {
+            // Determine the user's role and delete from the corresponding table
+            switch ($user->role_id) {
+                case 2:
+                case 3:
+                case 4:
+                    // Delete from employees table
+                    DB::table('employees')->where('user_id', $id)->delete();
+                    break;
+                case 5:
+                    // Delete from family_members table
+                    DB::table('family_members')->where('user_id', $id)->delete();
+                    break;
+                case 6:
+                    // Delete from patients table
+                    DB::table('patients')->where('user_id', $id)->delete();
+                    break;
+                default:
+                    // No action needed for other roles
+                    break;
+            }
+    
+            // Delete the user record itself
             $user->delete();
         }
+
 
         //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User denied successfully.');

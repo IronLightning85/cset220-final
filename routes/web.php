@@ -33,12 +33,14 @@ Route::get('/', function () {
 
 //Login Route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
 Route::post('/login', [AuthController::class, 'login']);
 
 
 //Register route
 Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('register.form');
 Route::post('/register', [Controller::class, 'store'])->name('register');
+
 
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
@@ -50,5 +52,9 @@ Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 
 // Common routes for all roles placeholders
 
+
+Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
+
 Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
+
 Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');
