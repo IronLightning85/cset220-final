@@ -21,6 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
 Route::post('/login', [AuthController::class, 'login']);
 
 
@@ -41,4 +42,4 @@ Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->nam
 
 Route::post('/update-role/{id}', [UserController::class, 'updateRole'])->name('update-role');
 
-Route::get('/available-roles', [UserController::class, 'getAvailableRoles']);
+Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');

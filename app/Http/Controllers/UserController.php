@@ -33,12 +33,20 @@ class UserController extends Controller
     {
         // Find the user by ID; if found, mark as approved
         $user = User::find($id);
-
+    
         if ($user) {
             $user->approved = 1;
             $user->save();
+    
+            // Check if the user's role ID is 6 (Patient)
+            if ($user->role_id == 6) {
+                // Update the admission_date in the patients table with the current timestamp
+                DB::table('patients')
+                    ->where('user_id', $id)
+                    ->update(['admission_date' => now()]);
+            }
         }
-
+    
         return redirect()->route('unapproved-users')->with('status', 'User approved successfully.');
     }
 
@@ -50,13 +58,35 @@ class UserController extends Controller
      */
     public function denyUser($id)
     {
-        // Find the user by ID; if found, delete the user
+        // Find the user by ID
         $user = User::find($id);
-
+    
         if ($user) {
+            // Determine the user's role and delete from the corresponding table
+            switch ($user->role_id) {
+                case 2:
+                case 3:
+                case 4:
+                    // Delete from employees table
+                    DB::table('employees')->where('user_id', $id)->delete();
+                    break;
+                case 5:
+                    // Delete from family_members table
+                    DB::table('family_members')->where('user_id', $id)->delete();
+                    break;
+                case 6:
+                    // Delete from patients table
+                    DB::table('patients')->where('user_id', $id)->delete();
+                    break;
+                default:
+                    // No action needed for other roles
+                    break;
+            }
+    
+            // Delete the user record itself
             $user->delete();
         }
-
+    
         return redirect()->route('unapproved-users')->with('status', 'User denied successfully.');
     }
 
