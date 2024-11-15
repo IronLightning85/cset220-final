@@ -44,7 +44,7 @@ Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])-
 
 //This ensures the user is logged in to view the routes
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function() {
 
     // Home route
     Route::get('/home', [HomeController::class, 'showHome'])->name('home');
@@ -84,14 +84,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/report', [SupervisorController::class, 'report'])->name('supervisor.report');
     });
 
+    //need to be put in rights middleware
+    Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
 
-Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
+    Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
+    
+    Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
+    
+    Route::post('/update-role/{id}', [UserController::class, 'updateRole'])->name('update-role');
+    
+    Route::get('/available-roles', [UserController::class, 'getAvailableRoles']);
 
-Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
+});
 
-Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
-
-Route::post('/update-role/{id}', [UserController::class, 'updateRole'])->name('update-role');
-
-Route::get('/available-roles', [UserController::class, 'getAvailableRoles']);
 
