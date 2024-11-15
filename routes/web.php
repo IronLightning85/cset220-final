@@ -45,6 +45,9 @@ Route::post('/register', [Controller::class, 'store'])->name('register');
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
+Route::get('/patient', [PatientController::class, 'index'])->name('patient');
+
+
 
 // Home route   
 

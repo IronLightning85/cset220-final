@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon; // Import Carbon for date handling
 
 class PatientController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //Display Patients Page
     public function index()
     {
-        //
+        $patients = DB::table('patients')
+        ->join('users', 'patients.user_id', '=', 'users.user_id')
+        ->whereNotNull('patients.admission_date')
+        ->get();
+
+        foreach ($patients as $patient) {
+            $patient->age = Carbon::parse($patient->dob)->age;
+        }
+        
+        return view('patients', ['patients' => $patients]);
     }
 
     /**
@@ -31,35 +40,4 @@ class PatientController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, patient $patient)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(patient $patient)
-    {
-        //
-    }
 }
