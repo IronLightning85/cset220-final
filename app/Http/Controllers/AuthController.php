@@ -10,6 +10,7 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         return view('login');
+        $level = $user->role->level;
     }
     
     //User Log In
@@ -25,7 +26,8 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->where('approved', 1)->first();
 
         if ($user && $request->password === $user->password) {
-            return view('home');
+            $level = $user->role->level;
+            return view('home', compact('level'));
         }
 
         return response()->json(['message' => 'Invalid login credentials or account not approved'], 401);

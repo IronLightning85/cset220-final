@@ -9,8 +9,19 @@ class HomeController extends Controller
 {
     public function showHome()
     {
-        $roleId = Auth::user()->role_id; // check role in user
-        return view('home', compact('roleId'));
-    }
-}
+        // Retrieve the logged-in user and load the related role with the level
+        $user = Auth::user();
+        $level = $user->role->level; // Access the level from the related role
 
+        // Pass the level to the view
+        return view('home', compact('level'));
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login');
+    }
+
+    // Other methods for your application (e.g., showRoster, etc.)
+}
