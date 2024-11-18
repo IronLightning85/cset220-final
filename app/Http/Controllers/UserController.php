@@ -29,7 +29,7 @@ class UserController extends Controller
             $user->approved = 1;
             $user->save();
         }
-
+      
         //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User approved successfully.');
     }
@@ -40,10 +40,34 @@ class UserController extends Controller
         // Find the user by ID
         $user = User::find($id);
 
+      
         //Delete User
         if ($user) {
+            // Determine the user's role and delete from the corresponding table
+            switch ($user->role_id) {
+                case 2:
+                case 3:
+                case 4:
+                    // Delete from employees table
+                    DB::table('employees')->where('user_id', $id)->delete();
+                    break;
+                case 5:
+                    // Delete from family_members table
+                    DB::table('family_members')->where('user_id', $id)->delete();
+                    break;
+                case 6:
+                    // Delete from patients table
+                    DB::table('patients')->where('user_id', $id)->delete();
+                    break;
+                default:
+                    // No action needed for other roles
+                    break;
+            }
+    
+            // Delete the user record itself
             $user->delete();
         }
+
 
         //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User denied successfully.');
@@ -93,5 +117,32 @@ class UserController extends Controller
                     ->get(['role_id', 'role_name']);
 
         return response()->json($roles);
+    }
+
+    public function showApprovedPatients()
+    {
+        // Get approved patients with their admission date and name
+        $approvedPatients = DB::table('patients')
+            ->join('users', 'patients.user_id', '=', 'users.user_id')
+            ->where('users.approved', 1)
+            ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name')
+            ->get();
+
+        return view('approved-patients', compact('approvedPatients'));
+    }
+
+    public function updateAdmissionDate(Request $request, $patient_id)
+    {
+        // Validate the date input
+        $request->validate([
+            'admission_date' => 'required|date',
+        ]);
+
+        // Update the admission date for the specified patient
+        DB::table('patients')
+            ->where('patient_id', $patient_id)
+            ->update(['admission_date' => $request->admission_date]);
+
+        return redirect()->route('approved-patients')->with('status', 'Admission date updated successfully.');
     }
 }

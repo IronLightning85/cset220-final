@@ -91,31 +91,28 @@
     @endforeach
 </table>
 
-<!-- JavaScript to populate role dropdowns -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Fetch available roles and populate each dropdown, excluding Admin (role_id = 1)
-        fetch('/available-roles')
+    <!-- JavaScript to populate role dropdowns -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Fetch available roles and populate each dropdown, excluding Admin (role_id = 1)
+            fetch('/available-roles')
             .then(response => response.json())
             .then(data => {
                 @foreach ($approvedUsers as $user)
-                    let select = document.getElementById("roleSelect-{{ $user->user_id }}");
+                    let select_{{ $user->user_id }} = document.getElementById("roleSelect-{{ $user->user_id }}");
                     data.forEach(role => {
                         if (role.role_id !== 1) { // Exclude Admin role
                             let option = document.createElement("option");
                             option.value = role.role_id;
                             option.textContent = role.role_name;
-                            select.appendChild(option);
+                            select_{{ $user->user_id }}.appendChild(option);
                         }
                     });
                 @endforeach
             })
             .catch(error => console.error('Error fetching roles:', error));
-    });
-</script>
-@endif
-    @endif
-
+        });
+    </script>
 </body>
 </html>
 

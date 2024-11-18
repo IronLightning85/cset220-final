@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PatientController;
 
 
 
@@ -36,3 +37,5 @@ Route::get('/user', [AuthController::class, 'getUser']);
 Route::get('/roles', [RoleController::class, 'index']); //get all roles
 Route::post('/roles', [RoleController::class, 'store']); //insert new role into table
 
+//Patients
+Route::get('/patient', [PatientController::class, 'index']); //get all roles
