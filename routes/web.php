@@ -67,21 +67,18 @@ Route::post('/role', [RoleController::class, 'store'])->name('role');
 
 // Home route   
 
-Route::get('/home', [HomeController::class, 'showHome'])->name('home');
+Route::get('/home', function () {
+    $level = session('level', null); // Check if the user has a level in the session
+    return view('home', compact('level')); // Pass the level to the view
+})->name('home');
+
 
 
 // Common routes for all roles placeholders
 
-Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->name('update-role');
 
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 
-Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
+Route::get('/uapproved-users', [UserController::class, 'showUapprovedUsers'])->name('unapproved-users');
 
-Route::get('/approved-patients', [UserController::class, 'showApprovedPatients'])->name('approved-patients');
 
-Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
-
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
-
-Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');

@@ -46,8 +46,8 @@
 
     @if($level === null)
         <!-- Display error if user is not logged in -->
-        <h1>Error: Please log in</h1>
-        <td><button onclick="location.href='{{ url('login') }}'">Login</button></td>
+        <h3>Make an Account if you don't have one.</h3>
+        <td><button onclick="location.href='{{ url('register') }}'">Register</button></td>
 
     @else
 <!-- Insert your content here -->

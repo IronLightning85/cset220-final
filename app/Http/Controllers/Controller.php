@@ -24,6 +24,7 @@ class Controller extends BaseController
         $roles = DB::table('roles')->where('role_id', '>', 1)->get();
 
         return view('register', ['roles' => $roles]);
+        $level = $user->role->level;
     }
 
     //Create a New User
@@ -130,11 +131,8 @@ class Controller extends BaseController
         }
         
         //Return to Index Page
-        return response()->json([
-            'success' => true,
-            'message' => 'Created successfully',
-            'data' => $account
-        ], 201);
+        return redirect('login');
+        $level = $user->role->level;
     }
 
     /**
