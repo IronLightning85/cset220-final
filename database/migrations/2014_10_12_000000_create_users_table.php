@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('role_id');
             $table->boolean('approved')->default(false);            
-            $table->timestamps(); //here by default. breaks if u remove it
+            $table->timestamps();
 
             $table->foreign('role_id')->references('role_id')->on('roles');//adds foreign key constraint
 

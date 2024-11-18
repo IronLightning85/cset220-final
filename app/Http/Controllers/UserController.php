@@ -8,51 +8,40 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a list of all unapproved users.
-     * 
-     * Unapproved users are those with 'approved' status set to 0.
-     * 
-     * @return \Illuminate\View\View
-     */
+    //Load Unapproved Users Admin Page
     public function showUnapprovedUsers()
     {
         // Fetch all users with an 'approved' status of 0 (unapproved users)
         $unapprovedUsers = User::where('approved', 0)->get();
 
+        //Return Unapproved Users Admin Page
         return view('unapproved-users', compact('unapprovedUsers'));
     }
 
-    /**
-     * Approve a user by setting their 'approved' status to 1.
-     *
-     * @param int $id User ID
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    //Approve User
     public function approveUser($id)
     {
         // Find the user by ID; if found, mark as approved
         $user = User::find($id);
-    
+
+        //Update and Save Value
         if ($user) {
             $user->approved = 1;
             $user->save();
         }
-    
+      
+        //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User approved successfully.');
     }
 
-    /**
-     * Deny a user by deleting them from the database.
-     *
-     * @param int $id User ID
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    //Delete User
     public function denyUser($id)
     {
         // Find the user by ID
         $user = User::find($id);
-    
+
+      
+        //Delete User
         if ($user) {
             // Determine the user's role and delete from the corresponding table
             switch ($user->role_id) {
@@ -78,35 +67,26 @@ class UserController extends Controller
             // Delete the user record itself
             $user->delete();
         }
-    
+
+
+        //Redirect to showUnapprovedUsers function.
         return redirect()->route('unapproved-users')->with('status', 'User denied successfully.');
     }
 
-    /**
-     * Display a list of all approved users along with their role names.
-     * 
-     * Approved users are those with 'approved' status set to 1.
-     *
-     * @return \Illuminate\View\View
-     */
+    //Load Approved Users Page. Used to Change a User's Role
     public function showApprovedUsers()
     {
         // Fetch approved users and join with roles to get the role name
         $approvedUsers = User::where('approved', 1)
-                            ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
-                            ->select('users.*', 'roles.role_name') // Select all user fields and role name
-                            ->get();
+        ->leftJoin('roles', 'users.role_id', '=', 'roles.role_id')
+        ->select('users.*', 'roles.role_name') // Select all user fields and role name
+        ->get();
 
+        //Return Approved Users Page
         return view('approved-users', ['approvedUsers' => $approvedUsers]);
     }
 
-    /**
-     * Update the role of an approved user.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id User ID
-     * @return \Illuminate\Http\RedirectResponse
-     */
+    //Updates Role
     public function updateRole(Request $request, $id)
     {
         // Validate that 'role_id' is required and must be an integer
@@ -128,13 +108,7 @@ class UserController extends Controller
         return redirect()->route('approved-users')->with('error', 'User not found or not approved.');
     }
 
-    /**
-     * Fetch all roles except for the admin role (role_id = 1).
-     *
-     * This method returns a JSON response for use in a frontend dropdown.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    //Return JSON file of all currently available roles
     public function getAvailableRoles()
     {
         // Retrieve all roles excluding the role with role_id 1 (Admin)
