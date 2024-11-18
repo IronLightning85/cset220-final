@@ -43,3 +43,7 @@ Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->nam
 Route::post('/update-role/{id}', [UserController::class, 'updateRole'])->name('update-role');
 
 Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
+
+Route::get('/approved-patients', [UserController::class, 'showApprovedPatients'])->name('approved-patients');
+
+Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
