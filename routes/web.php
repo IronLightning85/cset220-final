@@ -46,6 +46,9 @@ Route::post('/register', [Controller::class, 'store'])->name('register');
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
+Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
+
+Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
 
 // Home route   
 
