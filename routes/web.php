@@ -46,9 +46,14 @@ Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])-
 
 // Home route   
 
-Route::get('/home', [HomeController::class, 'showHome'])->name('home');
+Route::get('/home', function () {
+    $level = session('level', null); // Check if the user has a level in the session
+    return view('home', compact('level')); // Pass the level to the view
+})->name('home');
+
 
 // Common routes for all roles placeholders
 
-Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');
