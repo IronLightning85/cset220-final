@@ -63,6 +63,10 @@ Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 
 Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
 
+Route::get('/approved-patients', [UserController::class, 'showApprovedPatients'])->name('approved-patients');
+
+Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
+
 Route::get('/logout', [HomeController::class, 'logout'])->name('logout');
 
 Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');

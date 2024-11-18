@@ -28,14 +28,6 @@ class UserController extends Controller
         if ($user) {
             $user->approved = 1;
             $user->save();
-    
-            // Check if the user's role ID is 6 (Patient)
-            if ($user->role_id == 6) {
-                // Update the admission_date in the patients table with the current timestamp
-                DB::table('patients')
-                    ->where('user_id', $id)
-                    ->update(['admission_date' => now()]);
-            }
         }
       
         //Redirect to showUnapprovedUsers function.
@@ -125,5 +117,32 @@ class UserController extends Controller
                     ->get(['role_id', 'role_name']);
 
         return response()->json($roles);
+    }
+
+    public function showApprovedPatients()
+    {
+        // Get approved patients with their admission date and name
+        $approvedPatients = DB::table('patients')
+            ->join('users', 'patients.user_id', '=', 'users.user_id')
+            ->where('users.approved', 1)
+            ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name')
+            ->get();
+
+        return view('approved-patients', compact('approvedPatients'));
+    }
+
+    public function updateAdmissionDate(Request $request, $patient_id)
+    {
+        // Validate the date input
+        $request->validate([
+            'admission_date' => 'required|date',
+        ]);
+
+        // Update the admission date for the specified patient
+        DB::table('patients')
+            ->where('patient_id', $patient_id)
+            ->update(['admission_date' => $request->admission_date]);
+
+        return redirect()->route('approved-patients')->with('status', 'Admission date updated successfully.');
     }
 }
