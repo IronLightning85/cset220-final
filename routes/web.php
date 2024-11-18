@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\RoleController;
+
 use App\Http\Controllers\PatientController;
 
 use App\Http\Controllers\SupervisorController;
@@ -47,6 +49,10 @@ Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])-
 
 Route::get('/patient', [PatientController::class, 'index'])->name('patient');
 
+//Roles
+Route::get('/role', [RoleController::class, 'index']);
+Route::post('/role', [RoleController::class, 'store'])->name('role');
+
 
 
 // Home route   
@@ -54,7 +60,6 @@ Route::get('/patient', [PatientController::class, 'index'])->name('patient');
 Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 
 // Common routes for all roles placeholders
-
 
 Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
 
