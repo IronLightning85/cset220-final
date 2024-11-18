@@ -8,6 +8,8 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\DB;
 use App\Models\role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class RoleController extends BaseController
@@ -19,10 +21,7 @@ class RoleController extends BaseController
         $roles = DB::table('roles')->get();
 
         //Return Add Roles Page
-        return response()->json([
-            'success' => true,
-            'data' => $roles
-        ]);
+        return view('roles', ['roles' => $roles]);
     }
 
     //Store New Role
@@ -43,18 +42,18 @@ class RoleController extends BaseController
 
         //Insert New Role Data
         else {
-            $account= role::create([
+            $role= role::create([
                 'role_name' => $request->role_name,
-                'level' => $request->level,
+                'level' => $request->role_level,
             ]);
 
         }
 
+        //Get All Role Data
+        $roles = DB::table('roles')->get();
+
         //Return Add Roles Page
-        return response()->json([
-            'success' => true,
-            'message' => 'Created successfully',
-            'data' => $account
-        ], 201);
+        return view('roles', ['roles' => $roles]);
+
     }
 }
