@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\HomeController;
 
+use App\Http\Controllers\RoleController;
+
 use App\Http\Controllers\PatientController;
 
 use App\Http\Controllers\SupervisorController;
@@ -49,6 +51,19 @@ Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])-
 Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
 
 Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
+
+//Patient Page
+Route::get('/patient', [PatientController::class, 'index']);
+
+Route::post('/patient', [PatientController::class, 'store'])->name('patient');
+
+
+//Roles
+Route::get('/role', [RoleController::class, 'index']);
+
+Route::post('/role', [RoleController::class, 'store'])->name('role');
+
+
 
 // Home route   
 
