@@ -33,6 +33,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 //Login Route
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 
@@ -41,19 +42,25 @@ Route::post('/login', [AuthController::class, 'login']);
 
 //Register route
 Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('register.form');
-Route::post('/register', [Controller::class, 'store'])->name('register');
 
+Route::post('/register', [Controller::class, 'store'])->name('register');
 
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
+Route::post('/approve-user/{id}', [UserController::class, 'approveUser'])->name('approve-user');
+
+Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-user');
+
 //Patient Page
 Route::get('/patient', [PatientController::class, 'index']);
+
 Route::post('/patient', [PatientController::class, 'store'])->name('patient');
 
 
 //Roles
 Route::get('/role', [RoleController::class, 'index']);
+
 Route::post('/role', [RoleController::class, 'store'])->name('role');
 
 
@@ -62,7 +69,12 @@ Route::post('/role', [RoleController::class, 'store'])->name('role');
 
 Route::get('/home', [HomeController::class, 'showHome'])->name('home');
 
+
 // Common routes for all roles placeholders
+
+Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->name('update-role');
+
+Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 
 Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
 
