@@ -45,9 +45,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-public function role()
-{
-    return $this->belongsTo(Role::class, 'role_id', 'role_id'); // Matches users.role_id with roles.role_id
-}
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'role_id'); // Matches users.role_id with roles.role_id
+    }
+
+    public function patient()
+    {
+        return $this->hasOne(Patient::class, 'user_id', 'user_id');
+    }
 
 }
