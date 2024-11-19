@@ -18,5 +18,7 @@ class patient extends Model
         'emergency_contact',
         'contact_relation',
         'family_code',
+        'admission_date',
+        'total_amount_due',
     ];
 }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\EmployeeController;
+
 
 
 
@@ -39,3 +41,7 @@ Route::post('/roles', [RoleController::class, 'store']); //insert new role into 
 
 //Patients
 Route::get('/patient', [PatientController::class, 'index']); //get all roles
+
+//Employee
+Route::get('/employee', [EmployeeController::class, 'index']); //get all roles
+Route::post('/employee', [EmployeeController::class, 'store']); //insert new role into table

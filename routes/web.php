@@ -14,6 +14,8 @@ use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\PatientController;
 
+use App\Http\Controllers\EmployeeController;
+
 use App\Http\Controllers\SupervisorController;
 
 use App\Http\Controllers\FamilymemberController;
@@ -57,6 +59,11 @@ Route::get('/patient', [PatientController::class, 'index']);
 
 Route::post('/patient', [PatientController::class, 'store'])->name('patient');
 
+//Employee Page
+Route::get('/employee', [EmployeeController::class, 'index']);
+
+Route::post('/employee', [EmployeeController::class, 'store'])->name('employee');
+
 
 //Roles
 Route::get('/role', [RoleController::class, 'index']);
@@ -75,6 +82,13 @@ Route::get('/home', function () {
 
 // Common routes for all roles placeholders
 
+Route::get('/payment', [UserController::class, 'showPaymentPage'])
+    ->middleware('auth')
+    ->name('payment');
+
+Route::post('/make-payment', [UserController::class, 'processPayment'])->name('process-payment');
+
+Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->name('update-role');
 
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 

@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
-            $table->id('employee_id');
-            $table->unsignedBigInteger('user_id');
-            $table->float('salary', 8, 2);
-            
-            $table->foreign('user_id')->references('user_id')->on('users');//adds foreign key constraint
+        Schema::table('patients', function (Blueprint $table) {
+            $table->decimal('total_amount_due', 10, 2)->default(0.00)->after('admission_date');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::table('patients', function (Blueprint $table) {
+            $table->dropColumn('total_amount_due');
+        });
     }
 };
