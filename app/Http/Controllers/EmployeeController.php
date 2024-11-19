@@ -4,62 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Models\employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
+
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //Display all Employees
     public function index()
     {
-        //
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->join('roles', 'users.role_id', '=', 'roles.role_id')
+        ->get();
+        
+        return view('employees', ['employees' => $employees]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Store a new salary, then display all employee
     public function store(Request $request)
     {
-        //
-    }
+        //Validate Data
+        $validator = Validator::make($request->all(), [
+            'employee_id' => 'required',
+            'salary' => 'required',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(employee $employee)
-    {
-        //
-    }
+        //Return to last page if validator fails
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+        
+        //Update Employee Salary
+        $employee = employee::find($request->employee_id);
+        $employee->salary = $request->salary;
+        $employee->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(employee $employee)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(employee $employee)
-    {
-        //
+        //Display Employee Page
+        $employees = DB::table('employees')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->join('roles', 'users.role_id', '=', 'roles.role_id')
+        ->get();
+        
+        return view('employees', ['employees' => $employees]);
     }
 }
