@@ -14,6 +14,8 @@ use App\Http\Controllers\RoleController;
 
 use App\Http\Controllers\PatientController;
 
+use App\Http\Controllers\EmployeeController;
+
 use App\Http\Controllers\SupervisorController;
 
 use App\Http\Controllers\FamilymemberController;
@@ -56,6 +58,11 @@ Route::post('/deny-user/{id}', [UserController::class, 'denyUser'])->name('deny-
 Route::get('/patient', [PatientController::class, 'index']);
 
 Route::post('/patient', [PatientController::class, 'store'])->name('patient');
+
+//Employee Page
+Route::get('/employee', [EmployeeController::class, 'index']);
+
+Route::post('/employee', [EmployeeController::class, 'store'])->name('employee');
 
 
 //Roles

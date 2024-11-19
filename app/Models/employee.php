@@ -9,6 +9,9 @@ class employee extends Model
 {
     use HasFactory;
 
+    //Assign PrimaryKey
+    protected $primaryKey = 'employee_id';
+
     //Disable TimeStamps
     public $timestamps = false;
 

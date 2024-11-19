@@ -40,9 +40,9 @@
             <form method="POST" action="{{ route('patient') }}">
                 @csrf
                 <td><button type="submit">Search</button></td>
-                <td><input type="text" name="patient_id" id="patient_id" placeholder = "Enter Patient ID"></td>
+                <td><input type="number" name="patient_id" id="patient_id" placeholder = "Enter Patient ID"></td>
                 <td><input type="text" name="name" id="name" placeholder = "Enter Patient Name"></td>
-                <td><input type="text" name="age" id="age" placeholder = "Enter Patient Age"></td>
+                <td><input type="number" name="age" id="age" placeholder = "Enter Patient Age"></td>
                 <td><input type="text" name="emergency_contact" id="emergency_contact" placeholder = "Enter Emergency Contact"></td>
                 <td><input type="text" name="emergency_contact_relation" id="emergency_contact_relation" placeholder = "Enter Emergency Relation"></td>
                 <td><input type="date" name="admission_date" id="admission_date" placeholder = "Enter Admission Date"></td>
