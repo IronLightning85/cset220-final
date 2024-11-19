@@ -75,13 +75,11 @@ Route::get('/home', function () {
 
 // Common routes for all roles placeholders
 
-Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->name('update-role');
 
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 
-Route::get('/available-roles', [UserController::class, 'getAvailableRoles'])->name('available-roles');
+Route::get('/uapproved-users', [UserController::class, 'showUapprovedUsers'])->name('unapproved-users');
 
-Route::get('/approved-patients', [UserController::class, 'showApprovedPatients'])->name('approved-patients');
 
 Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
 
