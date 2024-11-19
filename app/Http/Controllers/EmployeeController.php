@@ -17,6 +17,7 @@ class EmployeeController extends Controller
         $employees = DB::table('employees')
         ->join('users', 'employees.user_id', '=', 'users.user_id')
         ->join('roles', 'users.role_id', '=', 'roles.role_id')
+        ->where('users.approved', '=', '1')
         ->get();
         
         return view('employees', ['employees' => $employees]);
@@ -38,16 +39,29 @@ class EmployeeController extends Controller
             ->withInput();
         }
         
-        //Update Employee Salary
-        $employee = employee::find($request->employee_id);
-        $employee->salary = $request->salary;
-        $employee->save();
+        //Check approved and valid id
+        $employeeData = DB::table('employees')
+        ->select('employees.employee_id')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->where('employees.employee_id', '=', $request->employee_id)
+        ->where('users.approved', '=', "1")
+        ->first();
 
+
+        //update salary
+        if ($employeeData) {
+            $employee = Employee::find($employeeData->employee_id);
+            if ($employee) {
+                $employee->salary = $request->salary;
+                $employee->save();
+            }
+        }
 
         //Display Employee Page
         $employees = DB::table('employees')
         ->join('users', 'employees.user_id', '=', 'users.user_id')
         ->join('roles', 'users.role_id', '=', 'roles.role_id')
+        ->where('users.approved', '=', '1')
         ->get();
         
         return view('employees', ['employees' => $employees]);
