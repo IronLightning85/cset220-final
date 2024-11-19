@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('contact_relation');
             $table->string('family_code');
             $table->dateTime('admission_date')->nullable(true)->default(null);
+            $table->decimal('total_amount_due', 10, 2)->default(0.00); // Add the field for total amount due
 
-            $table->foreign('user_id')->references('user_id')->on('users');//set foreign key constraint    
-
+            $table->foreign('user_id')->references('user_id')->on('users'); // Set foreign key constraint
         });
     }
 

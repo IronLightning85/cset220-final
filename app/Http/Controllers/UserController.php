@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Models\Patient;
 
 class UserController extends Controller
 {
@@ -144,5 +145,43 @@ class UserController extends Controller
             ->update(['admission_date' => $request->admission_date]);
 
         return redirect()->route('approved-patients')->with('status', 'Admission date updated successfully.');
+    }
+
+    public function showPaymentPage(Request $request)
+    {
+        $user = auth()->user(); // Ensure the user is authenticated
+    
+        $patient = $user->patient; // Use the relationship to find the patient
+    
+        if (!$patient) {
+            abort(404, 'Patient record not found');
+        }
+    
+        return view('payment', [
+            'patient' => $patient,
+            'totalAmountDue' => $patient->total_amount_due,
+        ]);
+    }
+
+    public function processPayment(Request $request)
+    {
+        // Validate payment input
+        $validatedData = $request->validate([
+            'payment_amount' => 'required|numeric|min:1',
+        ]);
+
+        $user = auth()->user();
+        $patient = Patient::where('user_id', $user->user_id)->first();
+
+        if ($patient) {
+            // Reduce the total amount due by the payment amount
+            $paymentAmount = $validatedData['payment_amount'];
+            $patient->total_amount_due = max(0, $patient->total_amount_due - $paymentAmount);
+            $patient->save();
+
+            return redirect()->route('payment-page')->with('status', 'Payment processed successfully.');
+        }
+
+        return redirect()->route('payment-page')->with('error', 'Payment failed.');
     }
 }
