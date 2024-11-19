@@ -28,7 +28,7 @@ class AdminSeeder extends Seeder
         
         //Seed Employees Table with Admin Account
         DB::table('employees')->insert([
-        'id'=> 1,
+        'employee_id'=> 1,
         'user_id' => 1,
         'salary' => 50000,
     ]);
