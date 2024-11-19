@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <title>Shady Shoals</title>
 </head>
 <body>
     <div class="logo">
-        <h1>Shady Shoals Retirement Home</h1>
+    <img src="css/Shady Shoal’s (3).png" alt="">
     </div>
 
     <nav>
@@ -50,8 +51,13 @@
         <td><button onclick="location.href='{{ url('login') }}'">Login</button></td>
 
     @else
-<!-- Insert your content here -->
+
     @endif
 
+
+
+    <div class="footer">
+<h4>Shady Shoals LLC</h4>
+    </div>
 </body>
 </html>

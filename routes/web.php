@@ -80,7 +80,6 @@ Route::get('/home', function () {
 })->name('home');
 
 
-
 // Common routes for all roles placeholders
 
 Route::get('/payment', [UserController::class, 'showPaymentPage'])
@@ -96,3 +95,8 @@ Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->nam
 Route::get('/uapproved-users', [UserController::class, 'showUapprovedUsers'])->name('unapproved-users');
 
 
+Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
+
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');
