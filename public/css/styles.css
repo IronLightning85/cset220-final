@@ -1,0 +1,127 @@
+/* Basic reset */
+body, h1, h3, ul, li, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General body styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+
+}
+
+/* Logo styling */
+.logo {
+    width: 100%; /* Stretch to the full width of the screen */
+    height: 350px; /* Set a fixed height for the banner */
+    overflow: auto; /* Crop the image if needed */
+    margin: 0; /* Remove any default margins */
+    padding: 0; /* Remove any default padding */
+    position: relative; /* For positioning the image */
+}
+
+/* Logo image styling */
+.logo img {
+    width: 100%; /* Stretch to the container width */
+    height: 100%; /* Stretch to the container height */
+    object-fit: cover; /* Crop the image to fill the space while keeping its aspect ratio */
+    display: block; /* Remove any extra spacing from inline elements */
+}
+
+
+/* Navigation styles */
+nav {
+    background-color: #2c3e50;  /* footer background color */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav button {
+    background: #ffffff;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+nav button:hover {
+    background: #d6dee7;
+    color: #000000;
+}
+
+/* Error and additional messages */
+h1, h3 {
+    text-align: center;
+    margin: 15px 0;
+}
+
+h1 {
+    color: #78b0c3;
+    font-size: 1.8em;
+}
+
+h3 {
+    color: #78b0c3;
+    font-size: 1.2em;
+}
+
+/* Register button */
+td button {
+    display: block;
+    margin: 10px auto;
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+td button:hover {
+    background: #2ecc71;
+}
+
+/* Add responsiveness */
+@media (max-width: 600px) {
+    nav ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+
+}
+.footer {
+    background-color: #2c3e50;  /* Dark background color */
+    color: white;  /* White text color */
+    padding: 20px;  /* Padding around the text */
+    text-align: center;  /* Center align the text */
+    position: fixed;  /* Fix it to the bottom of the page */
+    width: 100%;  /* Full width */
+    bottom: 0;  /* Stick to the bottom */
+}
+
+.footer h4 {
+    font-family: Arial, sans-serif;  /* Font style */
+    font-size: 18px;  /* Font size */
+    margin: 0;  /* Remove margin */
+}

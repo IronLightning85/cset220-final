@@ -33,8 +33,8 @@ class AuthController extends Controller
         }
     
         // Return error if login fails
-        return redirect()->back()->withErrors(['login' => 'Invalid credentials or account not approved']);
-        'Error Login Failed / Not approved';
+    return redirect()->back()->withErrors(['login' => 'Invalid credentials or account not approved']);
+
     }
     public function logout(Request $request)
     {
