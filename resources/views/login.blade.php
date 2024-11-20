@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shady Shoals</title>
-    <link href="{{ asset('css/login.css') }}" rel="stylesheet" />
-</head>
-<body>
-    <div class="logo">
-      <img src="css/Shady Shoal’s (3).png" alt="">
-    </div>
-<br><br><br><br>
+@extends('layout.LoginLayout')
+
+@section('content')
+
+
+<link href="{{ asset('css/login.css') }}" rel="stylesheet" />
     <nav>
         @if($level === null)
-        <h1>Please log in</h1>
+        <h1>If you don't have an account Register.</h1>
+        
+        <center><button onclick="location.href='{{ route('register') }}'">Register</button></center> 
+ 
         @else
         <button onclick="location.href='{{ route('logout') }}'">Logout</button>
         @endif
     </nav>
-
+    <br><br><br><br>
     @if($level === null)
     <form method="POST" action="{{ route('login') }}">
-        @csrf
+        @csrf   
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
@@ -37,9 +33,5 @@
     @endif
 
 
+    @endsection
 
-    <div class="footer">
-<h4>Shady Shoals LLC</h4>
-    </div>
-</body>
-</html>

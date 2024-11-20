@@ -3,23 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <title>Shady Shoals</title>
 </head>
 <body>
-    <div class="logo">
-        <h1>Shady Shoals Retirement Home</h1>
+<div class="logo">
+    <div class="logout">
+        <button onclick="location.href='{{ route('logout') }}'">Logout</button>
     </div>
+    <img src="css/Shady Shoal’s (4).png" alt="">
+</div>
 
-    <nav>
-        <ul>
+
+<div class="error-nav">
 
         @if($level === null)
         <!-- Display error if user is not logged in -->
-        <h1>Error: Please log in</h1>
-
+        <h1>Error: Make an account or Log in</h1>
+</div>
     @else
-    <td><button onclick="location.href='{{ route('logout') }}'">Logout</button></td>
+
+    <nav>
+        <ul>
+<div class="nav">
 
     <td><button onclick="location.href='{{ url('roster') }}'">Roster</button></td>
     @endif
@@ -39,20 +45,32 @@
                 @elseif($level == 6)
                     <td><button onclick="location.href='{{ url('patient') }}'">Patient Home</button></td>
                 @else
-                    <td><button onclick="location.href='{{ url('home') }}'">Dashboard</button></td>
+                <div class="error-nav">
+            
+                <center><td><button onclick="location.href='{{ url('Register') }}'">Register</button></td></center>
+
+                </div>
                 @endif
 
         </ul>
     </nav>
-
+    <div class="error-nav">
     @if($level === null)
         <!-- Display error if user is not logged in -->
-        <h3>Make an Account if you don't have one.</h3>
-        <td><button onclick="location.href='{{ url('register') }}'">Register</button></td>
+        <center><td><button onclick="location.href='{{ url('login') }}'">Login</button></td> </center>
 
+    </div>
+    <br><br><br>
+    <center><img src="css/not loggged in.gif" alt=""></center>
     @else
-<!-- Insert your content here -->
+</div>
+    @yield('content')
     @endif
 
+
+
+    <div class="footer">
+<h4>Shady Shoals LLC</h4>
+    </div>
 </body>
 </html>
