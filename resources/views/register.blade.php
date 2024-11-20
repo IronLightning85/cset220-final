@@ -1,9 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shady Shoal's</title>
+@extends('layout.LoginLayout')
+
+@section('content')
+
+<link href="{{ asset('css/login.css') }}" rel="stylesheet" />
+
+<nav>
+        
+        <h1>If you already have an account Login.</h1>
+        
+       <center><button onclick="location.href='{{ route('login') }}'">Login</button></center> 
+
+    </nav>
+
+
     <script>
         function showAdditionalFields() {
             var roleId = document.getElementById('role_id').value;
@@ -14,8 +23,6 @@
             familyFields.style.display = (roleId == 5) ? 'block' : 'none';
         }
     </script>
-</head>
-<body>
 
 <form method="POST" action="{{ route('register') }}">
     @csrf
@@ -69,12 +76,11 @@
 
     <button type="submit">Register</button>
 </form>
+<br><br><br><br>
 
 @if(session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>
 @endif
-
-</body>
-</html>
+@endsection
