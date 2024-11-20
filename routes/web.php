@@ -20,6 +20,9 @@ use App\Http\Controllers\SupervisorController;
 
 use App\Http\Controllers\FamilymemberController;
 
+use App\Http\Controllers\RosterController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,4 +102,8 @@ Route::post('/update-admission-date/{patient_id}', [UserController::class, 'upda
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');
+
+//Roster
+Route::get('/roster', [RosterController::class, 'index']); //get todays roster
+Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('roster'); //get todays roster
+
