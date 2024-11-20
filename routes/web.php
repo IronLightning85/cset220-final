@@ -82,9 +82,7 @@ Route::get('/home', function () {
 
 // Common routes for all roles placeholders
 
-Route::get('/payment', [UserController::class, 'showPaymentPage'])
-    ->middleware('auth')
-    ->name('payment');
+Route::get('/payment', [UserController::class, 'showPaymentPage']) ->name('payment');
 
 Route::post('/make-payment', [UserController::class, 'processPayment'])->name('process-payment');
 
@@ -93,7 +91,6 @@ Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->na
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 
 Route::get('/uapproved-users', [UserController::class, 'showUapprovedUsers'])->name('unapproved-users');
-
 
 Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
 
