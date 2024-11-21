@@ -19,7 +19,7 @@ class EmployeeController extends Controller
         ->join('roles', 'users.role_id', '=', 'roles.role_id')
         ->get();
         
-        return view('employees', ['employees' => $employees]);
+        return view('employees', ['employees' => $employees])->with('level', session('level'));
     }
 
     //Store a new salary, then display all employee
