@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 
 class Controller extends BaseController
@@ -55,7 +56,7 @@ class Controller extends BaseController
             'phone' => $request->phone,
             'dob' => $request->dob,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'role_id' => $request->role_id,
         ]);
 

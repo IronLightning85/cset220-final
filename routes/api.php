@@ -7,7 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\EmployeeController;
-
+use App\Http\Controllers\RosterController;
 
 
 
@@ -45,3 +45,11 @@ Route::get('/patient', [PatientController::class, 'index']); //get all roles
 //Employee
 Route::get('/employee', [EmployeeController::class, 'index']); //get all roles
 Route::post('/employee', [EmployeeController::class, 'store']); //insert new role into table
+
+//Roster
+Route::get('/roster', [RosterController::class, 'index']); //get todays roster
+Route::post('/roster', [RosterController::class, 'specificDateRoster']); //get todays roster
+
+Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
+Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster'); 
+
