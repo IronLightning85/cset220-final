@@ -22,7 +22,7 @@ class PatientController extends Controller
             $patient->age = Carbon::parse($patient->dob)->age;
         }
         
-        return view('patients', ['patients' => $patients]);
+        return view('patients', ['patients' => $patients])->with('level', session('level'));
     }
 
     /**
@@ -86,7 +86,7 @@ class PatientController extends Controller
         }
 
 
-        return view('patients', ['patients' => $search_patients]);
+        return view('patients', ['patients' => $search_patients])->with('level', session('level'));
     }
 
 }

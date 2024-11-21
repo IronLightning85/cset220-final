@@ -21,7 +21,7 @@ class RoleController extends BaseController
         $roles = DB::table('roles')->get();
 
         //Return Add Roles Page
-        return view('roles', ['roles' => $roles]);
+        return view('roles', ['roles' => $roles])->with('level', session('level'));
     }
 
     //Store New Role
@@ -53,7 +53,7 @@ class RoleController extends BaseController
         $roles = DB::table('roles')->get();
 
         //Return Add Roles Page
-        return view('roles', ['roles' => $roles]);
+        return view('roles', ['roles' => $roles])->with('level', session('level'));
 
     }
 }
