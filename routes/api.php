@@ -50,3 +50,6 @@ Route::post('/employee', [EmployeeController::class, 'store']); //insert new rol
 Route::get('/roster', [RosterController::class, 'index']); //get todays roster
 Route::post('/roster', [RosterController::class, 'specificDateRoster']); //get todays roster
 
+Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
+Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster'); 
+
