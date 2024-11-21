@@ -107,3 +107,6 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/roster', [RosterController::class, 'index']); //get todays roster
 Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('roster'); //get todays roster
 
+Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
+Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster');
+

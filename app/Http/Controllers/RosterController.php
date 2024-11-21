@@ -127,9 +127,56 @@ class RosterController extends Controller
         ]); 
     }
 
-    //Creating Roster Page
+    //Display Creating Roster Page
+    public function create_roster_index()
+    {
+        $date = date("Y/m/d");
+        
+        $supervisors = DB::table('employees')
+        ->select('employees.employee_id', 'users.first_name', 'users.last_name')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->join('roles', 'roles.role_id', '=', 'users.role_id')
+        ->where('roles.level', '=', 2)
+        ->get();
+
+        $doctors = DB::table('employees')
+        ->select('employees.employee_id', 'users.first_name', 'users.last_name')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->join('roles', 'roles.role_id', '=', 'users.role_id')
+        ->where('roles.level', '=', 3)
+        ->get();
+
+        $caregivers = DB::table('employees')
+        ->select('employees.employee_id', 'users.first_name', 'users.last_name')
+        ->join('users', 'employees.user_id', '=', 'users.user_id')
+        ->join('roles', 'roles.role_id', '=', 'users.role_id')
+        ->where('roles.level', '=', 4)
+        ->get();
+
+        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers]);
+    }
+
+    //CreateRoster
     public function store(Request $request)
     {
-        //
+        $roster = Roster::where('date', $request->roster_date)->first();
+
+        if($roster) {
+            return redirect()->back()->withErrors(['roster' => 'Roster Date Already in Use']);
+        }
+
+        Roster::create([
+            'date' => $request->roster_date,
+            'supervisor_id' => $request->supervisor_id,
+            'doctor_id' => $request->doctor_id,
+            'caregiver_id_1' => $request->caregiver_1_id,
+            'caregiver_id_2' => $request->caregiver_2_id,
+            'caregiver_id_3' => $request->caregiver_3_id,
+            'caregiver_id_4' => $request->caregiver_4_id,
+        ]);
+
+        return redirect()->action([RosterController::class, 'create_roster_index']);
+
+        
     }
 }
