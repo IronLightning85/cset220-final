@@ -16,7 +16,7 @@ class RosterController extends Controller
         $date = date("Y/m/d");
 
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date]);
+            return view('roster', ['roster' => $roster, 'date' => $date])->with('level', session('level'));
         }
 
         $supervisor = DB::table('employees')
@@ -65,7 +65,7 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
-        ]);    
+        ])->with('level', session('level'));    
     }
     
     public function specificDateRoster(Request $request) 
@@ -75,7 +75,7 @@ class RosterController extends Controller
 
         
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date]);
+            return view('roster', ['roster' => $roster, 'date' => $date])->with('level', session('level'));;
         }
 
         $supervisor = DB::table('employees')
@@ -124,7 +124,7 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
-        ]); 
+        ])->with('level', session('level'));
     }
 
     //Display Creating Roster Page
@@ -153,7 +153,7 @@ class RosterController extends Controller
         ->where('roles.level', '=', 4)
         ->get();
 
-        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers]);
+        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers])->with('level', session('level'));
     }
 
     //CreateRoster
