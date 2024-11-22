@@ -14,6 +14,7 @@ class PatientController extends Controller
     {
         $patients = DB::table('patients')
         ->join('users', 'patients.user_id', '=', 'users.user_id')
+        ->where('users.approved', '=', '1')
         ->whereNotNull('patients.admission_date')
         ->get();
 
@@ -21,7 +22,7 @@ class PatientController extends Controller
             $patient->age = Carbon::parse($patient->dob)->age;
         }
         
-        return view('patients', ['patients' => $patients]);
+        return view('patients', ['patients' => $patients])->with('level', session('level'));
     }
 
     /**
@@ -40,6 +41,7 @@ class PatientController extends Controller
         //Display Patients Page
         $patients = DB::table('patients')
         ->join('users', 'patients.user_id', '=', 'users.user_id')
+        ->where('users.approved', '=', '1')
         ->whereNotNull('patients.admission_date')
         ->get();
 
@@ -84,7 +86,7 @@ class PatientController extends Controller
         }
 
 
-        return view('patients', ['patients' => $search_patients]);
+        return view('patients', ['patients' => $search_patients])->with('level', session('level'));
     }
 
 }

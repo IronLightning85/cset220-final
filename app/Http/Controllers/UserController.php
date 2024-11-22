@@ -16,7 +16,7 @@ class UserController extends Controller
         $unapprovedUsers = User::where('approved', 0)->get();
 
         //Return Unapproved Users Admin Page
-        return view('unapproved-users', compact('unapprovedUsers'));
+        return view('unapproved-users', compact('unapprovedUsers'))->with('level', session('level'));
     }
 
     //Approve User

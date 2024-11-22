@@ -3,14 +3,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     //Display Log In Page
     public function showLoginForm()
-{
-    return view('login')->with('level', session('level')); // Passing level to the view
-}
+    {
+        return view('login')->with('level', session('level')); // Passing level to the view
+    }
 
     //User Log In
     public function login(Request $request)
@@ -24,7 +25,9 @@ class AuthController extends Controller
         // Find the approved user by email
         $user = User::where('email', $request->email)->where('approved', 1)->first();
     
-        if ($user && $request->password === $user->password) {
+
+        //Check Hash and confirm user was found
+        if ($user && Hash::check($request->password, $user->password)) {
             // Store the user's level in the session
             session(['level' => $user->role->level]);
     

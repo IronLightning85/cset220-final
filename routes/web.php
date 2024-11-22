@@ -20,6 +20,9 @@ use App\Http\Controllers\SupervisorController;
 
 use App\Http\Controllers\FamilymemberController;
 
+use App\Http\Controllers\RosterController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,10 +93,15 @@ Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->na
 
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');
 
-Route::get('/uapproved-users', [UserController::class, 'showUapprovedUsers'])->name('unapproved-users');
+Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
 Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/roster', [HomeController::class, 'showRoster'])->name('roster');
+//Roster
+Route::get('/roster', [RosterController::class, 'index']); //get todays roster
+Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('roster'); //get todays roster
+
+Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
+Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster');

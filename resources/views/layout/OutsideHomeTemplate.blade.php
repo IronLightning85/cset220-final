@@ -27,10 +27,10 @@
         <ul>
 <div class="nav">
 
+    <td><button onclick="location.href='{{ url('home') }}'">Home</button></td>
     <td><button onclick="location.href='{{ url('roster') }}'">Roster</button></td>
     @endif
-
-                <!-- Conditional content based on user role level -->
+<!-- Conditional content based on user role level -->
                 @if($level == 1)
                     <td><button onclick="location.href='{{ url('New Roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
@@ -65,7 +65,7 @@
                 <center><td><button onclick="location.href='{{ url('Register') }}'">Register</button></td></center>
 
             </div>
-                @endif
+    @endif
 
         </ul>
     </nav>
