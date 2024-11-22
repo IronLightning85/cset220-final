@@ -176,6 +176,7 @@ td button:hover {
     position: fixed;  /* Fix it to the bottom of the page */
     width: 100%;  /* Full width */
     bottom: 0;  /* Stick to the bottom */
+    height: 10px;
 }
 
 .footer h4 {
