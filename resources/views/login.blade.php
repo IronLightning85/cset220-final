@@ -14,7 +14,7 @@
         <button onclick="location.href='{{ route('logout') }}'">Logout</button>
         @endif
     </nav>
-    <br><br><br><br>
+  
     @if($level === null)
     <form method="POST" action="{{ route('login') }}">
         @csrf   
