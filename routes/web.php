@@ -85,9 +85,7 @@ Route::get('/home', function () {
 
 // Common routes for all roles placeholders
 
-Route::get('/payment', [UserController::class, 'showPaymentPage'])
-    ->middleware('auth')
-    ->name('payment');
+Route::get('/payment', [UserController::class, 'showPaymentPage']) ->name('payment');
 
 Route::post('/make-payment', [UserController::class, 'processPayment'])->name('process-payment');
 
@@ -97,11 +95,9 @@ Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->nam
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
-
 Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 //Roster
 Route::get('/roster', [RosterController::class, 'index']); //get todays roster
@@ -109,4 +105,3 @@ Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('r
 
 Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
 Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster');
-
