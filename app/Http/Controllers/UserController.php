@@ -84,7 +84,7 @@ class UserController extends Controller
         ->get();
 
         //Return Approved Users Page
-        return view('approved-users', ['approvedUsers' => $approvedUsers]);
+        return view('approved-users', ['approvedUsers' => $approvedUsers])->with('level', session('level'));
     }
 
     //Updates Role
