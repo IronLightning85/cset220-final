@@ -9,6 +9,10 @@
     <p>{{ session('status') }}</p>
 @endif
 
+@if ($errors->has('patient'))
+    <div class="alert">{{ $errors->first('patient') }}</div>
+@endif
+
 <table border="1">
     <tr>
         <th></th>
@@ -46,4 +50,5 @@
         </form>
     </tr>
 </table>
+
 @endsection
