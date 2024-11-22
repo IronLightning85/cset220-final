@@ -26,3 +26,9 @@
 
 ### php artisan db:seed --class=AdminSeeder
 
+## Step 5:
+
+### This is only used to set predefined values to be used for TESTING PURPOSES ONLY
+
+### php artisan db:seed --class=TotalSeeder
+
