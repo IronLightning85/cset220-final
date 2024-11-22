@@ -5,9 +5,9 @@
 
 <!-- Display status messages -->
 @if (session('status'))
-    <p>{{ session('status') }}</p>
+    <p style="color: green;">{{ session('status') }}</p>
 @elseif (session('error'))
-    <p>{{ session('error') }}</p>
+    <p style="color: red;">{{ session('error') }}</p>
 @endif
 
 <!-- Show total amount due -->
@@ -17,7 +17,8 @@
 <form action="{{ route('process-payment') }}" method="POST">
     @csrf
     <label for="payment_amount">Payment Amount:</label>
-    <input type="number" name="payment_amount" id="payment_amount" min="1" step="0.01" required>
+    <input type="number" name="payment_amount" id="payment_amount" 
+           min="1" step="0.01" max="{{ $patient->total_amount_due }}" required>
     <button type="submit">Make Payment</button>
 </form>
 @endsection

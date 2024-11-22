@@ -129,7 +129,7 @@ class UserController extends Controller
             ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name')
             ->get();
 
-        return view('approved-patients', compact('approvedPatients'));
+        return view('approved-patients', compact('approvedPatients'))->with('level', session('level'));
     }
 
     public function updateAdmissionDate(Request $request, $patient_id)
@@ -149,39 +149,42 @@ class UserController extends Controller
 
     public function showPaymentPage(Request $request)
     {
-        $user = auth()->user(); // Ensure the user is authenticated
-    
-        $patient = $user->patient; // Use the relationship to find the patient
+        $userId = session('user_id'); // Retrieve user ID from session
+        $patient = Patient::where('user_id', $userId)->first(); // Find patient by user ID
     
         if (!$patient) {
-            abort(404, 'Patient record not found');
+            abort(404, 'Patient record not found.');
         }
     
-        return view('payment', [
+        // Render the payment-page view
+        return view('payment-page', [
             'patient' => $patient,
-            'totalAmountDue' => $patient->total_amount_due,
-        ]);
+        ])->with('level', session('level'));
     }
-
+    
     public function processPayment(Request $request)
     {
         // Validate payment input
         $validatedData = $request->validate([
             'payment_amount' => 'required|numeric|min:1',
         ]);
-
-        $user = auth()->user();
-        $patient = Patient::where('user_id', $user->user_id)->first();
-
+    
+        $user = auth()->user(); // Get the logged-in user
+        $patient = Patient::where('user_id', $user->user_id)->first(); // Find the patient
+    
         if ($patient) {
-            // Reduce the total amount due by the payment amount
+            // Ensure the payment amount does not exceed the total amount due
             $paymentAmount = $validatedData['payment_amount'];
-            $patient->total_amount_due = max(0, $patient->total_amount_due - $paymentAmount);
-            $patient->save();
-
-            return redirect()->route('payment-page')->with('status', 'Payment processed successfully.');
+    
+            // Calculate the new total amount due
+            $newTotalAmount = max(0, $patient->total_amount_due - $paymentAmount);
+    
+            // Update the patient's total amount due
+            $patient->update(['total_amount_due' => $newTotalAmount]);
+    
+            return redirect()->route('payment')->with('status', 'Payment processed successfully.');
         }
-
-        return redirect()->route('payment-page')->with('error', 'Payment failed.');
+    
+        return redirect()->route('payment')->with('error', 'Patient record not found.');
     }
 }
