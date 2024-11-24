@@ -107,3 +107,5 @@ Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('r
 Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
 
 Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster');
+
+Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
