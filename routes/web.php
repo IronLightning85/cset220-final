@@ -35,7 +35,8 @@ use App\Http\Controllers\RosterController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $level = session('level', null); // Check if the user has a level in the session
+    return view('welcome', compact('level'));
 });
 
 

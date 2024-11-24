@@ -11,7 +11,11 @@
         <center><button onclick="location.href='{{ route('register') }}'">Register</button></center> 
  
         @else
+        <center>
+        <h1>Error Already Logged in</h1>
         <button onclick="location.href='{{ route('logout') }}'">Logout</button>
+        <button onclick="location.href='{{ route('home') }}'">Home</button>
+        </center> 
         @endif
     </nav>
   
