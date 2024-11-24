@@ -169,22 +169,25 @@ class UserController extends Controller
             'payment_amount' => 'required|numeric|min:1',
         ]);
     
-        $user = auth()->user(); // Get the logged-in user
-        $patient = Patient::where('user_id', $user->user_id)->first(); // Find the patient
+        $userId = session('user_id'); // Get the logged-in user's ID
+    
+        // Find the patient record based on the foreign key `user_id`
+        $patient = Patient::where('user_id', $userId)->first();
     
         if ($patient) {
-            // Ensure the payment amount does not exceed the total amount due
+            // Get the payment amount
             $paymentAmount = $validatedData['payment_amount'];
     
-            // Calculate the new total amount due
+            // Ensure the payment amount does not exceed the total amount due
             $newTotalAmount = max(0, $patient->total_amount_due - $paymentAmount);
     
-            // Update the patient's total amount due
-            $patient->update(['total_amount_due' => $newTotalAmount]);
+            // Update the patient's `total_amount_due`
+            Patient::where('patient_id', $patient->patient_id)
+                ->update(['total_amount_due' => $newTotalAmount]);
     
             return redirect()->route('payment')->with('status', 'Payment processed successfully.');
         }
     
         return redirect()->route('payment')->with('error', 'Patient record not found.');
-    }
+    }  
 }
