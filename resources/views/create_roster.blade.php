@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Roster</title>
-</head>
-<body>
-    <script>
+@extends('layout.outsidehometemplate')
+
+
+@section('content')
+<script>
         document.addEventListener('DOMContentLoaded', function () {
             // Get all the dropdowns
             const dropdowns = document.querySelectorAll('select[id^="caregiver_"]');
@@ -100,5 +96,5 @@
             </select>
     </form>
     
-</body>
-</html>
+@endsection
+

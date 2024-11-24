@@ -8,9 +8,6 @@
 </head>
 <body>
 <div class="logo">
-    <div class="logout">
-        <button onclick="location.href='{{ route('logout') }}'">Logout</button>
-    </div>
     <img src="css/Shady Shoal’s (4).png" alt="">
 </div>
 
@@ -18,11 +15,16 @@
     <nav>
         <ul>
 <div class="nav">
-
+@if($level === null)
 <span>
         <td><button onclick="location.href='{{ url('login') }}'">Login</button></td>
         <td><button onclick="location.href='{{ url('register') }}'">Register</button></td>
 </span>
+@else
+        <button onclick="location.href='{{ route('logout') }}'">Logout</button>
+        <button onclick="location.href='{{ route('home') }}'">Home</button>
+@endif
+
 
         </ul>
     </nav>
