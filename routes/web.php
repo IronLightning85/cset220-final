@@ -111,5 +111,6 @@ Route::post('/create-roster', [RosterController::class, 'store'])->name('create_
 
 //Caregiver Home
 Route::get('/caregiver-home', [RosterController::class, 'index']);
-
 Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregiver-home');
+
+Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
