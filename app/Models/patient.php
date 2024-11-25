@@ -15,6 +15,7 @@ class patient extends Model
     //Colums we can mass assign
     protected $fillable = [
         'user_id',
+        'group_id',
         'emergency_contact',
         'contact_relation',
         'family_code',

@@ -53,3 +53,6 @@ Route::post('/roster', [RosterController::class, 'specificDateRoster']); //get t
 Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
 Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster'); 
 
+//Caregiver Home
+Route::get('/caregiver-home', [RosterController::class, 'index']);
+Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregiver-home');
