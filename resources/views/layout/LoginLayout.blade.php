@@ -17,7 +17,6 @@
 
 
 
-
     <div class="footer">
 <h4>Shady Shoals LLC</h4>
     </div>

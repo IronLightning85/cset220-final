@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+
     //     Schema::table('patients', function (Blueprint $table) {
     //         $table->decimal('total_amount_due', 10, 2)->default(0.00)->after('admission_date');
     //     });
+
     }
 
     /**

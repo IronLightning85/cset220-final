@@ -32,7 +32,7 @@
     @endif
 <!-- Conditional content based on user role level -->
                 @if($level == 1)
-                    <td><button onclick="location.href='{{ url('New Roster') }}'">New Roster</button></td>
+                    <td><button onclick="location.href='{{ url('roster-create') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
@@ -45,7 +45,7 @@
                     </form> --}}
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
                 @elseif($level == 2)
-                    <td><button onclick="location.href='{{ url('New-Roster') }}'">New Roster</button></td>
+                    <td><button onclick="location.href='{{ url('roster-create') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
@@ -65,7 +65,7 @@
                 @else
             <div class="error-nav">
             
-                <center><td><button onclick="location.href='{{ url('Register') }}'">Register</button></td></center>
+                <center><td><button onclick="location.href='{{ url('register') }}'">Register</button></td></center>
 
             </div>
     @endif
@@ -84,7 +84,6 @@
 </div>
     @yield('content')
     @endif
-
 
 
     <div class="footer">
