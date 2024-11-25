@@ -18,7 +18,7 @@ class RosterController extends Controller
         $date = date("Y/m/d");
 
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date])->withErrors(['roster' => 'No Roster Found for Selected Date']);
+            return view('roster', ['roster' => $roster, 'date' => $date])->withErrors(['roster' => 'No Roster Found for Selected Date'])->with('level', session('level'));
         }
 
         $supervisor = DB::table('employees')

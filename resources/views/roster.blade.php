@@ -24,7 +24,7 @@
 
     <br><br>
 
-    <table border="1">
+    <table>
         <tr>
             <th></th>
             <th>Supervisor</th>
