@@ -21,6 +21,13 @@ class RoleSeeder extends Seeder
             ['role_name' => 'Family', 'level' => 5],
             ['role_name' => 'Patient', 'level' => 6],
         ]);
+
+        DB::table('patient_groups')->insert([
+            ['name' => "Independant", "description" => "Can manage own affairs"],
+            ['name' => "Assisted Living", "description" => "Needs daily check in"],
+            ['name' => "Memory Care", "description" => "Needs Daily Memory Excercises"],
+            ['name' => "Palliative", "description" => "Terminal. Focus on comfort/quality of life"],
+        ]);
     }
 }
 
