@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\roster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class RosterController extends Controller
@@ -16,7 +18,7 @@ class RosterController extends Controller
         $date = date("Y/m/d");
 
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date])->with('level', session('level'));
+            return view('roster', ['roster' => $roster, 'date' => $date])->withErrors(['roster' => 'No Roster Found for Selected Date']);
         }
 
         $supervisor = DB::table('employees')
@@ -70,12 +72,21 @@ class RosterController extends Controller
     
     public function specificDateRoster(Request $request) 
     {
+        $validator = Validator::make($request->all(), [
+            'roster_date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors(['roster' => 'Invalid Date']);
+        }
+
         $roster = Roster::where('date', $request->roster_date)->first();
         $date = $request->roster_date;
 
         
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date])->with('level', session('level'));;
+            return view('roster', ['roster' => $roster, 'date' => $date])->with('level', session('level'))->withErrors(['roster' => 'No Roster Found for Selected Date']);
         }
 
         $supervisor = DB::table('employees')
@@ -159,6 +170,15 @@ class RosterController extends Controller
     //CreateRoster
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'roster_date' => 'required|date',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withErrors(['roster' => 'Invalid Date']);
+        }
+        
         $roster = Roster::where('date', $request->roster_date)->first();
 
         if($roster) {

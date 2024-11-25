@@ -25,17 +25,7 @@ class PatientController extends Controller
         return view('patients', ['patients' => $patients])->with('level', session('level'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
+    //Search for Patients
     public function store(Request $request)
     {
         //Display Patients Page
@@ -83,6 +73,10 @@ class PatientController extends Controller
                 $search_patients[] = $patient;
             }
 
+        }
+
+        if (count($search_patients) == 0) {
+            return view('patients', ['patients' => $search_patients])->with('level', session('level'))->withErrors(['patient' => 'No Patients Found']);
         }
 
 

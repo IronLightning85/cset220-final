@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
+use Carbon\Carbon;
+
 
 class UserController extends Controller
 {
@@ -129,7 +131,7 @@ class UserController extends Controller
             ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name')
             ->get();
 
-        return view('approved-patients', compact('approvedPatients'));
+        return view('approved-patients', compact('approvedPatients'))->with('level', session('level'));
     }
 
     public function updateAdmissionDate(Request $request, $patient_id)
@@ -149,39 +151,75 @@ class UserController extends Controller
 
     public function showPaymentPage(Request $request)
     {
-        $user = auth()->user(); // Ensure the user is authenticated
-    
-        $patient = $user->patient; // Use the relationship to find the patient
+        $userId = session('user_id'); // Retrieve user ID from session
+        $patient = Patient::where('user_id', $userId)->first(); // Find patient by user ID
     
         if (!$patient) {
-            abort(404, 'Patient record not found');
+            abort(404, 'Patient record not found.');
         }
     
-        return view('payment', [
+        // Render the payment-page view
+        return view('payment-page', [
             'patient' => $patient,
-            'totalAmountDue' => $patient->total_amount_due,
-        ]);
+        ])->with('level', session('level'));
     }
-
+    
     public function processPayment(Request $request)
     {
         // Validate payment input
         $validatedData = $request->validate([
             'payment_amount' => 'required|numeric|min:1',
         ]);
-
-        $user = auth()->user();
-        $patient = Patient::where('user_id', $user->user_id)->first();
-
+    
+        $userId = session('user_id'); // Get the logged-in user's ID
+    
+        // Find the patient record based on the foreign key `user_id`
+        $patient = Patient::where('user_id', $userId)->first();
+    
         if ($patient) {
-            // Reduce the total amount due by the payment amount
+            // Get the payment amount
             $paymentAmount = $validatedData['payment_amount'];
-            $patient->total_amount_due = max(0, $patient->total_amount_due - $paymentAmount);
-            $patient->save();
+    
+            // Ensure the payment amount does not exceed the total amount due
+            $newTotalAmount = max(0, $patient->total_amount_due - $paymentAmount);
+    
+            // Update the patient's `total_amount_due`
+            Patient::where('patient_id', $patient->patient_id)
+                ->update(['total_amount_due' => $newTotalAmount]);
+    
+            return redirect()->route('payment')->with('status', 'Payment processed successfully.');
+        }
+    
+        return redirect()->route('payment')->with('error', 'Patient record not found.');
+    }
 
-            return redirect()->route('payment-page')->with('status', 'Payment processed successfully.');
+    public function applyDailyCharges()
+    {
+        // Get the last update date from the settings table
+        $lastUpdate = DB::table('settings')->where('key', 'last_update')->value('value');
+
+        if ($lastUpdate) {
+            // Calculate days passed since the last update
+            $daysPassed = now()->diffInDays(Carbon::parse($lastUpdate));
+
+            if ($daysPassed > 0) {
+                // Update all patients' total amount due
+                Patient::query()->update([
+                    'total_amount_due' => DB::raw("total_amount_due + (10 * $daysPassed)"),
+                ]);
+
+                // Update the last update timestamp in the settings table
+                DB::table('settings')->where('key', 'last_update')->update([
+                    'value' => now(),
+                    'updated_at' => now(),
+                ]);
+
+                return redirect()->route('home')->with('status', "Daily charges applied for $daysPassed days.");
+            }
+
+            return redirect()->route('home')->with('status', 'No charges applied. No days have passed since the last update.');
         }
 
-        return redirect()->route('payment-page')->with('error', 'Payment failed.');
+        return redirect()->route('home')->with('error', 'Last update timestamp not found.');
     }
 }

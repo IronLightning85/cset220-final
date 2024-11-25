@@ -1,4 +1,3 @@
-
 @extends('layout.OutsideHometemplate')
 
 
@@ -16,11 +15,12 @@
         <input type="text" name="roster_date" id="roster_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder = "{{$date}}">
 </form>
 
-@if (!$roster)
-    <h2>No Roster Found for Selected Date</h2>
+ @if ($errors->has('roster'))
+        <br>
+        <div class="alert">{{ $errors->first('roster') }}</div>
 
+ @else
 
-@else
 
     <br><br>
 
