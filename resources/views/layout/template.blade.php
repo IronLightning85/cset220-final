@@ -39,10 +39,10 @@
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
                     <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
-                    <form action="{{ route('admin.apply-charges') }}" method="POST">
+                    {{-- <form action="{{ route('admin.apply-charges') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-warning">Apply Daily Charges</button>
-                    </form>
+                    </form> --}}
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('New-Roster') }}'">New Roster</button></td>
