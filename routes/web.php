@@ -96,6 +96,8 @@ Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->nam
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
+Route::get('/approved-patients', [UserController::class, 'showApprovedPatients'])->name('approved-patients');
+
 Route::post('/update-admission-date/{patient_id}', [UserController::class, 'updateAdmissionDate'])->name('update-admission-date');
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -109,4 +111,4 @@ Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
 
 Route::post('/create-roster', [RosterController::class, 'store'])->name('create_roster');
 
-Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
+Route::post('/apply-charges', [UserController::class, 'applyDailyCharges'])->name('apply-charges');

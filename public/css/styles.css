@@ -77,7 +77,7 @@ nav .logout {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 0px;
 }
 
 nav ul li {
