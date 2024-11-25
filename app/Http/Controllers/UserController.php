@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 
 class UserController extends Controller
@@ -192,34 +193,46 @@ class UserController extends Controller
     
         return redirect()->route('payment')->with('error', 'Patient record not found.');
     }
-
+    
     public function applyDailyCharges()
     {
-        // Get the last update date from the settings table
-        $lastUpdate = DB::table('settings')->where('key', 'last_update')->value('value');
-
-        if ($lastUpdate) {
-            // Calculate days passed since the last update
-            $daysPassed = now()->diffInDays(Carbon::parse($lastUpdate));
-
-            if ($daysPassed > 0) {
-                // Update all patients' total amount due
-                Patient::query()->update([
-                    'total_amount_due' => DB::raw("total_amount_due + (10 * $daysPassed)"),
-                ]);
-
-                // Update the last update timestamp in the settings table
-                DB::table('settings')->where('key', 'last_update')->update([
-                    'value' => now(),
-                    'updated_at' => now(),
-                ]);
-
-                return redirect()->route('home')->with('status', "Daily charges applied for $daysPassed days.");
+        // Retrieve the last system update
+        $lastSystemUpdate = DB::table('settings')->where('key', 'last_update')->value('value');
+        $currentDate = Carbon::now();
+    
+        // Fetch all patients with a valid admission date
+        $patients = DB::table('patients')
+            ->whereNotNull('admission_date')
+            ->where('admission_date', '<=', $currentDate)
+            ->get();
+    
+        foreach ($patients as $patient) {
+            $lastCostUpdate = $patient->last_cost_update ?: $patient->admission_date;
+    
+            // Calculate days to charge for, ensuring no overcharges
+            $daysToCharge = min(
+                Carbon::parse($lastSystemUpdate)->diffInDays($lastCostUpdate),
+                Carbon::parse($currentDate)->diffInDays($lastCostUpdate)
+            );
+    
+            if ($daysToCharge > 0) {
+                $totalCharge = $daysToCharge * 10; // $10 per day
+    
+                // Update the patient's total amount due
+                DB::table('patients')
+                    ->where('patient_id', $patient->patient_id)
+                    ->update([
+                        'total_amount_due' => DB::raw("total_amount_due + $totalCharge"),
+                        'last_cost_update' => $currentDate,
+                    ]);
             }
-
-            return redirect()->route('home')->with('status', 'No charges applied. No days have passed since the last update.');
         }
-
-        return redirect()->route('home')->with('error', 'Last update timestamp not found.');
+    
+        // Update the last system update timestamp
+        DB::table('settings')
+            ->where('key', 'last_update')
+            ->update(['value' => $currentDate]);
+    
+        return redirect()->back()->with('success', 'Charges applied successfully.');
     }
 }
