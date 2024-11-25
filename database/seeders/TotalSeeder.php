@@ -39,6 +39,10 @@ class TotalSeeder extends Seeder
 
 
 
+
+    
+
+
 //Doctors
     DB::table('users')->insert([
         'user_id' => 3,
@@ -81,6 +85,11 @@ DB::table('employees')->insert([
 'user_id' => 4,
 'salary' => 50000,
 ]);
+
+
+
+
+
 
 
 
@@ -133,6 +142,9 @@ DB::table('family_members')->insert([
 
 
 
+
+
+
 //caregivers
 DB::table('users')->insert([
     'user_id' => 7,
@@ -173,6 +185,10 @@ DB::table('employees')->insert([
 ]);
 
 
+
+
+
+
 //patients
 DB::table('users')->insert([
     'user_id' => 9,
@@ -189,6 +205,7 @@ DB::table('users')->insert([
 DB::table('patients')->insert([
     'patient_id' => 9,
     'user_id' => 9,
+    'group_id' => 1,
     'emergency_contact' => 'SpongeBob',
     'contact_relation' => 'Brother',
     'family_code' => 1234,
@@ -216,6 +233,7 @@ DB::table('users')->insert([
 DB::table('patients')->insert([
     'patient_id' => 10,
     'user_id' => 10,
+    'group_id' => 2,
     'emergency_contact' => 'Mermaid Man',
     'contact_relation' => 'Grandfather',
     'family_code' => 4321,
@@ -223,7 +241,124 @@ DB::table('patients')->insert([
     'total_amount_due' => 100,
 
 ]);
+
+
+
+DB::table('users')->insert([
+    'user_id' => 11,
+    'first_name' => 'Gene ',
+    'last_name' => 'Scallop',
+    'phone' => '119-113-2345',
+    'dob' => '1992-10-10',
+    'email' => 'genes@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 6,
+    'approved' => 1,
+]);
+
+DB::table('patients')->insert([
+    'patient_id' => 11,
+    'user_id' => 11,
+    'group_id' => 3,
+    'emergency_contact' => 'Jellyfish',
+    'contact_relation' => 'Lover',
+    'family_code' => 5678,
+    'admission_date' => '2024-09-16',
+    'total_amount_due' => 50,
+
+    
+]);
+
+
+
+
+DB::table('users')->insert([
+    'user_id' => 12,
+    'first_name' => 'Sea',
+    'last_name' => 'Bear',
+    'phone' => '455-987-0975',
+    'dob' => '2001-02-24',
+    'email' => 'seabear@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 6,
+    'approved' => 1,
+]);
+
+DB::table('patients')->insert([
+    'patient_id' => 12,
+    'user_id' => 12,
+    'group_id' => 2,
+    'emergency_contact' => 'Sea Monster',
+    'contact_relation' => 'Grandfather',
+    'family_code' => 1111,
+    'admission_date' => '2024-01-11',
+    'total_amount_due' => 150,
+
+]);
+
+DB::table('users')->insert([
+    'user_id' => 13,
+    'first_name' => 'Squilliam ',
+    'last_name' => 'Fancyson',
+    'phone' => '491-477-8865',
+    'dob' => '2001-02-24',
+    'email' => 'SFancyson@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 6,
+    'approved' => 1,
+]);
+
+DB::table('patients')->insert([
+    'patient_id' => 13,
+    'user_id' => 13,
+    'group_id' => 4,
+    'emergency_contact' => 'Barron Trump',
+    'contact_relation' => 'God Son',
+    'family_code' => 1110,
+    'admission_date' => '2024-07-23',
+    'total_amount_due' => 300,
+
+]);
+
+DB::table('users')->insert([
+    'user_id' => 14,
+    'first_name' => 'Dorsal',
+    'last_name' => 'Dan',
+    'phone' => '891-499-8995',
+    'dob' => '2001-11-03',
+    'email' => 'DDAN@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 6,
+    'approved' => 1,
+]);
+
+DB::table('patients')->insert([
+    'patient_id' => 14,
+    'user_id' => 14,
+    'group_id' => 1,
+    'emergency_contact' => 'Gill Godfrey',
+    'contact_relation' => 'Father',
+    'family_code' => 7654,
+    'admission_date' => '2024-04-10',
+    'total_amount_due' => 50,
+
+]);
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
 
