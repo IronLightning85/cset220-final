@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id('patient_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('group_id');
             $table->string('emergency_contact');
             $table->string('contact_relation');
             $table->string('family_code');
@@ -21,6 +22,8 @@ return new class extends Migration
             $table->decimal('total_amount_due', 10, 2)->default(0.00); // Add the field for total amount due
 
             $table->foreign('user_id')->references('user_id')->on('users'); // Set foreign key constraint
+            $table->foreign('group_id')->references('group_id')->on('patient_groups'); // Set foreign key constraint
+
         });
     }
 
