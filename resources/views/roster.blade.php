@@ -26,7 +26,6 @@
 
     <table>
         <tr>
-            <th></th>
             <th>Supervisor</th>
             <th>Doctor</th>
             <th>Caregiver 1</th>
@@ -39,7 +38,6 @@
 
     
         <tr>
-            <td></td>
             <td>{{ $supervisor->first_name }} {{ $supervisor->last_name }}</td>
             <td>{{ $doctor->first_name }} {{ $doctor->last_name }}</td>
             <td>{{ $caregiver_1->first_name }} {{ $caregiver_1->last_name }}</td>
