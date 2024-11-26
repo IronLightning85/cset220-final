@@ -50,5 +50,9 @@
         </form>
     </tr>
 </table>
+<form action="{{ route('patient') }}" method="GET">
+    <button type="submit" class="btn btn-secondary">Reset Search</button>
+</form>
+<br><br><br><br>
 
 @endsection
