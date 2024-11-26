@@ -164,7 +164,11 @@ class RosterController extends Controller
         ->where('roles.level', '=', 4)
         ->get();
 
-        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers])->with('level', session('level'));
+        $groups = DB::table('patient_groups')
+        ->select('group_id', 'name')
+        ->get();
+
+        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers, 'groups' => $groups])->with('level', session('level'));
     }
 
     //CreateRoster
@@ -190,9 +194,14 @@ class RosterController extends Controller
             'supervisor_id' => $request->supervisor_id,
             'doctor_id' => $request->doctor_id,
             'caregiver_id_1' => $request->caregiver_1_id,
+            'group_id_1' => $request->group_id_1,
             'caregiver_id_2' => $request->caregiver_2_id,
+            'group_id_2' => $request->group_id_2,
             'caregiver_id_3' => $request->caregiver_3_id,
+            'group_id_3' => $request->group_id_3,
             'caregiver_id_4' => $request->caregiver_4_id,
+            'group_id_4' => $request->group_id_4,
+
         ]);
 
         return redirect()->action([RosterController::class, 'create_roster_index']);

@@ -54,23 +54,33 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const dropdowns = document.querySelectorAll('select[id^="caregiver_"]');
-        dropdowns.forEach(dropdown => {
+        // Handle caregiver dropdowns
+        const caregiverDropdowns = document.querySelectorAll('select[id^="caregiver_"]');
+        caregiverDropdowns.forEach(dropdown => {
             dropdown.addEventListener('change', function () {
-                updateDropdownOptions();
+                updateDropdownOptions(caregiverDropdowns);
             });
         });
 
-        function updateDropdownOptions() {
+        // Handle patient group dropdowns
+        const groupDropdowns = document.querySelectorAll('select[id^="group_"]');
+        groupDropdowns.forEach(dropdown => {
+            dropdown.addEventListener('change', function () {
+                updateDropdownOptions(groupDropdowns);
+            });
+        });
+
+        function updateDropdownOptions(dropdowns) {
             const selectedValues = Array.from(dropdowns)
                 .map(dropdown => dropdown.value)
-                .filter(value => value);
+                .filter(value => value); // Get all selected values, ignoring empty ones
 
             dropdowns.forEach(dropdown => {
                 const currentValue = dropdown.value;
                 const options = dropdown.querySelectorAll('option');
 
                 options.forEach(option => {
+                    // Hide options already selected in other dropdowns, except for the current value
                     if (selectedValues.includes(option.value) && option.value !== currentValue) {
                         option.style.display = 'none';
                     } else {
@@ -121,10 +131,24 @@
         @endforeach
     </select>
 
+    <select name="group_id_1" id="group_id_1" required>
+        <option value="">Select Patient Group 1</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->group_id }}">{{ $group->name }}</option>
+        @endforeach
+    </select>
+
     <select name="caregiver_2_id" id="caregiver_2_id" required>
         <option value="">Select Caregiver 2</option>
         @foreach($caregivers as $caregiver)
             <option value="{{ $caregiver->employee_id }}">{{ $caregiver->first_name }} {{ $caregiver->last_name }}</option>
+        @endforeach
+    </select>
+
+    <select name="group_id_2" id="group_id_2" required>
+        <option value="">Select Patient Group 2</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->group_id }}">{{ $group->name }}</option>
         @endforeach
     </select>
 
@@ -135,11 +159,32 @@
         @endforeach
     </select>
 
+    <select name="group_id_3" id="group_id_3" required>
+        <option value="">Select Patient Group 3</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->group_id }}">{{ $group->name }}</option>
+        @endforeach
+    </select>
+
     <select name="caregiver_4_id" id="caregiver_4_id" required>
         <option value="">Select Caregiver 4</option>
         @foreach($caregivers as $caregiver)
             <option value="{{ $caregiver->employee_id }}">{{ $caregiver->first_name }} {{ $caregiver->last_name }}</option>
         @endforeach
     </select>
+
+    <select name="group_id_4" id="group_id_4" required>
+        <option value="">Select Patient Group 4</option>
+        @foreach($groups as $group)
+            <option value="{{ $group->group_id }}">{{ $group->name }}</option>
+        @endforeach
+    </select>
 </form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 @endsection
