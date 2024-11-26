@@ -26,26 +26,33 @@
 
     <table>
         <tr>
-            <th></th>
             <th>Supervisor</th>
             <th>Doctor</th>
-            <th>Caregiver 1</th>
-            <th>Caregiver 2</th>
-            <th>Caregiver 3</th>
-            <th>Caregiver 4</th>
+            <th>Caregiver 1/ Assigned Group</th>
+            <th>Caregiver 2 / Assigned Group</th>
+            <th>Caregiver 3 / Assigned Group</th>
+            <th>Caregiver 4 / Assigned Group</th>
 
 
         </tr>
 
     
         <tr>
-            <td></td>
             <td>{{ $supervisor->first_name }} {{ $supervisor->last_name }}</td>
             <td>{{ $doctor->first_name }} {{ $doctor->last_name }}</td>
             <td>{{ $caregiver_1->first_name }} {{ $caregiver_1->last_name }}</td>
             <td>{{ $caregiver_2->first_name }} {{ $caregiver_2->last_name }}</td>
             <td>{{ $caregiver_3->first_name }} {{ $caregiver_3->last_name }}</td>
             <td>{{ $caregiver_4->first_name }} {{ $caregiver_4->last_name }}</td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td>{{ $group_1->name }}</td>
+            <td>{{ $group_2->name }}</td>
+            <td>{{ $group_3->name }}</td>
+            <td>{{ $group_4->name }}</td>
         </tr>
 
     </table>

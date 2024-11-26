@@ -57,6 +57,26 @@ class RosterController extends Controller
         ->where('employees.employee_id', '=', $roster->caregiver_id_4)
         ->first();
 
+        $group_1 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_1)
+        ->first();
+
+        $group_2 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_2)
+        ->first();
+
+        $group_3 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_3)
+        ->first();
+
+        $group_4 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_4)
+        ->first();
+
 
         return view('roster', [
             'roster' => $roster,
@@ -67,6 +87,10 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
+            'group_1' => $group_1,
+            'group_2' => $group_2,
+            'group_3' => $group_3,
+            'group_4' => $group_4,
         ])->with('level', session('level'));    
     }
     
@@ -125,6 +149,26 @@ class RosterController extends Controller
         ->where('employees.employee_id', '=', $roster->caregiver_id_4)
         ->first();
 
+        $group_1 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_1)
+        ->first();
+
+        $group_2 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_2)
+        ->first();
+
+        $group_3 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_3)
+        ->first();
+
+        $group_4 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_4)
+        ->first();
+
 
         return view('roster', [
             'roster' => $roster,
@@ -135,7 +179,11 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
-        ])->with('level', session('level'));
+            'group_1' => $group_1,
+            'group_2' => $group_2,
+            'group_3' => $group_3,
+            'group_4' => $group_4,
+        ])->with('level', session('level'));   
     }
 
     //Display Creating Roster Page
