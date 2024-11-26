@@ -274,7 +274,7 @@ DB::table('users')->insert([
 
 DB::table('employees')->insert([
     'employee_id' => 10,
-    'user_id' => 15,
+    'user_id' => 16,
     'salary' => 50000,
 ]);
 
