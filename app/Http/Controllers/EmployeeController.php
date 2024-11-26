@@ -64,6 +64,6 @@ class EmployeeController extends Controller
         ->where('users.approved', '=', '1')
         ->get();
         
-        return view('employees', ['employees' => $employees]);
+        return view('employees', ['employees' => $employees])->with('level', session('level'));
     }
 }
