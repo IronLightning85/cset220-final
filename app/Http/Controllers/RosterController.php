@@ -6,6 +6,8 @@ use App\Models\roster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 
 
@@ -101,8 +103,11 @@ class RosterController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-            ->withErrors(['roster' => 'Invalid Date']);
+            return redirect()
+            ->back()
+            ->withInput()
+            ->withErrors(['roster' => 'Invalid Date'])
+            ->with('date', $request->roster_date);
         }
 
         $roster = Roster::where('date', $request->roster_date)->first();
@@ -224,11 +229,21 @@ class RosterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'roster_date' => 'required|date',
+            'supervisor_id' => 'required|numeric',
+            'doctor_id' => 'required|numeric',
+            'caregiver_1_id' => 'required|numeric',
+            'caregiver_2_id' => 'required|numeric',
+            'caregiver_3_id' => 'required|numeric',
+            'caregiver_4_id' => 'required|numeric',
+            'group_id_1' => 'required|numeric',
+            'group_id_2' => 'required|numeric',
+            'group_id_3' => 'required|numeric',
+            'group_id_4' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-            ->withErrors(['roster' => 'Invalid Date']);
+            ->withErrors(['roster' => 'Invalid Inputs']);
         }
         
         $roster = Roster::where('date', $request->roster_date)->first();
