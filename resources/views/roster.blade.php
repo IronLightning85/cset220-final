@@ -12,7 +12,7 @@
 <form method="POST" action="{{ route('roster') }}">
         @csrf <!-- Add this line to include the CSRF token -->
         <button type="submit">Submit</button>
-        <input type="text" name="roster_date" id="roster_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder = "{{$date}}">
+        <input type="text" value="{{ old('roster_date', $date) }}" name="roster_date" id="roster_date" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder = "{{old('roster_date', $date) }}">
 </form>
 
  @if ($errors->has('roster'))
