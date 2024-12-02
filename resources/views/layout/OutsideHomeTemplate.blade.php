@@ -32,7 +32,7 @@
     @endif
 <!-- Conditional content based on user role level -->
                 @if($level == 1)
-                    <td><button onclick="location.href='{{ url('roster-create') }}'">New Roster</button></td>
+                    <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
@@ -42,7 +42,7 @@
                     <td><button onclick="location.href='{{ url('payments') }}'">Patient Balance</button></td>
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
                 @elseif($level == 2)
-                    <td><button onclick="location.href='{{ url('roster-create') }}'">New Roster</button></td>
+                    <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>

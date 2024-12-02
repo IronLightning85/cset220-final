@@ -18,8 +18,13 @@ class roster extends Model
         'supervisor_id',
         'doctor_id',
         'caregiver_id_1',
+        'group_id_1',
         'caregiver_id_2',
+        'group_id_2',
         'caregiver_id_3',
+        'group_id_3',
         'caregiver_id_4',
+        'group_id_4',
+
     ];
 }

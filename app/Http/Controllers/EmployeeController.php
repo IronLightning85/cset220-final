@@ -28,14 +28,15 @@ class EmployeeController extends Controller
     {
         //Validate Data
         $validator = Validator::make($request->all(), [
-            'employee_id' => 'required',
-            'salary' => 'required',
+            'employee_id' => 'required|numeric|exists:employees,employee_id',
+            'salary' => 'required|numeric',
         ]);
 
         //Return to last page if validator fails
         if ($validator->fails()) {
-            return redirect()->back()
-            ->withErrors($validator)
+            return redirect()
+            ->back()
+            ->withErrors(['input' => 'Invalid Inputs'])            
             ->withInput();
         }
         
@@ -64,6 +65,6 @@ class EmployeeController extends Controller
         ->where('users.approved', '=', '1')
         ->get();
         
-        return view('employees', ['employees' => $employees]);
+        return view('employees', ['employees' => $employees])->with('level', session('level'));
     }
 }

@@ -6,6 +6,8 @@ use App\Models\roster;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
+
 
 
 
@@ -18,7 +20,7 @@ class RosterController extends Controller
         $date = date("Y/m/d");
 
         if (!$roster) {
-            return view('roster', ['roster' => $roster, 'date' => $date])->withErrors(['roster' => 'No Roster Found for Selected Date']);
+            return view('roster', ['roster' => $roster, 'date' => $date])->withErrors(['roster' => 'No Roster Found for Selected Date'])->with('level', session('level'));
         }
 
         $supervisor = DB::table('employees')
@@ -57,6 +59,26 @@ class RosterController extends Controller
         ->where('employees.employee_id', '=', $roster->caregiver_id_4)
         ->first();
 
+        $group_1 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_1)
+        ->first();
+
+        $group_2 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_2)
+        ->first();
+
+        $group_3 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_3)
+        ->first();
+
+        $group_4 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_4)
+        ->first();
+
 
         return view('roster', [
             'roster' => $roster,
@@ -67,6 +89,10 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
+            'group_1' => $group_1,
+            'group_2' => $group_2,
+            'group_3' => $group_3,
+            'group_4' => $group_4,
         ])->with('level', session('level'));    
     }
     
@@ -77,8 +103,11 @@ class RosterController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()
-            ->withErrors(['roster' => 'Invalid Date']);
+            return redirect()
+            ->back()
+            ->withInput()
+            ->withErrors(['roster' => 'Invalid Date'])
+            ->with('date', $request->roster_date);
         }
 
         $roster = Roster::where('date', $request->roster_date)->first();
@@ -125,6 +154,26 @@ class RosterController extends Controller
         ->where('employees.employee_id', '=', $roster->caregiver_id_4)
         ->first();
 
+        $group_1 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_1)
+        ->first();
+
+        $group_2 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_2)
+        ->first();
+
+        $group_3 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_3)
+        ->first();
+
+        $group_4 = DB::table('patient_groups')
+        ->select('name')
+        ->where('group_id', '=', $roster->group_id_4)
+        ->first();
+
 
         return view('roster', [
             'roster' => $roster,
@@ -135,7 +184,11 @@ class RosterController extends Controller
             'caregiver_2' => $caregiver_2,
             'caregiver_3' => $caregiver_3,
             'caregiver_4' => $caregiver_4,
-        ])->with('level', session('level'));
+            'group_1' => $group_1,
+            'group_2' => $group_2,
+            'group_3' => $group_3,
+            'group_4' => $group_4,
+        ])->with('level', session('level'));   
     }
 
     //Display Creating Roster Page
@@ -164,7 +217,11 @@ class RosterController extends Controller
         ->where('roles.level', '=', 4)
         ->get();
 
-        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers])->with('level', session('level'));
+        $groups = DB::table('patient_groups')
+        ->select('group_id', 'name')
+        ->get();
+
+        return view('create_roster', ['date' => $date, 'supervisors' => $supervisors, 'doctors' => $doctors, 'caregivers' => $caregivers, 'groups' => $groups])->with('level', session('level'));
     }
 
     //CreateRoster
@@ -172,11 +229,21 @@ class RosterController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'roster_date' => 'required|date',
+            'supervisor_id' => 'required|numeric',
+            'doctor_id' => 'required|numeric',
+            'caregiver_1_id' => 'required|numeric',
+            'caregiver_2_id' => 'required|numeric',
+            'caregiver_3_id' => 'required|numeric',
+            'caregiver_4_id' => 'required|numeric',
+            'group_id_1' => 'required|numeric',
+            'group_id_2' => 'required|numeric',
+            'group_id_3' => 'required|numeric',
+            'group_id_4' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()
-            ->withErrors(['roster' => 'Invalid Date']);
+            ->withErrors(['roster' => 'Invalid Inputs']);
         }
         
         $roster = Roster::where('date', $request->roster_date)->first();
@@ -190,9 +257,14 @@ class RosterController extends Controller
             'supervisor_id' => $request->supervisor_id,
             'doctor_id' => $request->doctor_id,
             'caregiver_id_1' => $request->caregiver_1_id,
+            'group_id_1' => $request->group_id_1,
             'caregiver_id_2' => $request->caregiver_2_id,
+            'group_id_2' => $request->group_id_2,
             'caregiver_id_3' => $request->caregiver_3_id,
+            'group_id_3' => $request->group_id_3,
             'caregiver_id_4' => $request->caregiver_4_id,
+            'group_id_4' => $request->group_id_4,
+
         ]);
 
         return redirect()->action([RosterController::class, 'create_roster_index']);

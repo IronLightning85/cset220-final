@@ -184,3 +184,46 @@ td button:hover {
     font-size: 18px;  /* Font size */
     margin: 0;  /* Remove margin */
 }
+
+/* General table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+/* Header styling */
+table th {
+    background-color: #4a90e2; /* blueGreen header background */
+    color: white;             /* White text for contrast */
+    padding: 10px;
+    border: 1px solid #ddd;   /* Border for separation */
+}
+
+/* Row styling */
+table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Alternating row colors for better readability */
+table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray */
+}
+
+table tr:nth-child(odd) {
+    background-color: #ffffff; /* White */
+}
+
+
+/* Alert box styling */
+.alert {
+    color: #D8000C;          /* Red for emphasis */
+    background-color: #FFD2D2; /* Light red background */
+    padding: 10px;
+    border: 1px solid #D8000C;
+    margin-top: 10px;
+    border-radius: 4px;
+}

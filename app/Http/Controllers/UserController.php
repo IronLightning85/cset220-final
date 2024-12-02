@@ -128,11 +128,16 @@ class UserController extends Controller
         // Get approved patients with their admission date and name
         $approvedPatients = DB::table('patients')
             ->join('users', 'patients.user_id', '=', 'users.user_id')
+            ->leftJoin('patient_groups', 'patients.group_id', '=', 'patient_groups.group_id')
             ->where('users.approved', 1)
-            ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name')
+            ->select('patients.patient_id', 'patients.admission_date', 'users.first_name', 'users.last_name', 'patient_groups.group_id', 'patient_groups.name')
             ->get();
 
-        return view('approved-patients', compact('approvedPatients'))->with('level', session('level'));
+        $groups = DB::table('patient_groups')
+            ->select('group_id', 'name')
+            ->get();
+
+        return view('approved-patients', compact('approvedPatients', 'groups'))->with('level', session('level'));
     }
 
     public function updateAdmissionDate(Request $request, $patient_id)
@@ -140,12 +145,13 @@ class UserController extends Controller
         // Validate the date input
         $request->validate([
             'admission_date' => 'required|date',
+            'group_id' => 'integer',
         ]);
 
         // Update the admission date for the specified patient
         DB::table('patients')
             ->where('patient_id', $patient_id)
-            ->update(['admission_date' => $request->admission_date]);
+            ->update(['admission_date' => $request->admission_date, 'group_id' => $request->group_id ]);
 
         return redirect()->route('approved-patients')->with('status', 'Admission date updated successfully.');
     }

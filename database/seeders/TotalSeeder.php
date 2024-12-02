@@ -36,11 +36,31 @@ class TotalSeeder extends Seeder
         'salary' => 50000,
     ]);
 
+        DB::table('users')->insert([
+            'user_id' => 18,
+            'first_name' => 'King',
+            'last_name' => 'Poseidon',
+            'phone' => '987-211-9818',
+            'dob' => '1989-12-24',
+            'email' => 'KingPoseidon@gmail.com',
+            'password' => Hash::make('password'),
+            'role_id' => 2, 
+            'approved' => 1,
+        ]);
+        
+
+        DB::table('employees')->insert([
+        'employee_id'=> 13,
+        'user_id' => 18,
+        'salary' => 50000,
+    ]);
 
 
 
 
-    
+
+
+
 
 
 //Doctors
@@ -75,7 +95,7 @@ DB::table('users')->insert([
     'dob' => '1990-08-03',
     'email' => 'GillBill@gmail.com',
     'password' => Hash::make('password'),  
-    'role_id' => 4, 
+    'role_id' => 3, 
     'approved' => 0,
 ]);
 
@@ -86,6 +106,43 @@ DB::table('employees')->insert([
 'salary' => 50000,
 ]);
 
+DB::table('users')->insert([
+    'user_id' => 19,
+    'first_name' => 'Robot',
+    'last_name' => 'Mantis',
+    'phone' => '488-904-4518',
+    'dob' => '1986-04-01',
+    'email' => 'Robotmantis@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 3,
+    'approved' => 1,
+]);
+
+DB::table('employees')->insert([
+    'employee_id' => 11,
+    'user_id' => 19,
+    'salary' => 65000,
+]);
+
+
+
+DB::table('users')->insert([
+    'user_id' => 17,
+    'first_name' => 'Sinister',
+    'last_name' => 'Slug',
+    'phone' => '111-554-7772',
+    'dob' => '2000-01-12',
+    'email' => 'slug@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 3,
+    'approved' => 1,
+]);
+
+DB::table('employees')->insert([
+    'employee_id' => 12,
+    'user_id' => 17,
+    'salary' => 65000,
+]);
 
 
 
@@ -184,6 +241,42 @@ DB::table('employees')->insert([
     'salary' => 60000,
 ]);
 
+
+DB::table('users')->insert([
+    'user_id' => 15,
+    'first_name' => 'Dirty',
+    'last_name' => 'Bubble',
+    'phone' => '811-354-1875',
+    'dob' => '1996-06-21',
+    'email' => 'Dirtybubble@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 4,
+    'approved' => 1,
+]);
+
+DB::table('employees')->insert([
+    'employee_id' => 9,
+    'user_id' => 15,
+    'salary' => 50000,
+]);
+
+DB::table('users')->insert([
+    'user_id' => 16,
+    'first_name' => 'Man',
+    'last_name' => 'Ray',
+    'phone' => '435-121-1152',
+    'dob' => '1996-09-20',
+    'email' => 'ManRay@gmail.com',
+    'password' => Hash::make('password'),
+    'role_id' => 4,
+    'approved' => 1,
+]);
+
+DB::table('employees')->insert([
+    'employee_id' => 10,
+    'user_id' => 16,
+    'salary' => 50000,
+]);
 
 
 
@@ -301,7 +394,7 @@ DB::table('users')->insert([
     'first_name' => 'Squilliam ',
     'last_name' => 'Fancyson',
     'phone' => '491-477-8865',
-    'dob' => '2001-02-24',
+    'dob' => '1999-02-24',
     'email' => 'SFancyson@gmail.com',
     'password' => Hash::make('password'),
     'role_id' => 6,
