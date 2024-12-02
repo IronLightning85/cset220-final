@@ -82,5 +82,4 @@ class PatientController extends Controller
 
         return view('patients', ['patients' => $search_patients])->with('level', session('level'));
     }
-
 }

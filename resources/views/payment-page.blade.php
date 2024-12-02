@@ -3,13 +3,6 @@
 @section('content')
 <h2>Payment Page</h2>
 
-<!-- Display status messages -->
-@if (session('status'))
-    <p style="color: green;">{{ session('status') }}</p>
-@elseif (session('error'))
-    <p style="color: red;">{{ session('error') }}</p>
-@endif
-
 <!-- Show total amount due -->
 <p>Total Amount Due: ${{ number_format($patient->total_amount_due, 2) }}</p>
 
