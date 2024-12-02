@@ -90,6 +90,10 @@ Route::get('/payment', [UserController::class, 'showPaymentPage'])->name('paymen
 
 Route::post('/make-payment', [UserController::class, 'processPayment'])->name('process-payment');
 
+Route::get('/payments', [UserController::class, 'showPaymentsPage'])->name('payments');
+
+Route::post('/payments/update', [UserController::class, 'updatePayments'])->name('payments-update');
+
 Route::post('/update-role/{user_id}', [UserController::class, 'updateRole'])->name('update-role');
 
 Route::get('/approved-users', [UserController::class, 'showApprovedUsers'])->name('approved-users');

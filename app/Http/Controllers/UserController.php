@@ -235,4 +235,29 @@ class UserController extends Controller
     
         return redirect()->back()->with('success', 'Charges applied successfully.');
     }
+
+    public function showPaymentsPage()
+    {
+        $patients = DB::table('patients')
+            ->join('users', 'patients.user_id', '=', 'users.user_id') // Adjust to match your `users` table structure
+            ->select('patients.patient_id', 'users.first_name', 'users.last_name', 'patients.total_amount_due')
+            ->get();
+    
+        return view('payments', compact('patients'))->with('level', session('level'));
+    }
+
+    public function updatePayments(Request $request)
+    {
+        $payments = $request->input('payments'); // Array: patient_id => payment_amount
+    
+        foreach ($payments as $patientId => $paymentAmount) {
+            if (!empty($paymentAmount) && is_numeric($paymentAmount) && $paymentAmount > 0) {
+                DB::table('patients')
+                    ->where('patient_id', $patientId)
+                    ->decrement('total_amount_due', $paymentAmount);
+            }
+        }
+    
+        return redirect()->back()->with('success', 'Payments updated successfully!');
+    }
 }
