@@ -240,19 +240,19 @@ class RosterController extends Controller
             'group_id_3' => 'required|numeric',
             'group_id_4' => 'required|numeric',
         ]);
-
+    
         if ($validator->fails()) {
-            return redirect()->back()
-            ->withErrors(['roster' => 'Invalid Inputs']);
+            return redirect()->back()->withErrors(['roster' => 'Invalid Inputs']);
         }
-        
+    
         $roster = Roster::where('date', $request->roster_date)->first();
-
-        if($roster) {
+    
+        if ($roster) {
             return redirect()->back()->withErrors(['roster' => 'Roster Date Already in Use']);
         }
-
-        Roster::create([
+    
+        // Create the new roster
+        $roster = Roster::create([
             'date' => $request->roster_date,
             'supervisor_id' => $request->supervisor_id,
             'doctor_id' => $request->doctor_id,
@@ -264,11 +264,33 @@ class RosterController extends Controller
             'group_id_3' => $request->group_id_3,
             'caregiver_id_4' => $request->caregiver_4_id,
             'group_id_4' => $request->group_id_4,
-
         ]);
-
+    
+        // Fetch all admitted patients
+        $patients = DB::table('patients')
+            ->select('patient_id')
+            ->whereNotNull('admission_date') // Ensure the patient is admitted
+            ->get();
+    
+        // Insert patient_daily_activities entries for the specific date
+        $data = [];
+        foreach ($patients as $patient) {
+            $data[] = [
+                'patient_id' => $patient->patient_id,
+                'morning' => 0,
+                'afternoon' => 0,
+                'night' => 0,
+                'breakfast' => 0,
+                'lunch' => 0,
+                'dinner' => 0,
+                'date' => $request->roster_date,
+            ];
+        }
+    
+        if (!empty($data)) {
+            DB::table('patient_daily_activities')->insert($data);
+        }
+    
         return redirect()->action([RosterController::class, 'create_roster_index']);
-
-        
     }
 }
