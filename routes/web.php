@@ -22,6 +22,9 @@ use App\Http\Controllers\FamilymemberController;
 
 use App\Http\Controllers\RosterController;
 
+use App\Http\Controllers\AppointmentController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -123,3 +126,10 @@ Route::get('/caregiver-home', [RosterController::class, 'index']);
 Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregiver-home');
 
 Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
+
+
+//Appointment Routes
+Route::get('/appointment', [AppointmentController::class, 'index']);
+Route::get('/get-doctors/{date}', [AppointmentController::class, 'getDoctorsByDate']);
+Route::get('/get-patient/{id}', [AppointmentController::class, 'getPatientDetails']);
+Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment');
