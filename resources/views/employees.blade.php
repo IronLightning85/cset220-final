@@ -9,6 +9,11 @@
     <p>{{ session('status') }}</p>
 @endif
 
+@if ($errors->has('input'))
+    <br>
+    <div class="alert">{{ $errors->first('input') }}</div>
+@endif
+
 <table border="1">
     <tr>
 
@@ -37,6 +42,8 @@
     <input type="number" name="employee_id" id="employee_id" placeholder = "Enter Employee ID" required>
     <input type="number" name="salary" id="salary" placeholder = "Enter New Salary" required>
 </form>
+
+<br><br><br><br><br><br><br><br><br><br>
     
 
 @endsection
