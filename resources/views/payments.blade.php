@@ -31,8 +31,8 @@
             </tbody>
         </table>
         <button type="submit" class="btn btn-success">Ok</button>
-        <button onclick="location.href='{{ url('home') }}'">Cancel</button>
     </form>
+    <button onclick="location.href='{{ url('home') }}'">Cancel</button>
     <form action="{{ route('apply-charges') }}" method="POST">
         @csrf
         <button type="submit" class="btn btn-warning">Apply Daily Charges</button>

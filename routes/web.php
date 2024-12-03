@@ -24,18 +24,7 @@ use App\Http\Controllers\RosterController;
 
 use App\Http\Controllers\AppointmentController;
 
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use App\Http\Controllers\CaregiverActivityController;
 
 Route::get('/', function () {
     $level = session('level', null); // Check if the user has a level in the session
@@ -76,14 +65,15 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee')
 Route::get('/role', [RoleController::class, 'index']);
 
 Route::post('/role', [RoleController::class, 'store'])->name('role');
-
+$name = session('first_name', null); 
 
 
 // Home route   
 
 Route::get('/home', function () {
     $level = session('level', null); // Check if the user has a level in the session
-    return view('home', compact('level')); // Pass the level to the view
+    $first_name = session('first_name'); // Check if the user has a name in the session
+    return view('home', compact('first_name'), compact('level')); // Pass the level and name to the view
 })->name('home');
 
 
@@ -110,9 +100,10 @@ Route::post('/update-admission-date/{patient_id}', [UserController::class, 'upda
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //Roster
-Route::get('/roster', [RosterController::class, 'index']); //get todays roster
 
-Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('roster'); //get todays roster
+Route::get('/roster', [RosterController::class, 'index']); //Get today's roster
+
+Route::post('/roster', [RosterController::class, 'specificDateRoster'])->name('roster'); //Get today's roster
 
 Route::get('/create-roster', [RosterController::class, 'create_roster_index']);
 
@@ -121,15 +112,21 @@ Route::post('/create-roster', [RosterController::class, 'store'])->name('create_
 Route::post('/apply-charges', [UserController::class, 'applyDailyCharges'])->name('apply-charges');
 
 //Caregiver Home
+
 Route::get('/caregiver-home', [RosterController::class, 'index']);
 
 Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregiver-home');
 
 Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
 
-
 //Appointment Routes
 Route::get('/appointment', [AppointmentController::class, 'index']);
 Route::get('/get-doctors/{date}', [AppointmentController::class, 'getDoctorsByDate']);
 Route::get('/get-patient/{id}', [AppointmentController::class, 'getPatientDetails']);
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment');
+
+//Daily Activities
+Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPatientsWithActivities'])->name('showDailyActivities');
+
+Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
+

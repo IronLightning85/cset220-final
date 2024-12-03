@@ -33,7 +33,6 @@
 <!-- Conditional content based on user role level -->
                 @if($level == 1)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
-                    <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
@@ -43,7 +42,6 @@
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
-                    <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
@@ -60,6 +58,7 @@
                 @elseif($level == 5)
                     <td><button onclick="location.href='{{ url('family') }}'">Family Home</button></td>
                 @elseif($level == 6)
+                    <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
                     <td><button onclick="location.href='{{ url('patient-home') }}'">Patient Home</button></td>
                 @else
             <div class="error-nav">

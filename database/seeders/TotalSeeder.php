@@ -308,6 +308,17 @@ DB::table('patients')->insert([
     
 ]);
 
+DB::table('patient_daily_activities')->insert([
+    'id' => 9,
+    'patient_id' => 9,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => curdate(), 
+]);
 
 
 

@@ -1,0 +1,114 @@
+body, h1, h3, ul, li, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #e8efff;
+    padding-top: 50px; /* Ensure some space at the top */
+}
+
+/* Logo styling */
+.logo {
+    width: 100%; 
+    height: 350px; 
+    overflow: hidden; 
+}
+
+.logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Navigation styling */
+nav {
+    background-color: #2c3e50;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.nav {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+nav button {
+    background: #ffffff;
+    color: #4a90e2;
+    border: 2px solid #4a90e2;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 25px;
+    transition: all 0.3s ease-in-out;
+}
+
+nav button:hover {
+    background: #d6dee7;
+    color: #000000;
+}
+
+/* Flex layout for content */
+.content-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-between;
+    margin: 0 20px;
+}
+
+/* Model section */
+.model-section {
+    flex: 1;
+    height: 400px;
+    max-width: 50%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Canvas for the 3D model */
+canvas#3d-model {
+    width: 100%;
+    height: 100%;
+}
+
+/* Description section */
+.description {
+    flex: 1;
+    max-width: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.description img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.description p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Footer styles */
+.footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

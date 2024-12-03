@@ -33,6 +33,8 @@ class AuthController extends Controller
         if ($user && Hash::check($request->password, $user->password)) {
             // Store the user's ID in the session
             session(['user_id' => $user->user_id]);
+
+            session(['first_name' => $user->first_name]);
     
             // Store the user's level in the session (if needed)
             session(['level' => $user->role->level]);
@@ -56,5 +58,5 @@ class AuthController extends Controller
         return redirect('/login')->with('message', 'You have been logged out successfully.');
     }
 
-
+    
 }
