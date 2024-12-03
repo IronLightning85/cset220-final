@@ -227,3 +227,42 @@ table tr:nth-child(odd) {
     margin-top: 10px;
     border-radius: 4px;
 }
+
+/* Content container styling */
+.content-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+    justify-content: space-between; /* Distribute cards with space in between */
+    gap: 20px; /* Space between cards */
+    padding: 20px; /* Padding around the container */
+    margin: 0 auto; /* Center the content horizontally */
+    max-width: 1200px; /* Limit the width for better layout */
+}
+
+/* Individual card styling */
+.model-section, .description {
+    flex: 1; /* Let both sections take up equal space */
+    max-width: 48%; /* Limit the width of each card */
+    background-color: #ffffff; /* White background for contrast */
+    padding: 20px; /* Padding inside the cards */
+    border-radius: 10px; /* Rounded corners for aesthetic */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for emphasis */
+    display: flex; /* Align items in a column */
+    flex-direction: column; /* Stack image and text */
+
+}
+
+/* Image within cards */
+.model-section img, .description img {
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Keep aspect ratio */
+    border-radius: 10px; /* Rounded corners for images */
+}
+
+/* Text styling in description */
+.description p {
+    color: #333; /* Dark text for contrast */
+    font-size: 1rem; /* Readable font size */
+    line-height: 1.6; /* Better line spacing */
+    margin-top: 10px; /* Space between image and text */
+}
