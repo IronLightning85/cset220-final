@@ -73,14 +73,15 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee')
 Route::get('/role', [RoleController::class, 'index']);
 
 Route::post('/role', [RoleController::class, 'store'])->name('role');
-
+$name = session('first_name', null); 
 
 
 // Home route   
 
 Route::get('/home', function () {
     $level = session('level', null); // Check if the user has a level in the session
-    return view('home', compact('level')); // Pass the level to the view
+    $first_name = session('first_name'); // Check if the user has a name in the session
+    return view('home', compact('first_name'), compact('level')); // Pass the level and name to the view
 })->name('home');
 
 
