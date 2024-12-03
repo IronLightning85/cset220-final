@@ -22,17 +22,9 @@ use App\Http\Controllers\FamilymemberController;
 
 use App\Http\Controllers\RosterController;
 
-use App\Http\Controllers\CaregiverActivityController;
+use App\Http\Controllers\AppointmentController;
 
-// I know you guys will find this, so let me clarify: the words are spelled like this
-// "Doctor"
-// "Independent"
-// "Shady Shoals"
-// Not:
-// "Docter"
-// "Independant"
-// "Shady Shoal's"
-// This bothers me more than you'd think
+use App\Http\Controllers\CaregiverActivityController;
 
 Route::get('/', function () {
     $level = session('level', null); // Check if the user has a level in the session
@@ -127,6 +119,14 @@ Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregi
 
 Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
 
+//Appointment Routes
+Route::get('/appointment', [AppointmentController::class, 'index']);
+Route::get('/get-doctors/{date}', [AppointmentController::class, 'getDoctorsByDate']);
+Route::get('/get-patient/{id}', [AppointmentController::class, 'getPatientDetails']);
+Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment');
+
+//Daily Activities
 Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPatientsWithActivities'])->name('showDailyActivities');
 
 Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
+
