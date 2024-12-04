@@ -40,6 +40,7 @@
                     <td><button onclick="location.href='{{ url('appointment') }}'">Doctor's Appoinment</button></td>
                     <td><button onclick="location.href='{{ url('payments') }}'">Patient Balance</button></td>
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
+                    <td><button onclick="location.href='{{ url('approved-patients') }}'">Patient Additions</button></td>
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
