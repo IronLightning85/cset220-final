@@ -130,3 +130,8 @@ Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPat
 
 Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
 
+//family home
+
+Route::get('/family', [FamilyMemberController::class, 'index'])->name('family.index');
+
+Route::post('/family', [FamilyMemberController::class, 'specificDateFamily'])->name('family.specificDateFamily');
