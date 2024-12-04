@@ -132,3 +132,4 @@ Route::post('/daily-activities/update', [CaregiverActivityController::class, 'up
 
 //Doctors Routes
 Route::get('doctors-home', [AppointmentController::class, 'doctorIndex'])->name('doctors-home');
+Route::post('filterAppointments', [AppointmentController::class, 'filterAppointments'])->name('filterAppointments');
