@@ -24,18 +24,22 @@
             <th>Afternoon Med</th>
             <th>Night Med</th>
             <th></th>
+            <th></th>
         </tr>
 
         <tr>
-            <form action=" {{route('filterAppointments')}}">
+            <form action="{{ route('filterAppointments') }}" method="GET">                
                 <td><input type="text" name="patient_name" id="patient_name" placeholder="Enter Patient Name"></td>
-                <td><input type="date"></td>
+                <td><input type="date" name="date"></td>
                 <td><input type="text" name="comment" id="comment" placeholder="Enter Comment"></td>
                 <td><input type="text" name="morning_med" id="morning_med" placeholder="Enter Morning Med"></td>
                 <td><input type="text" name="afternoon_med" id="afternoon_med" placeholder="Enter Afternoon Med"></td>
                 <td><input type="text" name="night_med" id="night_med" placeholder="Enter Night Med"></td>
                 <td><button type="submit">Filter Appointments</button></td>
             </form>
+
+            <td><button onclick="location.href='{{ url('doctors-home') }}'">Reset Filters</button></td>
+
 
         </tr>
     </table>
