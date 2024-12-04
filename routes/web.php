@@ -22,17 +22,9 @@ use App\Http\Controllers\FamilymemberController;
 
 use App\Http\Controllers\RosterController;
 
-use App\Http\Controllers\CaregiverActivityController;
+use App\Http\Controllers\AppointmentController;
 
-// I know you guys will find this, so let me clarify: the words are spelled like this
-// "Doctor"
-// "Independent"
-// "Shady Shoals"
-// Not:
-// "Docter"
-// "Independant"
-// "Shady Shoal's"
-// This bothers me more than you'd think
+use App\Http\Controllers\CaregiverActivityController;
 
 Route::get('/', function () {
     $level = session('level', null); // Check if the user has a level in the session
@@ -73,14 +65,15 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee')
 Route::get('/role', [RoleController::class, 'index']);
 
 Route::post('/role', [RoleController::class, 'store'])->name('role');
-
+$name = session('first_name', null); 
 
 
 // Home route   
 
 Route::get('/home', function () {
     $level = session('level', null); // Check if the user has a level in the session
-    return view('home', compact('level')); // Pass the level to the view
+    $first_name = session('first_name'); // Check if the user has a name in the session
+    return view('home', compact('first_name'), compact('level')); // Pass the level and name to the view
 })->name('home');
 
 
@@ -126,6 +119,14 @@ Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregi
 
 Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
 
+//Appointment Routes
+Route::get('/appointment', [AppointmentController::class, 'index']);
+Route::get('/get-doctors/{date}', [AppointmentController::class, 'getDoctorsByDate']);
+Route::get('/get-patient/{id}', [AppointmentController::class, 'getPatientDetails']);
+Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment');
+
+//Daily Activities
 Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPatientsWithActivities'])->name('showDailyActivities');
 
 Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
+

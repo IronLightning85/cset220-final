@@ -16,7 +16,7 @@
 
 <table border="1">
     <tr>
-        <th></th>
+
         <th>Employee ID</th>
         <th>Name</th>
         <th>Role</th>
@@ -25,7 +25,6 @@
 
     @foreach ($employees as $employee)
         <tr>
-            <td></td>
             <td>{{ $employee->employee_id }}</td>
             <td>{{ $employee->first_name }} {{ $employee->last_name }}</td>
             <td>{{ $employee->role_name }}</td>
