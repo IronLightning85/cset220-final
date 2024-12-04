@@ -317,8 +317,9 @@ DB::table('patient_daily_activities')->insert([
     'breakfast' => 0,
     'lunch' => 0,
     'dinner' => 0,
-    'date' => curdate(), 
+    'date' => '2024-12-1', 
 ]);
+
 
 
 
@@ -344,6 +345,18 @@ DB::table('patients')->insert([
     'admission_date' => '2024-03-16',
     'total_amount_due' => 100,
 
+]);
+
+DB::table('patient_daily_activities')->insert([
+    'id' => 10,
+    'patient_id' => 10,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => '2024-12-1', 
 ]);
 
 
@@ -373,6 +386,18 @@ DB::table('patients')->insert([
     
 ]);
 
+DB::table('patient_daily_activities')->insert([
+    'id' => 11,
+    'patient_id' => 11,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => '2024-12-1', 
+]);
+
 
 
 
@@ -400,6 +425,18 @@ DB::table('patients')->insert([
 
 ]);
 
+DB::table('patient_daily_activities')->insert([
+    'id' => 12,
+    'patient_id' => 12,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => '2024-12-1', 
+]);
+
 DB::table('users')->insert([
     'user_id' => 13,
     'first_name' => 'Squilliam ',
@@ -424,6 +461,18 @@ DB::table('patients')->insert([
 
 ]);
 
+DB::table('patient_daily_activities')->insert([
+    'id' => 13,
+    'patient_id' => 13,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => '2024-12-1', 
+]);
+
 DB::table('users')->insert([
     'user_id' => 14,
     'first_name' => 'Dorsal',
@@ -446,6 +495,18 @@ DB::table('patients')->insert([
     'admission_date' => '2024-04-10',
     'total_amount_due' => 50,
 
+]);
+
+DB::table('patient_daily_activities')->insert([
+    'id' => 14,
+    'patient_id' => 14,
+    'morning' => 0,
+    'afternoon' => 0,
+    'night' => 0,
+    'breakfast' => 0,
+    'lunch' => 0,
+    'dinner' => 0,
+    'date' => '2024-12-1', 
 ]);
 
 

@@ -132,3 +132,8 @@ Route::post('/daily-activities/update', [CaregiverActivityController::class, 'up
 
 //Doctors Routes
 Route::get('doctors-home', [AppointmentController::class, 'doctorIndex'])->name('doctors-home');
+
+//family home
+Route::get('/family', [FamilyMemberController::class, 'index'])->name('family.index');
+Route::post('/family', [FamilyMemberController::class, 'specificDateFamily'])->name('family.specificDateFamily');
+
