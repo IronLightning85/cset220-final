@@ -55,12 +55,13 @@
                     <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
                     <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctors Appoinment</button></td>
                 @elseif($level == 3)
-                    <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctors Home</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-patient') }}'">Doctors Patient</button></td>
+                    <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctor's Home</button></td>
+                    <td><button onclick="location.href='{{ url('doctors-patient') }}'">Doctor's Patient</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                 @elseif($level == 4)
                 <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                 <td><button onclick="location.href='{{ url('caregiver-home') }}'">Caregiver Home</button></td>
+                <td><button onclick="location.href='{{ url('daily-activities') }}'">Daily Activities</button></td>
                 @elseif($level == 5)
                     <td><button onclick="location.href='{{ url('family') }}'">Family Home</button></td>
                 @elseif($level == 6)
