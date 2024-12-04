@@ -13,9 +13,9 @@
                 <thead>
                     <tr>
                         <th>Patient Name</th>
-                        <th>Morning</th>
-                        <th>Afternoon</th>
-                        <th>Night</th>
+                        <th>Morning Medication</th>
+                        <th>Afternoon Medication</th>
+                        <th>Night Medication</th>
                         <th>Breakfast</th>
                         <th>Lunch</th>
                         <th>Dinner</th>

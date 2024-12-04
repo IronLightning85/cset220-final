@@ -60,6 +60,7 @@
                 @elseif($level == 4)
                 <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                 <td><button onclick="location.href='{{ url('caregiver-home') }}'">Caregiver Home</button></td>
+                <td><button onclick="location.href='{{ url('daily-activities') }}'">Daily Activities</button></td>
                 @elseif($level == 5)
                     <td><button onclick="location.href='{{ url('family') }}'">Family Home</button></td>
                 @elseif($level == 6)

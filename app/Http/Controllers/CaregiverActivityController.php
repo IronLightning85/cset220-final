@@ -14,12 +14,12 @@ class CaregiverActivityController extends Controller
     {
         // Get the caregiver's user_id from the session
         $userId = session('user_id');
-
+    
         // Query the employees table to get the employee_id
         $caregiverId = DB::table('employees')
             ->where('user_id', $userId)
             ->value('employee_id');
-
+    
         // Fetch the caregiver's assigned group for the current date from the rosters table
         $today = now()->toDateString();
         $caregiverGroup = DB::table('rosters')
@@ -39,30 +39,35 @@ class CaregiverActivityController extends Controller
                 END AS group_id
             "))
             ->first();
-
+    
         // If no group is assigned, return an empty patient list
         if (!$caregiverGroup) {
             $patients = [];
             return view('daily_activities', compact('patients'))->with('level', session('level'));
         }
-
-        // Fetch all patients in the caregiver's assigned group with their daily activities
-        $patients = Patient::where('group_id', $caregiverGroup->group_id)
-        ->leftJoin('users', 'patients.user_id', '=', 'users.user_id')
-        ->leftJoin('patient_daily_activities', 'patients.patient_id', '=', 'patient_daily_activities.patient_id')
-        ->select(
-            'patients.patient_id',
-            'users.first_name',
-            'users.last_name',
-            'patient_daily_activities.morning',
-            'patient_daily_activities.afternoon',
-            'patient_daily_activities.night',
-            'patient_daily_activities.breakfast',
-            'patient_daily_activities.lunch',
-            'patient_daily_activities.dinner'
-        )
-        ->get();
-
+    
+        // Fetch all patients in the caregiver's assigned group with their daily activities for today
+        $patients = DB::table('patients')
+            ->where('patients.group_id', $caregiverGroup->group_id)
+            ->join('users', 'patients.user_id', '=', 'users.user_id')
+            ->leftJoin('patient_daily_activities', function ($join) use ($today) {
+                $join->on('patients.patient_id', '=', 'patient_daily_activities.patient_id')
+                     ->where('patient_daily_activities.date', '=', $today);
+            })
+            ->select(
+                'patients.patient_id',
+                'users.first_name',
+                'users.last_name',
+                'patient_daily_activities.morning',
+                'patient_daily_activities.afternoon',
+                'patient_daily_activities.night',
+                'patient_daily_activities.breakfast',
+                'patient_daily_activities.lunch',
+                'patient_daily_activities.dinner'
+            )
+            ->get();
+    
+        // Return the view with the patients and caregiver level
         return view('daily_activities', compact('patients'))->with('level', session('level'));
     }
 
@@ -70,11 +75,12 @@ class CaregiverActivityController extends Controller
     public function updateDailyActivities(Request $request)
     {
         $activities = $request->input('activities', []);
-
+        $today = now()->toDateString();
+    
         foreach ($activities as $patientId => $activity) {
             DB::table('patient_daily_activities')
                 ->updateOrInsert(
-                    ['patient_id' => $patientId],
+                    ['patient_id' => $patientId, 'date' => $today],
                     [
                         'morning' => isset($activity['morning']),
                         'afternoon' => isset($activity['afternoon']),
@@ -82,10 +88,11 @@ class CaregiverActivityController extends Controller
                         'breakfast' => isset($activity['breakfast']),
                         'lunch' => isset($activity['lunch']),
                         'dinner' => isset($activity['dinner']),
+                        'updated_at' => now(),
                     ]
                 );
         }
-
-        return redirect()->back()->with('success', 'Daily activities updated successfully.');
+    
+        return redirect()->back()->with('success', 'Daily activities updated successfully for today.');
     }
 }
