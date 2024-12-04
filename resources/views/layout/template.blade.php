@@ -36,31 +36,23 @@
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
-                    <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
                     <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
                     <td><button onclick="location.href='{{ url('payments') }}'">Patient Balance</button></td>
-
-                    {{-- Please Just Keep This Code In Case Something Breaks, Nick Knows What It Is For --}}
-                    {{-- <form action="{{ route('apply-charges') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-warning">Apply Daily Charges</button>
-                    </form> --}}
-
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
+                    <td><button onclick="location.href='{{ url('activities-for-date') }}'">Admin Report</button></td>
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
-                    <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctors Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('activities-for-date') }}'">Admin Report</button></td>
                 @elseif($level == 3)
                     <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctors Home</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                 @elseif($level == 4)
                 <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
-                <td><button onclick="location.href='{{ url('caregiver-home') }}'">Caregiver Home</button></td>
-                <td><button onclick="location.href='{{ url('daily-activities') }}'">Daily Activities</button></td>
+                <td><button onclick="location.href='{{ url('daily-activities') }}'">Caregiver Home</button></td>
                 @elseif($level == 5)
                     <td><button onclick="location.href='{{ url('family') }}'">Family Home</button></td>
                 @elseif($level == 6)

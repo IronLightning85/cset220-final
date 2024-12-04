@@ -37,5 +37,6 @@
         @csrf
         <button type="submit" class="btn btn-warning">Apply Daily Charges</button>
     </form>
+    <br><br><br>
 </div>
 @endsection

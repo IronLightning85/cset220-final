@@ -311,12 +311,12 @@ DB::table('patients')->insert([
 DB::table('patient_daily_activities')->insert([
     'id' => 9,
     'patient_id' => 9,
-    'morning' => 0,
-    'afternoon' => 0,
+    'morning' => 1,
+    'afternoon' => 1,
     'night' => 0,
-    'breakfast' => 0,
+    'breakfast' => 1,
     'lunch' => 0,
-    'dinner' => 0,
+    'dinner' => 1,
     'date' => '2024-12-1', 
 ]);
 
@@ -350,12 +350,12 @@ DB::table('patients')->insert([
 DB::table('patient_daily_activities')->insert([
     'id' => 10,
     'patient_id' => 10,
-    'morning' => 0,
-    'afternoon' => 0,
-    'night' => 0,
-    'breakfast' => 0,
+    'morning' => 1,
+    'afternoon' => 1,
+    'night' => 1,
+    'breakfast' => 1,
     'lunch' => 0,
-    'dinner' => 0,
+    'dinner' => 1,
     'date' => '2024-12-1', 
 ]);
 
@@ -389,11 +389,11 @@ DB::table('patients')->insert([
 DB::table('patient_daily_activities')->insert([
     'id' => 11,
     'patient_id' => 11,
-    'morning' => 0,
-    'afternoon' => 0,
-    'night' => 0,
+    'morning' => 1,
+    'afternoon' => 1,
+    'night' => 1,
     'breakfast' => 0,
-    'lunch' => 0,
+    'lunch' => 1,
     'dinner' => 0,
     'date' => '2024-12-1', 
 ]);
@@ -428,12 +428,12 @@ DB::table('patients')->insert([
 DB::table('patient_daily_activities')->insert([
     'id' => 12,
     'patient_id' => 12,
-    'morning' => 0,
-    'afternoon' => 0,
-    'night' => 0,
-    'breakfast' => 0,
+    'morning' => 1,
+    'afternoon' => 1,
+    'night' => 1,
+    'breakfast' => 1,
     'lunch' => 0,
-    'dinner' => 0,
+    'dinner' => 1,
     'date' => '2024-12-1', 
 ]);
 
@@ -465,11 +465,11 @@ DB::table('patient_daily_activities')->insert([
     'id' => 13,
     'patient_id' => 13,
     'morning' => 0,
-    'afternoon' => 0,
-    'night' => 0,
-    'breakfast' => 0,
-    'lunch' => 0,
-    'dinner' => 0,
+    'afternoon' => 1,
+    'night' => 1,
+    'breakfast' => 1,
+    'lunch' => 1,
+    'dinner' => 1,
     'date' => '2024-12-1', 
 ]);
 
@@ -500,12 +500,12 @@ DB::table('patients')->insert([
 DB::table('patient_daily_activities')->insert([
     'id' => 14,
     'patient_id' => 14,
-    'morning' => 0,
-    'afternoon' => 0,
+    'morning' => 1,
+    'afternoon' => 1,
     'night' => 0,
-    'breakfast' => 0,
+    'breakfast' => 1,
     'lunch' => 0,
-    'dinner' => 0,
+    'dinner' => 1,
     'date' => '2024-12-1', 
 ]);
 
