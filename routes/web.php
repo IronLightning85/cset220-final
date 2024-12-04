@@ -130,3 +130,5 @@ Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPat
 
 Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
 
+//Doctors Routes
+Route::get('doctors-home', [AppointmentController::class, 'doctorIndex'])->name('doctors-home');
