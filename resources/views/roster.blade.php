@@ -28,7 +28,7 @@
         <tr>
             <th>Supervisor</th>
             <th>Doctor</th>
-            <th>Caregiver 1/ Assigned Group</th>
+            <th>Caregiver 1 / Assigned Group</th>
             <th>Caregiver 2 / Assigned Group</th>
             <th>Caregiver 3 / Assigned Group</th>
             <th>Caregiver 4 / Assigned Group</th>

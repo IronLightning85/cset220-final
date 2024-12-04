@@ -71,4 +71,5 @@ document.addEventListener('DOMContentLoaded', function () {
         </tr>
     @endforeach
 </table>
+<br><br><br>
 @endsection

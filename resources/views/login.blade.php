@@ -31,6 +31,8 @@
         <button type="submit">Login</button>
     </form>
 
+    <br><br><br>
+    
     @if ($errors->has('login'))
     <div class="alert">{{ $errors->first('login') }}</div>
     @endif
