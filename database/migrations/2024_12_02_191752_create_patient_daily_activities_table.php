@@ -18,7 +18,7 @@ return new class extends Migration
             $table->boolean('breakfast')->default(false);
             $table->boolean('lunch')->default(false);
             $table->boolean('dinner')->default(false);
-            $table->date('date')->default(DB::raw('CURRENT_DATE'));
+            $table->date('date');
             $table->timestamps();
     
             // Foreign key constraints
