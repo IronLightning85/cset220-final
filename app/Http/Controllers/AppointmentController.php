@@ -93,29 +93,32 @@ class AppointmentController extends Controller
         $user_id = session('user_id');
         $employee = db::table('users')
         ->join('employees', 'users.user_id', '=', 'employees.user_id')
-        ->select('employee_id')
+        ->select('employees.employee_id')
+        ->where('users.user_id', $user_id)
         ->first();
-        dd($employee);
-
-
 
         if ($employee) {
             $employee_id = $employee->employee_id; // Extract the employee_id value
-            dd($employee_id);
         
             // Fetch old appointments
             $appointments_old = DB::table('appointments')
-                ->where('doctor_id', '=', $employee_id) // Use the extracted value
+                ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
+                ->join('users', 'patients.user_id', '=', 'users.user_id')
+                ->where('doctor_id', '=', $employee_id)
                 ->where('date', '<', now()->toDateString())
-                ->orderBy('date', 'desc') // Order by the date in descending order
+                ->orderBy('date', 'asc')
                 ->limit(10)
+                ->select('appointments.*', 'users.first_name', 'users.last_name')
                 ->get();
 
             $appointments_upcoming = DB::table('appointments')
-            ->where('doctor_id', '=', $employee_id)
-            ->where('date', '>=', now()->toDateString()) // Start from the beginning of today
-            ->orderBy('date', 'desc') // Order by the date in descending order
-            ->get(); // Fetch all matching results
+                ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
+                ->join('users', 'patients.user_id', '=', 'users.user_id')
+                ->where('doctor_id', '=', $employee_id)
+                ->where('date', '>=', now()->toDateString())
+                ->orderBy('date', 'asc')
+                ->select('appointments.*', 'users.first_name', 'users.last_name')
+                ->get();
 
             return view('doctors-home', [
                 'appointments_old' => $appointments_old,
@@ -127,6 +130,20 @@ class AppointmentController extends Controller
         else {
             return view('doctors-home')->withErrors(['error' => 'Error finding your information. Please contact our representative'])->with('level', session('level'));            
         }
+        
     }
+
+
+    public function filterAppointments(Request $request){
+
+        //search by inputs
+
+        return view('doctors-home', [
+            'appointments_old' => $appointments_old,
+            'appointments_upcoming' => $appointments_upcoming,
+            'level' => session('level')
+        ]);
+    }
+
 }
 

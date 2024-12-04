@@ -14,7 +14,35 @@
     <div class="alert">{{ $errors->first('error') }}</div>
 @else
 
-    @if ($appointments_old)
+    <h3>Filter Appointments</h3>
+    <table>
+        <tr>
+            <th>Patient Name</th>
+            <th>Date</th>
+            <th>Comment</th>
+            <th>Morning Med</th>
+            <th>Afternoon Med</th>
+            <th>Night Med</th>
+            <th></th>
+        </tr>
+
+        <tr>
+            <form action=" {{route('filterAppointments')}}">
+                <td><input type="text" name="patient_name" id="patient_name" placeholder="Enter Patient Name"></td>
+                <td><input type="date"></td>
+                <td><input type="text" name="comment" id="comment" placeholder="Enter Comment"></td>
+                <td><input type="text" name="morning_med" id="morning_med" placeholder="Enter Morning Med"></td>
+                <td><input type="text" name="afternoon_med" id="afternoon_med" placeholder="Enter Afternoon Med"></td>
+                <td><input type="text" name="night_med" id="night_med" placeholder="Enter Night Med"></td>
+                <td><button type="submit">Filter Appointments</button></td>
+            </form>
+
+        </tr>
+    </table>
+
+    <br><br>
+
+    @if (!$appointments_old->isEmpty())
         <h3>Old Appointments</h3>
         <table>
             <tr><th>Patient Name</th>
@@ -26,10 +54,46 @@
             </tr>
 
             @foreach ($appointments_old as $appointment)
-                <tr></tr>
-                <tr>{{$appointment->$date}}</tr>
+                <tr>
+                    <td>{{$appointment->first_name}} {{$appointment->last_name}}</td>
+                    <td>{{$appointment->date}}</td>
+                    <td>{{$appointment->comment}}</td>
+                    <td>{{$appointment->morning_med}}</td>
+                    <td>{{$appointment->afternoon_med}}</td>
+                    <td>{{$appointment->night_med}}</td>
+                </tr>
             @endforeach
-        </table>
+        </table>  
+    @else
+        <div class="alert"><p>No Old Appointments</p></div>
+    @endif
+
+    <br><br>
+
+    @if (!$appointments_upcoming->isEmpty())
+        <h3>Upcoming Appointments</h3>
+        <table>
+            <tr><th>Patient Name</th>
+                <th>Date</th>
+                <th></th>
+            </tr>
+
+            @foreach ($appointments_upcoming as $appointment)
+                <tr>
+                    <td>{{$appointment->first_name}} {{$appointment->last_name}}</td>
+                    <td>{{$appointment->date}}</td>
+                    <td>
+                        <form action="{{('doctors-home')}}">
+                            @csrf
+                            <input type="hidden" name="appointment_id" value="{{ $appointment->appointment_id }}">
+                            <button type="submit">View Appointment</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </table>  
+    @else
+        <div class="alert"><p>No Upcoming Appointments</p></div>
     @endif
 
 @endif
