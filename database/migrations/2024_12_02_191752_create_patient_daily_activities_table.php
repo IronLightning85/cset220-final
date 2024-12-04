@@ -12,7 +12,6 @@ return new class extends Migration
         Schema::create('patient_daily_activities', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('caregiver_id'); // Ensure this is unsigned and matches `users.id`
             $table->boolean('morning')->default(false);
             $table->boolean('afternoon')->default(false);
             $table->boolean('night')->default(false);
@@ -24,7 +23,6 @@ return new class extends Migration
     
             // Foreign key constraints
             $table->foreign('patient_id')->references('patient_id')->on('patients')->onDelete('cascade');
-            $table->foreign('caregiver_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
