@@ -37,7 +37,7 @@
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('appointment') }}'">Doctor's Appoinment</button></td>
                     <td><button onclick="location.href='{{ url('payments') }}'">Patient Balance</button></td>
                     <td><button onclick="location.href='{{ url('role') }}'">Roles</button></td>
                 @elseif($level == 2)
@@ -46,7 +46,7 @@
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctors Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('appointment') }}'">Docters Appoinment</button></td>
                 @elseif($level == 3)
                     <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctors Home</button></td>
                     <td><button onclick="location.href='{{ url('doctors-patient') }}'">Doctors Patient</button></td>
