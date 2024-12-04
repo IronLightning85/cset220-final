@@ -48,8 +48,7 @@
                     <td><button onclick="location.href='{{ url('report') }}'">Admin Report</button></td>
                     <td><button onclick="location.href='{{ url('appointment') }}'">Doctor's Appoinment</button></td>
                 @elseif($level == 3)
-                    <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctor's Home</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-patient') }}'">Doctor's Patient</button></td>
+                    <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctors Home</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                 @elseif($level == 4)
                 <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
