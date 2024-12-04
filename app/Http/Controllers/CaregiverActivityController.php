@@ -75,11 +75,12 @@ class CaregiverActivityController extends Controller
     public function updateDailyActivities(Request $request)
     {
         $activities = $request->input('activities', []);
-
+        $today = now()->toDateString();
+    
         foreach ($activities as $patientId => $activity) {
             DB::table('patient_daily_activities')
                 ->updateOrInsert(
-                    ['patient_id' => $patientId],
+                    ['patient_id' => $patientId, 'date' => $today],
                     [
                         'morning' => isset($activity['morning']),
                         'afternoon' => isset($activity['afternoon']),
@@ -87,10 +88,11 @@ class CaregiverActivityController extends Controller
                         'breakfast' => isset($activity['breakfast']),
                         'lunch' => isset($activity['lunch']),
                         'dinner' => isset($activity['dinner']),
+                        'updated_at' => now(),
                     ]
                 );
         }
-
-        return redirect()->back()->with('success', 'Daily activities updated successfully.');
+    
+        return redirect()->back()->with('success', 'Daily activities updated successfully for today.');
     }
 }
