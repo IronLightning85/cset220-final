@@ -1,6 +1,7 @@
 @extends('layout.outsidehometemplate')
 
 @section('content')
+@if($level === 1)
 <form method="POST" action="{{ route('family.specificDateFamily') }}">
     @csrf
     <div>
@@ -65,4 +66,13 @@
         </tbody>
     </table>
 @endif
+
+
+
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
+
 @endsection

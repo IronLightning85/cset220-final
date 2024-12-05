@@ -2,6 +2,7 @@
 
 
 @section('content')
+@if($level === 1)
 <h2>Roles</h2>
 
 <!-- Display status message -->
@@ -39,4 +40,11 @@
     </tr>
 </table>
 <br><br><br><br><br>
+
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
+
 @endsection

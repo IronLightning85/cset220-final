@@ -2,7 +2,7 @@
 @section('content')
 <h2>Appointment</h2>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+@if($level === 1 || $level === 2)
 <!-- Display status message -->
 @if (session('status'))
     <p>{{ session('status') }}</p>
@@ -104,5 +104,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
 
 @endsection

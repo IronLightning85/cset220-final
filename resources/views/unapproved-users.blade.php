@@ -2,6 +2,8 @@
 
 
 @section('content')
+@if($level === 1 || $level === 2)
+
 <h2>Unapproved Users</h2>
 
 <!-- Display status message -->
@@ -36,4 +38,12 @@
         </tr>
     @endforeach
 </table>
+
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
+
+
 @endsection
