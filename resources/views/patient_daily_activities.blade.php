@@ -28,6 +28,7 @@
             <thead>
                 <tr>
                     <th>Doctor</th>
+                    <th>Appointment</th>
                     <th>Caregiver</th>
                     <th>Morning Medication</th>
                     <th>Afternoon Medication</th>
@@ -40,6 +41,7 @@
             <tbody>
                 <tr>
                     <td>{{ $doctorName }}</td>
+                    <td>{{ $appointmentStatus }}</td>
                     <td>{{ $caregiverName }}</td>
                     <td style="color: {{ $activities->morning ? 'green' : 'red' }}">
                         {{ $activities->morning ? 'RECEIVED' : 'MISSING' }}
