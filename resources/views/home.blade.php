@@ -16,9 +16,9 @@
     <div class="model-section">
         <img src="css/Shady Shoal’s (5).png" alt="Shady Shoals Rest Home Image">
         <p>
-            Welcome to The Shady Shoals Newsletter. This newsletter is your go to guide for your time at Shady Shoals. Get the latest scoop on Dorsal Dan's bingo winning streak, Barnacle Boy's daring spandex choices at water aerobics, 
-            and the ongoing mystery of the midnight snack bandit swiping Jello cups. Enjoy exclusive deals like half-off Krabby Patties at the cafeteria, crack the brain-teasing crossword, puzzle and catch the hottest rumors straight from the shuffleboard court.
-            Sign For our newsletter today! 
+            Welcome to The Shady Shoals Newsletter. This newsletter is your go-to guide for your time at Shady Shoals. Get the latest scoop on Dorsal Dan's bingo winning streak, Barnacle Boy's daring spandex choices at water aerobics, 
+            and the ongoing mystery of the midnight snack bandit swiping Jello cups. Enjoy exclusive deals like half-off Krabby Patties at the cafeteria, crack the brain-teasing crossword puzzle, and catch the hottest rumors straight from the shuffleboard court.
+            Sign up for our newsletter today! 
         </p>
 
     <form>

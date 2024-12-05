@@ -124,9 +124,12 @@ Route::post('/caregiver-home', [RosterController::class, 'store'])->name('caregi
 Route::post('/admin/apply-charges', [UserController::class, 'applyDailyCharges'])->name('admin.apply-charges');
 
 //Appointment Routes
-Route::get('/appointment', [AppointmentController::class, 'index']);
+Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment');
+
 Route::get('/get-doctors/{date}', [AppointmentController::class, 'getDoctorsByDate']);
+
 Route::get('/get-patient/{id}', [AppointmentController::class, 'getPatientDetails']);
+
 Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment');
 
 //Daily Activities
@@ -134,8 +137,23 @@ Route::get('/daily-activities', [CaregiverActivityController::class, 'showAllPat
 
 Route::post('/daily-activities/update', [CaregiverActivityController::class, 'updateDailyActivities'])->name('updateDailyActivities');
 
-//family home
+Route::get('/activities-for-date', [CaregiverActivityController::class, 'showActivitiesForDate'])->name('activitiesForDate');
 
+Route::get('/patient-home', [CaregiverActivityController::class, 'showPatientDailyActivities'])->name('patientHome');
+
+//Doctors Routes
+Route::get('doctors-home', [AppointmentController::class, 'doctorIndex'])->name('doctors-home');
+
+Route::get('filterAppointments', [AppointmentController::class, 'filterAppointments'])->name('filterAppointments');
+
+//family home
 Route::get('/family', [FamilyMemberController::class, 'index'])->name('family.index');
 
 Route::post('/family', [FamilyMemberController::class, 'specificDateFamily'])->name('family.specificDateFamily');
+
+//Patient of Doctor
+Route::get('/view-appointment', [AppointmentController::class, 'view_appointment_get'])->name('view-appointment');
+
+Route::post('/view-appointment', [AppointmentController::class, 'view_appointment_index'])->name('view-appointment');
+
+Route::post('/view-appointment-store', [AppointmentController::class, 'view_appointment_store'])->name('view-appointment-store');

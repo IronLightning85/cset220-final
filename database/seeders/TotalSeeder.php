@@ -323,6 +323,7 @@
 
 
 
+
     DB::table('users')->insert([
         'user_id' => 10,
         'first_name' => 'Pearl',
@@ -437,6 +438,7 @@
         'date' => '2024-12-1', 
     ]);
 
+
     DB::table('users')->insert([
         'user_id' => 13,
         'first_name' => 'Squilliam ',
@@ -473,6 +475,7 @@
         'date' => '2024-12-1', 
     ]);
 
+
     DB::table('users')->insert([
         'user_id' => 14,
         'first_name' => 'Dorsal',
@@ -497,17 +500,19 @@
 
     ]);
 
-    DB::table('patient_daily_activities')->insert([
-        'id' => 14,
-        'patient_id' => 14,
-        'morning' => 0,
-        'afternoon' => 0,
-        'night' => 0,
-        'breakfast' => 0,
-        'lunch' => 0,
-        'dinner' => 0,
-        'date' => '2024-12-1', 
-    ]);
+
+DB::table('patient_daily_activities')->insert([
+    'id' => 14,
+    'patient_id' => 14,
+    'morning' => 1,
+    'afternoon' => 1,
+    'night' => 0,
+    'breakfast' => 1,
+    'lunch' => 0,
+    'dinner' => 1,
+    'date' => '2024-12-1', 
+]);
+
 
 
 

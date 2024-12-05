@@ -185,6 +185,7 @@ td button:hover {
     font-family: Arial, sans-serif;  /* Font style */
     font-size: 18px;  /* Font size */
     margin: 0;  /* Remove margin */
+    line-height: 10px;
 }
 
 /* General table styling */

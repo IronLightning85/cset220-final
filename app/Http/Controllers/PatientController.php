@@ -28,58 +28,62 @@ class PatientController extends Controller
     //Search for Patients
     public function store(Request $request)
     {
-        //Display Patients Page
-        $patients = DB::table('patients')
-        ->join('users', 'patients.user_id', '=', 'users.user_id')
-        ->where('users.approved', '=', '1')
-        ->whereNotNull('patients.admission_date')
-        ->get();
-
-        $search_patients = [];
-
-        foreach ($patients as $patient) {
-            $patient->age = Carbon::parse($patient->dob)->age;
-            $patient->full_name = $patient->first_name . " " . $patient->last_name;
-            $patient->date = Carbon::parse($patient->admission_date)->toDateString();
-
-            //SEARCH function searches in order of inputs on page. Searches by id first, if id is invalid or not used, it will move to name and so on
-            //Else Statements so its not one big IF line
-            //Could probably be optimized so it just searches the database using these requirements
-            if($request->patient_id && $patient->patient_id == $request->patient_id) {
-                $search_patients[] = $patient;
+        {
+            $patientsQuery = DB::table('patients')
+                ->join('users', 'patients.user_id', '=', 'users.user_id')
+                ->where('users.approved', '=', '1')
+                ->whereNotNull('patients.admission_date')
+                ->select(
+                    'patients.*', 
+                    'users.first_name', 
+                    'users.last_name', 
+                    'users.dob', 
+                );
+        
+            // Apply filters if provided
+            if ($request->patient_id) {
+                $patientsQuery->where('patients.patient_id', $request->patient_id);
             }
 
-            else if($request->admission_date && $patient->date == $request->admission_date) {
-                $search_patients[] = $patient;
+            if ($request->admission_date) {
+                $patientsQuery->whereRaw('DATE(patients.admission_date) = ?', [$request->admission_date]);            
             }
 
-            else if($request->name && $patient->full_name == $request->name) {
-                $search_patients[] = $patient;
+            if ($request->name) {
+                $patientsQuery->where(DB::raw("CONCAT(users.first_name, ' ', users.last_name)"), 'like', '%' . $request->name . '%');
             }
 
-            else if($request->age && $patient->age == $request->age) {
-                $search_patients[] = $patient;
+            if ($request->age) {
+                $patientsQuery->whereRaw('TIMESTAMPDIFF(YEAR, users.dob, CURDATE()) = ?', [$request->age]);
             }
 
-            else if($request->emergency_contact && $patient->emergency_contact == $request->emergency_contact) {
-                $search_patients[] = $patient;
-            }
-            
-            else if($request->age && $patient->age == $request->age) {
-                $search_patients[] = $patient;
+            if ($request->emergency_contact) {
+                $patientsQuery->where('patients.emergency_contact', 'like', '%' . $request->emergency_contact . '%');            
             }
 
-            else if($request->emergency_contact_relation && $patient->contact_relation == $request->emergency_contact_relation) {
-                $search_patients[] = $patient;
+            if ($request->emergency_contact_relation) {
+                $patientsQuery->where('patients.contact_relation', 'like', '%' . $request->emergency_contact_relation . '%');
             }
-
+        
+            // Fetch filtered patients
+            $patients = $patientsQuery->get();
+        
+            // Add additional fields (full name, age)
+            foreach ($patients as $patient) {
+                $patient->full_name = $patient->first_name . " " . $patient->last_name;
+                $patient->age = Carbon::parse($patient->dob)->age;
+                $patient->date = Carbon::parse($patient->admission_date)->toDateString();
+            }
+        
+            // Check if any results were found
+            if ($patients->isEmpty()) {
+                return view('patients', ['patients' => $patients])
+                    ->with('level', session('level'))
+                    ->withErrors(['patient' => 'No Patients Found']);
+            }
+        
+            return view('patients', ['patients' => $patients])->with('level', session('level'));
         }
+}
 
-        if (count($search_patients) == 0) {
-            return view('patients', ['patients' => $search_patients])->with('level', session('level'))->withErrors(['patient' => 'No Patients Found']);
-        }
-
-
-        return view('patients', ['patients' => $search_patients])->with('level', session('level'));
-    }
 }

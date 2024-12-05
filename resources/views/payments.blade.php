@@ -38,6 +38,7 @@
         @csrf
         <button type="submit" class="btn btn-warning">Apply Daily Charges</button>
     </form>
+    <br><br><br>
 </div>
 @else
     <h1>Whoops! Looks like you don't have access.</h1>
