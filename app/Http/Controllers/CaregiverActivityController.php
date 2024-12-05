@@ -127,7 +127,7 @@ class CaregiverActivityController extends Controller
         
         // Fetch patient details from the 'patients' table
         $patient = DB::table('patients')->where('user_id', $userId)->first();
-
+    
         // Fetch the user's full name from the 'users' table
         $user = DB::table('users')->where('user_id', $userId)->first();
     
@@ -158,6 +158,7 @@ class CaregiverActivityController extends Controller
                 'date' => $date,
                 'doctorName' => 'N/A',
                 'caregiverName' => 'N/A',
+                'appointmentStatus' => 'No appointment found',
                 'patient' => $patient,
                 'user' => $user,
             ])->with('level', session('level'));
@@ -198,12 +199,22 @@ class CaregiverActivityController extends Controller
             ->select('morning', 'afternoon', 'night', 'breakfast', 'lunch', 'dinner')
             ->first();
     
+        // Check if the patient has an appointment for the selected date
+        $hasAppointment = DB::table('appointments')
+            ->where('patient_id', $patient->patient_id)
+            ->where('date', $date)
+            ->exists();
+    
+        // Appointment status
+        $appointmentStatus = $hasAppointment ? 'Appointment scheduled' : 'No appointment found';
+    
         // Return the view with the data
         return view('patient_daily_activities', [
             'activities' => $activities,
             'date' => $date,
             'doctorName' => $doctorName,
             'caregiverName' => $caregiverName,
+            'appointmentStatus' => $appointmentStatus,
             'patient' => $patient,
             'user' => $user,
         ])->with('level', session('level'));
