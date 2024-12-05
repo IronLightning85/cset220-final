@@ -44,7 +44,7 @@
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('approved-patients') }}'">Additional Patient Information</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('appointment') }}'">Doctor's Appoinment</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
