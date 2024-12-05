@@ -9,7 +9,7 @@
 @elseif (session('error'))
     <p>{{ session('error') }}</p>
 @endif
-
+@if($level === 1 || $level === 2)
 <!-- Table of approved users -->
 <table border="1">
     <tr>
@@ -65,4 +65,9 @@
         });
     </script>
 
+    @else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+    @endif
 @endsection

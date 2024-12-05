@@ -8,9 +8,12 @@
 </head>
 <body>
 
-    <div class="logo">
-    <img src="css/Shady Shoal’s (4).png" alt="">
+<div class="logo">
+    <div class="logout">
+        <button onclick="location.href='{{ route('landing') }}'">Home</button>
     </div>
+    <img src="css/Shady Shoal’s (4).png" alt="">
+</div>
 
 
     @yield('content')

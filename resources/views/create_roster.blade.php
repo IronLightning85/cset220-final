@@ -91,7 +91,7 @@
         }
     });
 </script>
-
+@if($level === 1 || $level === 2)
 <h2>Create Roster</h2>
 
 @if ($errors->has('roster'))
@@ -181,7 +181,6 @@
     </select>
 </form>
 
-
 <br>
 <br>
 <br>
@@ -190,4 +189,9 @@
 <br>
 <br>
 
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+    @endif
 @endsection

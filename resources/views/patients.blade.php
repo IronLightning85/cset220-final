@@ -2,6 +2,8 @@
 
 
 @section('content')
+@if($level === 1 || $level === 2 || $level === 3 || $level === 4)
+
 <h2>Patients</h2>
 
 <!-- Display status message -->
@@ -65,5 +67,10 @@
     <button type="submit" class="btn btn-secondary">Reset Search</button>
 </form>
 <br><br><br><br>
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
 
 @endsection

@@ -26,10 +26,13 @@ use App\Http\Controllers\AppointmentController;
 
 use App\Http\Controllers\CaregiverActivityController;
 
+
+//Landing / Index
+
 Route::get('/', function () {
     $level = session('level', null); // Check if the user has a level in the session
     return view('welcome', compact('level'));
-});
+})->name('landing');
 
 
 //Login Route
@@ -43,6 +46,7 @@ Route::get('/register', [Controller::class, 'showRegistrationForm'])->name('regi
 
 Route::post('/register', [Controller::class, 'store'])->name('register');
 
+//Approve Users
 
 Route::get('/unapproved-users', [UserController::class, 'showUnapprovedUsers'])->name('unapproved-users');
 
