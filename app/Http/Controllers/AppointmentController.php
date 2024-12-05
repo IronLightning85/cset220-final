@@ -105,7 +105,10 @@ class AppointmentController extends Controller
                 ->join('patients', 'appointments.patient_id', '=', 'patients.patient_id')
                 ->join('users', 'patients.user_id', '=', 'users.user_id')
                 ->where('doctor_id', '=', $employee_id)
-                ->where('date', '<', now()->toDateString())
+                ->where(function ($query) {
+                    $query->where('date', '<', now()->toDateString())
+                          ->orWhereNotNull('comment');
+                })
                 ->orderBy('date', 'asc')
                 ->limit(10)
                 ->select('appointments.*', 'users.first_name', 'users.last_name')
@@ -116,6 +119,7 @@ class AppointmentController extends Controller
                 ->join('users', 'patients.user_id', '=', 'users.user_id')
                 ->where('doctor_id', '=', $employee_id)
                 ->where('date', '>=', now()->toDateString())
+                ->whereNull('comment')
                 ->orderBy('date', 'asc')
                 ->select('appointments.*', 'users.first_name', 'users.last_name')
                 ->get();
@@ -226,6 +230,90 @@ class AppointmentController extends Controller
         }
         
         return view('doctors-home')->withErrors(['error' => 'Error finding your information. Please contact our representative'])->with('level', session('level'));            
+    }
+
+    public function view_appointment_get()
+    {
+        return redirect()->action([self::class, 'doctorIndex']);
+    }
+
+
+
+    public function view_appointment_index(Request $request)
+    {
+        //Validate appointment id
+        $validator = Validator::make($request->all(), [
+            'appointment_id' => 'required|numeric|exists:appointments,appointment_id',
+        ]);
+
+        //Return to last page if validator fails
+        if ($validator->fails()) {
+            return redirect()
+            ->back()
+            ->withErrors(['input' => 'Invalid Appointment. Please Contact Admin'])            
+            ->withInput();
+        }
+
+        //grab current appointment info
+        $current_appointment = DB::table('appointments')
+            ->where('appointment_id', $request->appointment_id)
+            ->first();
+
+        //Get appointment info and display
+        $previous_appointment = db::table('appointments')
+            ->where('patient_id', $current_appointment->patient_id)
+            ->where('date', '<', $current_appointment->date)
+            ->orderBy('date', 'desc')
+            ->first();
+
+
+        return view('view-appointment', ['current_appointment' => $current_appointment,'appointment_id' => $request->appointment_id, 'previous_appointment' => $previous_appointment])->with('level', session('level')); 
+    }
+
+
+    public function view_appointment_store(Request $request)
+    {
+        //Validate appointment id
+        $validator = Validator::make($request->all(), [
+            'appointment_id' => 'required|numeric|exists:appointments,appointment_id',
+            'comment' => 'required',
+            'morning_med' => 'required',
+            'afternoon_med' => 'required',
+            'night_med' => 'required',
+        ]);
+
+        //Return to last page if validator fails
+        if ($validator->fails()) {
+            return redirect()
+            ->back()
+            ->withErrors(['input' => 'Invalid Appointment or missing inputs Please Contact Admin'])            
+            ->withInput();
+        }
+
+        // Update the appointment with the new data
+        $appointment = DB::table('appointments')
+            ->where('appointment_id', $request->input('appointment_id'))
+            ->update([
+                'comment' => $request->input('comment'),
+                'morning_med' => $request->input('morning_med'),
+                'afternoon_med' => $request->input('afternoon_med'),
+                'night_med' => $request->input('night_med'),
+            ]);
+
+        if ($appointment) {
+            // Redirect to success page with a success message
+            return redirect()->route('doctors-home.'); // Adjust to your appointments route
+        } 
+        else 
+        {
+            // If update failed
+            return redirect()
+                ->back()
+                ->withErrors(['input' => 'Failed to update appointment. Please try again.'])
+                ->withInput();
+        }
+
+
     }
 
 }

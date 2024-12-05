@@ -12,6 +12,9 @@
 @if ($errors->has('error'))
     <br>
     <div class="alert">{{ $errors->first('error') }}</div>
+@elseif ($errors->has('input'))
+    <br>
+    <div class="alert">{{ $errors->first('input') }}</div>
 @else
 
     <h3>Filter Appointments</h3>
@@ -55,6 +58,7 @@
                 <th>Morning Med</th>
                 <th>Afternoon Med</th>
                 <th>Night Med</th>
+                <th></th>
             </tr>
 
             @foreach ($appointments_old as $appointment)
@@ -65,6 +69,13 @@
                     <td>{{$appointment->morning_med}}</td>
                     <td>{{$appointment->afternoon_med}}</td>
                     <td>{{$appointment->night_med}}</td>
+                    <td>
+                        <form action="{{ route('view-appointment')}}" method="POST">
+                            @csrf
+                            <input type="hidden" name="appointment_id" value="{{ $appointment->appointment_id }}">
+                            <button type="submit">View Appointment</button>
+                        </form>
+                    </td>
                 </tr>
             @endforeach
         </table>  
@@ -87,7 +98,7 @@
                     <td>{{$appointment->first_name}} {{$appointment->last_name}}</td>
                     <td>{{$appointment->date}}</td>
                     <td>
-                        <form action="{{('doctors-home')}}">
+                        <form action="{{ route('view-appointment')}}" method="POST">
                             @csrf
                             <input type="hidden" name="appointment_id" value="{{ $appointment->appointment_id }}">
                             <button type="submit">View Appointment</button>
