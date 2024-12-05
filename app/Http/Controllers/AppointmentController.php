@@ -39,6 +39,10 @@ class AppointmentController extends Controller
             'doctor_id' => $request->doctor_id,
         ]);
 
+        DB::table('patients')
+            ->where('patient_id', $request->patient_id)
+            ->increment('total_amount_due', 50);
+
         return view('appointment')->with('level', session('level'));
     }
 
