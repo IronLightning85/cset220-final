@@ -8,9 +8,10 @@
 
 <!-- Display status message -->
 @if (session('status'))
-    <p>{{ session('status') }}</p>
+    <div class="alert-good" style="text-align: center">{{ session('status') }}</div>
 @endif
 
+@if ($unapprovedUsers->count() > 0)
 <table border="1">
     <tr>
         <th>User ID</th>
@@ -38,6 +39,9 @@
         </tr>
     @endforeach
 </table>
+@else
+<div class="alert" style="text-align: center">No unapproved users to approve</div>
+@endif
 
 @else
     <h1>Whoops! Looks like you don't have access.</h1>

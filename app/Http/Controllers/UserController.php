@@ -153,7 +153,7 @@ class UserController extends Controller
             ->where('patient_id', $patient_id)
             ->update(['admission_date' => $request->admission_date, 'group_id' => $request->group_id ]);
 
-        return redirect()->route('approved-patients')->with('status', 'Admission date updated successfully.');
+        return redirect()->route('approved-patients')->with('status', 'Admission date and/or group updated successfully.');
     }
 
     public function showPaymentPage(Request $request)

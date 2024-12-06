@@ -28,11 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 </script>
 
-<h2>Approved Patients</h2>
+<h1>Approved Patients</h1>
 
 <!-- Display status message -->
 @if (session('status'))
-    <p>{{ session('status') }}</p>
+    <div class="alert-good" style="text-align: center">{{ session('status') }}</div>
 @endif
 
 <!-- Table of approved patients -->

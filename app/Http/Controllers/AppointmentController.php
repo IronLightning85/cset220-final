@@ -306,7 +306,7 @@ class AppointmentController extends Controller
 
         if ($appointment) {
             // Redirect to success page with a success message
-            return redirect()->route('doctors-home.'); // Adjust to your appointments route
+            return redirect()->route('appointment'); // Adjust to your appointments route
         } 
         else 
         {

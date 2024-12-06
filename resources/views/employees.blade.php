@@ -3,12 +3,12 @@
 
 @section('content')
 
-@if($level === 1)
-<h2>Employees</h2>
+<h1>Employees</h1>
 
+@if($level === 1)
 <!-- Display status message -->
 @if (session('status'))
-    <p>{{ session('status') }}</p>
+    <div class="alert-good" style="text-align: center">{{ session('status') }}</div>
 @endif
 
 @if ($errors->has('input'))
@@ -36,23 +36,27 @@
 
 </table>
 
-<br><br>
-    
-<form method="POST" action="{{ route('employee') }}">
-    @csrf
-    <button type="submit">Submit</button>
-    <input type="number" name="employee_id" id="employee_id" placeholder = "Enter Employee ID" required>
-    <input type="number" name="salary" id="salary" placeholder = "Enter New Salary" required>
-</form>
+<br>
+<center>
+    <div class="content-container" style="display: block">
+        <div class="model-section">
+            <form method="POST" action="{{ route('employee') }}">
+                @csrf
+                <input type="number" name="employee_id" id="employee_id" placeholder = "Enter Employee ID" required>
+                <input type="number" name="salary" id="salary" placeholder = "Enter New Salary" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</center>
 
-<br><br><br><br><br><br><br><br><br><br>
+
+<br><br><br><br>
     
 @elseif($level === 2)
-<h2>Employees</h2>
-
 <!-- Display status message -->
 @if (session('status'))
-    <p>{{ session('status') }}</p>
+    <div class="alert-good" style="text-align: center">{{ session('status') }}</div>
 @endif
 
 @if ($errors->has('input'))

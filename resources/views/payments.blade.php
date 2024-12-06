@@ -3,7 +3,7 @@
 @section('content')
 @if($level === 1)
 <div class="container">
-    <h1>Patient Payments</h1>
+    <h1>Patient Balances</h1>
 
     <form action="{{ route('payments-update') }}" method="POST">
         @csrf
