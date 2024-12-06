@@ -1,6 +1,8 @@
 @extends('layout.outsidehometemplate')
 
+
 @section('content')
+@if($level === 6)
 <div class="container">
     <h1>Patient Information</h1>
 
@@ -76,4 +78,11 @@
         <br><br><br>
     @endif
 </div>
+
+@else
+    <h1>Whoops! Looks like you don't have access.</h1>
+<br><br><br>
+<center><img src="css/not loggged in.gif" alt=""></center>
+@endif
+
 @endsection
