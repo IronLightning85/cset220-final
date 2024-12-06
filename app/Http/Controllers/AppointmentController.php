@@ -39,6 +39,10 @@ class AppointmentController extends Controller
             'doctor_id' => $request->doctor_id,
         ]);
 
+        DB::table('patients')
+            ->where('patient_id', $request->patient_id)
+            ->increment('total_amount_due', 50);
+
         return view('appointment')->with('level', session('level'));
     }
 
@@ -302,7 +306,7 @@ class AppointmentController extends Controller
 
         if ($appointment) {
             // Redirect to success page with a success message
-            return redirect()->route('doctors-home.'); // Adjust to your appointments route
+            return redirect()->route('appointment'); // Adjust to your appointments route
         } 
         else 
         {

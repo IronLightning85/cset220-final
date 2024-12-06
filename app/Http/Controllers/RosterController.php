@@ -201,6 +201,7 @@ class RosterController extends Controller
         ->join('users', 'employees.user_id', '=', 'users.user_id')
         ->join('roles', 'roles.role_id', '=', 'users.role_id')
         ->where('roles.level', '=', 2)
+        ->where('users.approved', 1)
         ->get();
 
         $doctors = DB::table('employees')
@@ -208,6 +209,7 @@ class RosterController extends Controller
         ->join('users', 'employees.user_id', '=', 'users.user_id')
         ->join('roles', 'roles.role_id', '=', 'users.role_id')
         ->where('roles.level', '=', 3)
+        ->where('users.approved', 1)
         ->get();
 
         $caregivers = DB::table('employees')
@@ -215,6 +217,7 @@ class RosterController extends Controller
         ->join('users', 'employees.user_id', '=', 'users.user_id')
         ->join('roles', 'roles.role_id', '=', 'users.role_id')
         ->where('roles.level', '=', 4)
+        ->where('users.approved', 1)
         ->get();
 
         $groups = DB::table('patient_groups')

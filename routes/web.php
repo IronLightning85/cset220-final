@@ -69,7 +69,6 @@ Route::post('/employee', [EmployeeController::class, 'store'])->name('employee')
 Route::get('/role', [RoleController::class, 'index']);
 
 Route::post('/role', [RoleController::class, 'store'])->name('role');
-$name = session('first_name', null); 
 
 
 // Home route   

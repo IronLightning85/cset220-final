@@ -130,16 +130,21 @@ class CaregiverActivityController extends Controller
 
         // Fetch the user's full name from the 'users' table
         $user = DB::table('users')->where('user_id', $userId)->first();
-    
+
         // If the user is not a patient, redirect back with an error
         if (!$patient) {
             return redirect()->back()->with('error', 'You are not authorized to view this page.');
         }
-    
+
         // Get the selected date, or use today's date as the default
         $date = $request->input('date', now()->toDateString());
-    
-        // Fetch the roster for the given date and group_id
+
+        // Check if the selected date is before the admission date
+        if ($date < $patient->admission_date) {
+            return redirect()->back()->with('error', 'You cannot view records before your admission date.');
+        }
+
+        // Check if the patient is included in the roster for the selected date
         $roster = DB::table('rosters')
             ->where('date', $date)
             ->where(function ($query) use ($patient) {
@@ -150,7 +155,7 @@ class CaregiverActivityController extends Controller
             })
             ->select('doctor_id', 'group_id_1', 'caregiver_id_1', 'group_id_2', 'caregiver_id_2', 'group_id_3', 'caregiver_id_3', 'group_id_4', 'caregiver_id_4')
             ->first();
-    
+
         // If no roster is found for the day, return an empty view
         if (!$roster) {
             return view('patient_daily_activities', [
@@ -158,18 +163,19 @@ class CaregiverActivityController extends Controller
                 'date' => $date,
                 'doctorName' => 'N/A',
                 'caregiverName' => 'N/A',
+                'appointmentStatus' => 'No appointment found',
                 'patient' => $patient,
                 'user' => $user,
             ])->with('level', session('level'));
         }
-    
+
         // Find the doctor name from the employees and users tables
         $doctorName = DB::table('employees')
             ->join('users', 'employees.user_id', '=', 'users.user_id')
             ->where('employees.employee_id', $roster->doctor_id)
             ->select(DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS name"))
             ->value('name');
-    
+
         // Determine which caregiver is assigned to the patient's group
         $caregiverId = null;
         if ($patient->group_id == $roster->group_id_1) {
@@ -181,7 +187,7 @@ class CaregiverActivityController extends Controller
         } elseif ($patient->group_id == $roster->group_id_4) {
             $caregiverId = $roster->caregiver_id_4;
         }
-    
+
         // Find the caregiver name
         $caregiverName = $caregiverId
             ? DB::table('employees')
@@ -190,20 +196,49 @@ class CaregiverActivityController extends Controller
                 ->select(DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS name"))
                 ->value('name')
             : 'N/A';
-    
-        // Get the patient's daily activities for the selected date
+
+        // Ensure the patient's daily activities are created for the selected date
+        $existingActivities = DB::table('patient_daily_activities')
+            ->where('patient_id', $patient->patient_id)
+            ->where('date', $date)
+            ->first();
+
+        if (!$existingActivities) {
+            DB::table('patient_daily_activities')->insert([
+                'patient_id' => $patient->patient_id,
+                'morning' => 0,
+                'afternoon' => 0,
+                'night' => 0,
+                'breakfast' => 0,
+                'lunch' => 0,
+                'dinner' => 0,
+                'date' => $date,
+            ]);
+        }
+
+        // Fetch the patient's daily activities for the selected date
         $activities = DB::table('patient_daily_activities')
             ->where('patient_id', $patient->patient_id)
             ->where('date', $date)
             ->select('morning', 'afternoon', 'night', 'breakfast', 'lunch', 'dinner')
             ->first();
-    
+
+        // Check if the patient has an appointment for the selected date
+        $hasAppointment = DB::table('appointments')
+            ->where('patient_id', $patient->patient_id)
+            ->where('date', $date)
+            ->exists();
+
+        // Appointment status
+        $appointmentStatus = $hasAppointment ? 'Appointment scheduled' : 'No appointment found';
+
         // Return the view with the data
         return view('patient_daily_activities', [
             'activities' => $activities,
             'date' => $date,
             'doctorName' => $doctorName,
             'caregiverName' => $caregiverName,
+            'appointmentStatus' => $appointmentStatus,
             'patient' => $patient,
             'user' => $user,
         ])->with('level', session('level'));

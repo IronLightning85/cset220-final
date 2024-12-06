@@ -1,6 +1,6 @@
 @extends('layout.OutsideHometemplate')
 @section('content')
-<h2>Appointment</h2>
+<h1>Appointment</h1>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @if($level === 1 || $level === 2)
 <!-- Display status message -->

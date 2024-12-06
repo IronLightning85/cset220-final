@@ -2,30 +2,38 @@
 
 @section('content')
 @if($level === 5)
-<form method="POST" action="{{ route('family.specificDateFamily') }}">
-    @csrf
-    <div>
-        <label for="family_code">Family Code:</label>
-        <input type="text" name="family_code" value="{{ old('family_code') }}" required>
+
+<center>
+    <div class="content-container" style="display: block;">
+        <div class="model-section">
+            <form method="POST" action="{{ route('family.specificDateFamily') }}">
+                @csrf
+                <div>
+                    <label for="family_code">Family Code:</label>
+                    <input type="text" name="family_code" value="{{ old('family_code') }}" required>
+                </div>
+                <div>
+                    <label for="patient_id">Patient ID:</label>
+                    <input type="text" name="patient_id" value="{{ old('patient_id') }}" required>
+                </div>
+                <div>
+                    <label for="family_date">Date:</label>
+                    <input 
+                        type="text" 
+                        name="family_date" 
+                        id="family_date" 
+                        value="{{ old('family_date', $date ?? '') }}" 
+                        onfocus="(this.type='date')" 
+                        onblur="(this.type='text')" 
+                        placeholder="Select Date" 
+                        required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="patient_id">Patient ID:</label>
-        <input type="text" name="patient_id" value="{{ old('patient_id') }}" required>
-    </div>
-    <div>
-        <label for="family_date">Date:</label>
-        <input 
-            type="text" 
-            name="family_date" 
-            id="family_date" 
-            value="{{ old('family_date', $date ?? '') }}" 
-            onfocus="(this.type='date')" 
-            onblur="(this.type='text')" 
-            placeholder="Select Date" 
-            required>
-    </div>
-    <button type="submit">Submit</button>
-</form>
+</center>
+
 
 @if ($errors->any())
     <div class="error-messages">
@@ -36,7 +44,7 @@
 @endif
 
 @if (!empty($activities))
-    <h2>Activities for {{ $date }}</h2>
+    <h1>Activities for {{$activities->first()->first_name}} {{$activities->first()->last_name}} on {{ $date }}</h1>
     <table border="1">
         <thead>
             <tr>
@@ -53,14 +61,25 @@
         <tbody>
             @foreach ($activities as $activity)
                 <tr>
+                    
                     <td>{{ $activity->first_name }}</td>
                     <td>{{ $activity->last_name }}</td>
-                    <td>{{ $activity->morning }}</td>
-                    <td>{{ $activity->afternoon }}</td>
-                    <td>{{ $activity->night }}</td>
-                    <td>{{ $activity->breakfast }}</td>
-                    <td>{{ $activity->lunch }}</td>
-                    <td>{{ $activity->dinner }}</td>
+                    <td style="color: {{ $activity->morning ? 'green' : 'red' }}">
+                        {{ $activity->morning ? 'RECEIVED' : 'MISSING' }}
+                      </td>
+                      <td style="color: {{ $activity->afternoon ? 'green' : 'red' }}">
+                        {{ $activity->afternoon ? 'RECEIVED' : 'MISSING' }}
+                      </td>
+                      <td style="color: {{ $activity->night ? 'green' : 'red' }}">
+                        {{ $activity->night ? 'RECEIVED' : 'MISSING' }}
+                      </td>
+                      <td style="color: {{ $activity->breakfast ? 'green' : 'red' }}">
+                        {{ $activity->breakfast ? 'RECEIVED' : 'MISSING' }}
+                      </td><td style="color: {{ $activity->lunch ? 'green' : 'red' }}">
+                        {{ $activity->lunch ? 'RECEIVED' : 'MISSING' }}
+                      </td><td style="color: {{ $activity->dinner ? 'green' : 'red' }}">
+                        {{ $activity->dinner ? 'RECEIVED' : 'MISSING' }}
+                      </td>
                 </tr>
             @endforeach
         </tbody>

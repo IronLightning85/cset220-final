@@ -3,7 +3,7 @@
 
 @section('content')
 @if($level === 1)
-<h2>Roles</h2>
+<h1>Roles</h1>
 
 <!-- Display status message -->
 @if (session('status'))
