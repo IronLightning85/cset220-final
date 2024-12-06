@@ -1,6 +1,6 @@
 @extends('layout.OutsideHometemplate')
 @section('content')
-    <h2>Patient Appointment</h2>
+    <h1>Patient Appointment</h1>
 
     <!-- Display status message -->
     @if (session('status'))
@@ -72,9 +72,9 @@
                     </tr>
 
                     <tr>
-                        <td><input type="text" name="comment" id="comment" placeholder="Enter prescription Comment" required></td>
+                        <td><input type="text" name="comment" id="comment" placeholder="Enter Comment" required></td>
                         <td><input type="text" name="morning_med" id="morning_med" placeholder="Enter morning Med" required></td>
-                        <td><input type="text" name="afternoon_med" id="afternoon_med" placeholder="Enter aternoon med" required></td>
+                        <td><input type="text" name="afternoon_med" id="afternoon_med" placeholder="Enter afternoon med" required></td>
                         <td><input type="text" name="night_med" id="night_med" placeholder="Enter night med" required></td>
                     </tr>
                 </table>

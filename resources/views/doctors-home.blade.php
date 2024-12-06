@@ -2,7 +2,7 @@
 
 
 @section('content')
-<h2>Doctor Home</h2>
+<h1>Doctor Home</h1>
 
 <!-- Display status message -->
 @if (session('status'))

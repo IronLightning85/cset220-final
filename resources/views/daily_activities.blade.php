@@ -7,7 +7,7 @@
     <h1>Patient Daily Activities</h1>
 
     @if (empty($patients))
-        <p>No patients are assigned to your group for today.</p>
+        <div class="alert" style="text-align: center">No patients are assigned to your group for today.</div>
     @else
         <form action="{{ route('updateDailyActivities') }}" method="POST">
             @csrf
