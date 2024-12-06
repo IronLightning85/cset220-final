@@ -32,3 +32,42 @@
 
 ### php artisan db:seed --class=TotalSeeder
 
+## Cheat Sheet
+
+Admin
+
+Email: Admin@shadyshoals.com
+
+Password: Admin
+
+Supervisor
+
+Email: flats90@gmail.com
+
+Password: password
+
+Doctor
+
+Email: Bubble@gmail.com
+
+Password: password
+
+Caregiver
+
+Email: ManRay@gmail.com
+
+Password: password
+
+Patient
+Needs approved
+
+Email: pperkins@gmail.com
+
+Password: password
+
+
+
+Family
+
+mrkrabs@gmail.com
+password
