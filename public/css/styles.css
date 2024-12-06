@@ -72,12 +72,14 @@ nav .logout {
     display: flex;
     justify-content: right;
     gap: 15px;
+    flex-wrap:wrap;
 }
 .nav {
     list-style: none;
     display: flex;
     justify-content: center;
     gap: 0px;
+    flex-wrap:wrap;
 }
 
 nav ul li {
