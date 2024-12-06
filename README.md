@@ -34,40 +34,40 @@
 
 ## Cheat Sheet
 
-Admin
+## Admin
 
-Email: Admin@shadyshoals.com
+## Email: Admin@shadyshoals.com
 
-Password: Admin
+### Password: Admin
 
-Supervisor
+## Supervisor
 
-Email: flats90@gmail.com
+## Email: flats90@gmail.com
 
-Password: password
+### Password: password
 
-Doctor
+## Doctor
 
-Email: Bubble@gmail.com
+## Email: Bubble@gmail.com
 
-Password: password
+### Password: password
 
-Caregiver
+## Caregiver
 
-Email: ManRay@gmail.com
+## Email: ManRay@gmail.com
 
-Password: password
+### Password: password
 
-Patient
-Needs approved
+## Patient
 
-Email: pperkins@gmail.com
+## Needs approved
 
-Password: password
+## Email: pperkins@gmail.com
 
+### Password: password
 
+## Family
 
-Family
+## Email: mrkrabs@gmail.com
 
-mrkrabs@gmail.com
-password
+### Password: password
