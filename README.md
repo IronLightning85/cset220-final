@@ -58,7 +58,7 @@
 
 ### Password: password
 
-## Patient
+## Family
 
 ## Needs approved
 
@@ -66,8 +66,8 @@
 
 ### Password: password
 
-## Family
+## Patients
 
-## Email: mrkrabs@gmail.com
+## Email: pearlkrabs@gmail.com
 
 ### Password: password
