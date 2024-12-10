@@ -30,7 +30,7 @@ class RoleController extends BaseController
         //Valide Data
         $validator = Validator::make($request->all(), [
             'role_name' => 'required',
-            'role_level' => 'required',
+            'level' => 'required',
         ]);
 
         //Return to Roles Page if Validation Fails
@@ -41,13 +41,11 @@ class RoleController extends BaseController
         }
 
         //Insert New Role Data
-        else {
-            $role= role::create([
-                'role_name' => $request->role_name,
-                'level' => $request->role_level,
-            ]);
+        $role= role::create([
+            'role_name' => $request->role_name,
+            'level' => $request->level,
+        ]);
 
-        }
 
         //Get All Role Data
         $roles = DB::table('roles')->get();

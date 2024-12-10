@@ -44,7 +44,7 @@
                 @elseif($level == 2)
                     <td><button onclick="location.href='{{ url('create-roster') }}'">New Roster</button></td>
                     <td><button onclick="location.href='{{ url('approved-patients') }}'">Additional Patient Information</button></td>
-                    <td><button onclick="location.href='{{ url('doctors-appointment') }}'">Doctor's Appoinment</button></td>
+                    <td><button onclick="location.href='{{ url('appointment') }}'">Doctor's Appoinment</button></td>
                     <td><button onclick="location.href='{{ url('employee') }}'">Employees</button></td>
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('unapproved-users') }}'">Approve Users</button></td>
@@ -52,7 +52,6 @@
                 @elseif($level == 3)
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('doctors-home') }}'">Doctors Home</button></td>
-                    <td><button onclick="location.href='{{ url('home') }}'">Patient of Doctor</button></td>
                 @elseif($level == 4)
                     <td><button onclick="location.href='{{ url('patient') }}'">Patients</button></td>
                     <td><button onclick="location.href='{{ url('daily-activities') }}'">Caregiver Home</button></td>
@@ -61,13 +60,8 @@
                 @elseif($level == 6)
                     <td><button onclick="location.href='{{ url('patient-home') }}'">Patient Home</button></td>
                     <td><button onclick="location.href='{{ url('payment') }}'">Payment</button></td>
-                @else
-            <div class="error-nav">
-            
-                <center><td><button onclick="location.href='{{ url('register') }}'">Register</button></td></center>
-
-            </div>
-    @endif
+                
+                @endif
 
         </ul>
     </nav>
@@ -75,6 +69,7 @@
     @if($level === null)
         <!-- Display error if user is not logged in -->
         <center><td><button onclick="location.href='{{ url('login') }}'">Login</button></td> </center>
+        <center><td><button onclick="location.href='{{ url('register') }}'">Register</button></td></center>
 
     </div>
     <br><br><br>

@@ -4,14 +4,21 @@
 <div class="container">
     <h1>Daily Report</h1>
 
-    <form action="{{ route('activitiesForDate') }}" method="GET" class="mb-4">
-        <label for="date">Select Date:</label>
-        <input type="date" name="date" id="date" value="{{ $date }}" required>
-        <button type="submit" class="btn btn-primary">View Report</button>
-    </form>
+    <center>
+        <div class="content-container" style="display: block">
+            <div class="model-section">
+                <form action="{{ route('activitiesForDate') }}" method="GET" class="mb-4">
+                    <label for="date">Select Date:</label>
+                    <input type="date" name="date" id="date" value="{{ $date }}" required>
+                    <button type="submit" class="btn btn-primary">View Report</button>
+                </form>
+            </div>
+        </div>
+    </center>
+
 
     @if ($activities->isEmpty())
-        <p>No reports found for the selected date.</p>
+        <div class="alert">No reports found for the selected date.</div>
     @else
         <table class="table">
             <thead>

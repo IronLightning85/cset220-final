@@ -231,6 +231,15 @@ table tr:nth-child(odd) {
     border-radius: 4px;
 }
 
+.alert-good {
+    color: green; 
+    background-color: rgb(194, 255, 188); 
+    padding: 10px;
+    border: 1px solid rgb(194, 255, 188);
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
 /* Content container styling */
 .content-container {
     display: flex;

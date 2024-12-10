@@ -18,6 +18,10 @@
         </center> 
         @endif
     </nav>
+
+    @if ($errors->has('login'))
+    <div class="alert">{{ $errors->first('login') }}</div>
+    @endif
   
     @if($level === null)
     <form method="POST" action="{{ route('login') }}">
@@ -31,11 +35,9 @@
         <button type="submit">Login</button>
     </form>
 
-    <br><br><br>
-    
-    @if ($errors->has('login'))
-    <div class="alert">{{ $errors->first('login') }}</div>
-    @endif
+    <br>
+    <br>
+    <br>
     @endif
 
 
